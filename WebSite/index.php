@@ -43,7 +43,13 @@
               </form>
             </section>
             <aside>
-              Clicca <a href="recuperaAccount.php">qui</a> per recuperare la password
+              <p>Clicca <a href="recuperaAccount.php">qui</a> per recuperare la password</p>
+            </aside>
+            <aside>
+              <p>
+                Clicca <a href="newUser.php">qui</a> per creare un account </br>
+                Vuoi avere qualche permesso in pi&ugrave;, oppure desideri avere un'altro ruolo, contatta l'amministratore all'indirizzo mail federico.campanozzi@studio.unibo.it
+              </p>
             </aside>
             <footer>
               <p> Federico Campanozzi </p>

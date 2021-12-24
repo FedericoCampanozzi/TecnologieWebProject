@@ -14,11 +14,26 @@
         <main>
             <?php
                 require_once("utils/database.php");
+                require_once("errorsMessage.php");
+                require_once("successfullMessage.php");
                 $dbh = new DatabaseHelper("localhost", "root", "", "plant");
-                $usr_pagamento = $dbh->get_carte($_SESSION["idUtente"]);
-                $usr_recapiti = $dbh->get_recapiti($_SESSION["idUtente"]);
-                $usr_carrello = $dbh->get_carrello($_SESSION["idUtente"]);
-                $dbh->insert_ordine($_SESSION["idUtente"]);
+                $idUtente = $_SESSION["idUtente"];
+                $usr_pagamento = $dbh->get_carte($idUtente);
+                $usr_recapiti = $dbh->get_recapiti($idUtente);
+                $usr_carrello = $dbh->get_carrello($idUtente);
+                //$succMsg = new SuccessfullMsgUtility();
+                //$errMsg = new ErrorsMsgUtility();
+                if($dbh->insert_ordine($idUtente)){
+                    $idOrdine = $dbh->last_ordine($idUtente);
+                    for($i=0;$i<sizeof($usr_carrello);$i++){
+                        if(!$dbh->update_riga_carrello($idUtente, $usr_carrello[$i]["IdProdotto"], $idOrdine)){
+                            die("riga ".$i." non aggiornata --- contattare l'amministratore");
+                        }
+                    }
+                    //$succMsg->insert_successfull("Ordine inserito correttamente", "homepageUser.php");
+                } else{
+                    //$errMsg->insert_fail("Ordine non inserito per un errore non identificato", "homepageUser.php");
+                }
             ?>
         </main>
     </body>
