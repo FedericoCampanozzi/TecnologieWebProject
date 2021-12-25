@@ -1,33 +1,20 @@
 <?php
-require_once("database.php");
-//require_once("errorsMessage.php");
-//require_once("successfullMessage.php");
 session_start();
+require_once("database.php");
+require_once("modalMessageHelper.php");
 $dbh = new DatabaseHelper("localhost", "root", "", "plant");
-//$obj = $_GET["obj_to_insert"];
-//$succMsg = new SuccessfullMsgUtility();
-//$errMsg = new ErrorsMsgUtility();
-//var_dump($obj);
-//$_SESSION["last_page"] = "insert.php";
+$obj = $_GET["obj_to_update"];
+$msg = new MesssageModalHelper();
 switch($obj){
-   /* case("user"):
-        if($dbh->insert_fornitore($_GET["p_iva"], $_GET["ragione_sociale"], $_GET["via"], $_GET["numero_civico"], $_GET["citta"]))
-            $succMsg->insert_successfull("fornitore inserito correttamente", "homepageAdmin.php");
-        else
-            $errMsg->insert_fail("c'e' stato un problema inaspettato, fornitore non inserito", "homepageAdmin.php");
-        break;
-    case("recapito"):
-        break;
-    case("carta"):
-        if($dbh->insert_fornitore($_GET["p_iva"], $_GET["ragione_sociale"], $_GET["via"], $_GET["numero_civico"], $_GET["citta"]))
-            $succMsg->insert_successfull("fornitore inserito correttamente", "homepageAdmin.php");
-        else
-            $errMsg->insert_fail("c'e' stato un problema inaspettato, fornitore non inserito", "homepageAdmin.php");
-        break;
+   case("user"):
+        //if($dbh->update_riga_carrello($_GET["p_iva"], $_GET["ragione_sociale"], $_GET["via"], $_GET["numero_civico"], $_GET["citta"]))
+        //    $msg->show_in_next_page("fornitore inserito correttamente", "homepageAdmin.php");
+        //else
+        //    $msg->insert_fail("c'e' stato un problema inaspettato, fornitore non inserito", "homepageAdmin.php");
+        //break;
     case("ordine"):
         break;
-    default : die("");
+    default : die("codice aggiornamento non trovato");
     break;
-    */
 }
 ?>

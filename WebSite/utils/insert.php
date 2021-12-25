@@ -1,38 +1,40 @@
 <?php
-require_once("database.php");
-require_once("errorsMessage.php");
-require_once("successfullMessage.php");
 session_start();
+require_once("database.php");
+require_once("modalMessageHelper.php");
 $dbh = new DatabaseHelper("localhost", "root", "", "plant");
-$obj = $_GET["obj_to_insert"];
-//$succMsg = new SuccessfullMsgUtility();
-//$errMsg = new ErrorsMsgUtility();
-var_dump($obj);
-$_SESSION["last_page"] = "insert.php";
+var_dump($_REQUEST);
+$obj = $_REQUEST["obj_to_insert"];
+$msg = new MesssageModalHelper();
 switch($obj){
     case("fornitore"):
-        /*if($dbh->insert_fornitore($_GET["p_iva"], $_GET["ragione_sociale"], $_GET["via"], $_GET["numero_civico"], $_GET["citta"]))
-            $succMsg->insert_successfull("fornitore inserito correttamente", "homepageAdmin.php");
+        if($dbh->insert_fornitore($_REQUEST["p_iva"], $_REQUEST["ragione_sociale"], $_REQUEST["via"], $_REQUEST["numero_civico"], $_REQUEST["citta"]))
+            $msg->show_in_next_page("fornitore inserito correttamente", "homepageAdmin.php", "homepageAdmin.php", MsgType::Successfull);
         else
-            $errMsg->insert_fail("c'e' stato un problema inaspettato, fornitore non inserito", "homepageAdmin.php");
-        break;*/
+            $msg->show_in_next_page("c'e' stato un problema inaspettato, fornitore non inserito", "homepageAdmin.php", "homepageAdmin.php", MsgType::Error);
+        break;
     case("fornitura"):
         break;
     case("carta"):
-        /*if($dbh->insert_fornitore($_GET["p_iva"], $_GET["ragione_sociale"], $_GET["via"], $_GET["numero_civico"], $_GET["citta"]))
-            $succMsg->insert_successfull("fornitore inserito correttamente", "homepageAdmin.php");
+        if($dbh->insert_fornitore($_REQUEST["numero"], $_REQUEST["datascadenza"], $_REQUEST["ccv"], $_REQUEST["tipo"], $_SESSION["IdUtente"]))
+            $msg->show_in_next_page("fornitore inserito correttamente", "userProfile.php?showTab=\"card\"", "userProfile.php", MsgType::Successfull);
         else
-            $errMsg->insert_fail("c'e' stato un problema inaspettato, fornitore non inserito", "homepageAdmin.php");
-        break;*/
-    case("composizione"):
+            $msg->show_in_next_page("c'e' stato un problema inaspettato, carta di pagamento non inserito", "homepageAdmin.php", "homepageAdmin.php", MsgType::Error);
         break;
     case("ordine"):
         break;
     case("riga_carrello"):
+        if(!$dbh->insert_rc($_REQUEST["product_id"], $_SESSION["idUtente"]))
+            $msg->show_in_next_page("prodotto non inserito", "homepageUser.php", "homepageUser.php", MsgType::Error);
+        break;
         break;
     case("recapito"):
+        if($dbh->insert_recapito($_REQUEST["via"], $_REQUEST["ragione_sociale"], $_REQUEST["via"], $_REQUEST["numero_civico"], $_REQUEST["citta"]))
+            $msg->show_in_next_page("recapito inserito correttamente", "userProfile.php?showTab=\"address\"", "userProfile.php", MsgType::Successfull);
+        else
+            $msg->show_in_next_page("c'e' stato un problema inaspettato, recapito non inserito", "homepageAdmin.php", "homepageAdmin.php", MsgType::Error);
         break;
-    default : die("");
+    default : die("codice inserimento non trovato");
     break;
 }
 ?>

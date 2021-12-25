@@ -28,6 +28,18 @@ header {
     background-color: #04AA6D;
 }
 
+.user-image-profile {
+    width: 10%;
+    margin: 1.5% 20px;
+    padding: 0.5% 10px;
+    height: 150px;
+    background-color: black;
+}
+
+.hidden-field {
+    display: none;
+}
+
 @media screen and (max-width: 500px) {
     .navbar a {
         float: none;

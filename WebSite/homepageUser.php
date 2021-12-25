@@ -1,9 +1,15 @@
+<?php
+    session_start();
+    var_dump($_SESSION);
+    require_once("utils/database.php");
+    $dbh = new DatabaseHelper("localhost", "root", "", "plant");
+?>
 <!DOCTYPE html>
 <html lang="it">
 
 <head>
   <meta charset="utf-8">
-  <title>Plant</title>
+  <title>Homepage User</title>
   <link href="css/reset.css" type="text/css">
   <link href="css/style2.css" type="text/css">
   <script src='https://kit.fontawesome.com/a076d05399.js'></script>
@@ -23,8 +29,8 @@
     <div>
       <div class="navbar">
         <a class="active" href="#"><i class="fa fa-home fa-fw"></i> Home</a>
-        <a href="#"><i class="fa fa-user fa-fw"></i> Profilo</a>
-        <a href="#"><i class="fa fa-shopping-cart"></i> Carrello</a>
+        <a href="userProfile.php"><i class="fa fa-user fa-fw"></i> Profilo Utente</a>
+        <a href="contactSupport.php"><i class="fa fa-shopping-cart"></i> Contact</a>
         <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="search" placeholder="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-fw fa-search"></i> Search</button>
@@ -35,13 +41,24 @@
       <?php
       $products = $dbh->get_products();
       for ($i = 0; $i < sizeof($products); $i++) {
-        echo "<div> <p>" . $products[$i]["Nome"] . "</p>" . $products[$i]["Descrizione"] . "</div>";
+        echo "<form action=\"utils/insert.php\" method=\"get\" class=\"product-container\">
+                <input type=\"text\" name=\"obj_to_insert\" style=\"display: none;\" value=\"riga_carello\">
+                <input type=\"text\" name=\"product_id\" style=\"display: none;\" value=\"".$products[$i]["ID"]."\">
+                <div class=\"product-name\">".$products[$i]["Nome"]."</div>
+                <div class=\"product-desc\">".$products[$i]["Descrizione"]."</div>
+                <div class=\"product-prezzo\">".$products[$i]["Prezzo"]."</div>
+                <div class=\"product-desc-cat\">".$products[$i]["NomeC"]."</div>
+                <div class=\"prd-produttore\">".$products[$i]["DescC"]."</div>
+                <div class=\"prd-produttore\">".$products[$i]["RagioneSociale"]."</div>
+                <button type=\"submit\" class=\"btn btn-primary\">+</button>
+              </form>";
       }
       ?>
     </section>
+    <script>
+      
+    </script>
   </main>
-  <a href="userProfile.php"> PROFILO </a>
-  <a href="pagamento.php"> PROCEDI DIRETTAMENTE ALL"ORDINE </a>
 </body>
 
 </html>

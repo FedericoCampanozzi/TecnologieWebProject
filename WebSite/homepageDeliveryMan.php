@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Recupera Password</title>
+  <title>Homepage Fattorino</title>
   <link href="css/reset.css" type="text/css">
   <link href="css/style2.css" type="text/css">
   <script src='https://kit.fontawesome.com/a076d05399.js'></script>
@@ -25,49 +25,45 @@
                 <table id="tbl_ruoli_utente" style="width:100%" class="table table-striped table-bordered">
                   <thead>
                     <tr>
-                      <th>Username</th>
-                      <th>Password</th>
-                      <th>Ruolo</th>
+                      <th>Id Ordine</th>
+                      <th>Nome</th>
+                      <th>Cognome</th>
+                      <th>Contanti</th>
+                      <th>Via</th>
+                      <th>NC</th>
+                      <th>Citta</th>
+                      <th>Note</th>
+                      <th><th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php
-                    //session_start();
                     require_once("utils/database.php");
                     $dbh = new DatabaseHelper("localhost", "root", "", "plant");
-                    $users = $dbh->get_users();
-                    $all_role = $dbh->get_role();
-                    for ($i = 0; $i < sizeof($users); $i++) {
+                    $consegne  = $dbh->get_open_ordini();
+                    for ($i = 0; $i < sizeof($consegne); $i++) {
+                      $contanti = "";
+                      if($consegne[$i]["SceltaContatni"]==1) $contanti = "checked";
                       echo "<tr>
-                                                <td>" . $users[$i]["Username"] . "</td>
-                                                <td><button type=\"submit\" class=\"btn btn-primary\">Reset</button></td>
-                                                <td><div class=\"dropdown show max-input-size\">
-                                                <a class=\"btn btn-secondary dropdown-toggle max-input-size\" href=\"#\" role=\"button\" id=\"ruolo_utente" . $i . "\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Ruoli</a>
-                                                <div class=\"dropdown-menu\" aria-labelledby=\"ruolo_utente" . $i . "\">";
-                      for ($j = 0; $j < sizeof($all_role); $j++) {
-                        if ($j == 0) {
-                          echo "<a class=\"dropdown-item selected max-input-size\" href=\"#\">" . $all_role[$j]["Descrizione"] . "</a>";
-                          continue;
-                        }
-                        echo "<a class=\"dropdown-item\" href=\"#\">" . $all_role[$j]["Descrizione"] . "</a>";
-                      }
-                      echo "</div></div></td></tr>";
+                        <td>".$consegne[$i]["ID"]."</td>
+                        <td>".$consegne[$i]["Nome"]."</td>
+                        <td>".$consegne[$i]["Cognome"]."</td>
+                        <td><input class=\"form-check-input\" type=\"checkbox\" value=\"\" ".$contanti."></td>
+                        <td>".$consegne[$i]["Via"]."</td>
+                        <td>".$consegne[$i]["NumeroCivico"]."</td>
+                        <td>".$consegne[$i]["Citta"]."</td>
+                        <td>".$consegne[$i]["Note"]."</td>
+                        <td> 
+                          <form action=\"utils/update.php\" method=\"get\">
+                            <input type=\"text\" name=\"obj_to_update\" class=\"hidden-field\" value=\"ordine\">
+                            <input type=\"text\" name=\"id_fattorino\" class=\"hidden-field\" value=\"".$_SESSION["IdUtente"]."\">
+                            <input type=\"text\" name=\"id_ordine\" class=\"hidden-field\" value=\"".$consegne[$i]["ID"]."\">
+                            <button type=\"submit\" class=\"btn btn-primary\">chiudi</button>
+                          </form> 
+                        <td>
+                      </tr>";
                     }
                     ?>
-                    <form action="utils/insert.php" method="get">
-                      <tr>
-                        <input type="text" name="obj_to_insert" style="display: none;" value="recapito">
-                        <td>
-                          <input type="text" class="form-control" name="via" id="via" placeholder="Via">
-                        </td>
-                        <td>
-                          <input type="text" class="form-control" name="numero_civico" id="numero_civico" placeholder="Numero Civico">
-                        </td>
-                        <td>
-                          <button type="submit" class="btn btn-primary">Aggiungi</button>
-                        </td>
-                      </tr>
-                    </form>
                   </tbody>
                 </table>
               </div>

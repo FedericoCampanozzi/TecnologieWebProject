@@ -2,10 +2,10 @@
 <html lang="it">
 
 <head>
+    <title>Homepage Ammistratore</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Admin Page</title>
 </head>
 
 <body>
@@ -83,7 +83,7 @@
     </div>
     <div style="background-color: red;">
         <form action="utils/insert.php" method="get">
-            <input type="text" name="obj_to_insert" style="display: none;" value="fornitore">
+            <input type="text" name="obj_to_insert" class="hidden-field" value="fornitore">
             <div class="form-group">
                 <label for="p_iva">Partita IVA (16 caratteri) : </label>
                 <input type="text" class="form-control" name="p_iva" id="p_iva" placeholder="Partita IVA">

@@ -1,8 +1,17 @@
+<?php
+    session_start();
+    session_destroy();
+    session_start();
+    var_dump($_SESSION);
+    require_once("utils/database.php");
+    $dbh = new DatabaseHelper("localhost", "root", "", "plant");
+    define("dir_path", "./images/");
+?>
 <!DOCTYPE html>
 <html lang="it">
     <head>
         <meta charset="utf-8">
-        <title>Plant</title>
+        <title>Homepage</title>
         <link href="css/reset.css" type="text/css">
         <link href="css/style2.css" type="text/css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -14,21 +23,10 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
     </head>
     <body>
-        <?php
-        require_once("utils/database.php");
-        session_start();
-        $dbh = new DatabaseHelper("localhost", "root", "", "plant");
-        define("dir_path", "./images/");
-        ?>
         <main>
           <header>
             <h1> Welcome </h1>
-          </header> 
-            <?php
-              if(isset($_SESSION["CurPage"]) && $_SESSION["CurPage"] == "errors.php" && isset($_SESSION["ErrMsg"]))
-                echo "<p>".$_SESSION["ErrMsg"]."</p>";
-              $_SESSION["CurPage"] = "index.php"
-            ?>
+          </header>
             <section>
               <form action="login.php" method="post">
                 <div class="form-group">
