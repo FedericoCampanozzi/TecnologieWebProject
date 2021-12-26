@@ -1,26 +1,10 @@
-<?php
-    session_start();
-    session_destroy();
-    session_start();
-    var_dump($_SESSION);
-    require_once("utils/database.php");
-    $dbh = new DatabaseHelper("localhost", "root", "", "plant");
-    define("dir_path", "./images/");
-?>
 <!DOCTYPE html>
 <html lang="it">
-    <head>
-        <meta charset="utf-8">
-        <title>Homepage</title>
-        <link href="css/reset.css" type="text/css">
-        <link href="css/style2.css" type="text/css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-        <!-- cdn for modernizr, if you haven't included it already -->
-        <script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
-        <!-- polyfiller file to detect and load polyfills -->
-        <script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+<?php
+    require_once("utils/htmlHelper.php");
+    $hh = new HTML_Helper();
+    $hh->generate_header("Login", "index.php", false, "index.php");
+?>
     </head>
     <body>
         <main>
@@ -37,7 +21,8 @@
                   <label for="password">Password</label>
                   <input type="password" class="form-control" name="password" id="password" placeholder="Password">
                 </div>
-                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="submit" class="btn btn-primary">
+                  <img alt="" src="./images/Ico/ico-login.ico" width="36" height="16" style="padding-right:20px;"/>Login</button>
               </form>
             </section>
             <aside>
@@ -46,7 +31,6 @@
             <aside>
               <p>
                 Clicca <a href="newUser.php">qui</a> per creare un account </br>
-                Vuoi avere qualche permesso in pi&ugrave;, oppure desideri avere un'altro ruolo, contatta l'amministratore all'indirizzo mail federico.campanozzi@studio.unibo.it
               </p>
             </aside>
             <footer>

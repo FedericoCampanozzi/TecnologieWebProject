@@ -1,46 +1,109 @@
-<?php
-    session_start();
-    var_dump($_SESSION);
-    require_once("utils/database.php");
-    $dbh = new DatabaseHelper("localhost", "root", "", "plant");
-?>
 <!DOCTYPE html>
 <html lang="it">
-    <head>
-        <meta charset="utf-8">
-        <title> Pagamento </title>
-        <link href="css/reset.css" type="text/css">
-        <link href="css/style2.css" type="text/css">
-        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-        <script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
-        <script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
-    </head>
-    <body>
-        <main>
-            <?php
-                //require_once("utils/database.php");
-                //require_once("errorsMessage.php");
-                //require_once("successfullMessage.php");
-                //$dbh = new DatabaseHelper("localhost", "root", "", "plant");
-                //$idUtente = $_SESSION["idUtente"];
-                //$usr_pagamento = $dbh->get_carte($idUtente);
-                //$usr_recapiti = $dbh->get_recapiti($idUtente);
-                //$usr_carrello = $dbh->get_carrello($idUtente);
-                //$succMsg = new SuccessfullMsgUtility();
-                //$errMsg = new ErrorsMsgUtility();
-                //if($dbh->insert_ordine($idUtente)){
-                //    $idOrdine = $dbh->last_ordine($idUtente);
-                //    for($i=0;$i<sizeof($usr_carrello);$i++){
-                //        if(!$dbh->update_riga_carrello($idUtente, $usr_carrello[$i]["IdProdotto"], $idOrdine)){
-                //            die("riga ".$i." non aggiornata --- contattare l'amministratore");
-                //        }
-                //    }
-                    //$succMsg->insert_successfull("Ordine inserito correttamente", "homepageUser.php");
-                //} else{
-                    //$errMsg->insert_fail("Ordine non inserito per un errore non identificato", "homepageUser.php");
-                //}
-            ?>
-        </main>
-    </body>
+<?php
+require_once("utils/modalMessageHelper.php");
+require_once("utils/htmlHelper.php");
+require_once("utils/database.php");
+$hh = new HTML_Helper();
+$hh->generate_header(" Pagamento ", "pagamento.php", true, "pagamento.php");
+if ($_SESSION["last_page"] == "pagamento.php" && $_SESSION["msg_type"] == MsgType::Successfull) {
+    echo "<script>location.href='homepageUser.php';</script>";
+}
+$idUtente = $_SESSION["IdUtente"];
+$dbh = new DatabaseHelper("localhost", "root", "", "plant");
+?>
+
+<body>
+    <main>
+        <section>
+            <div>
+                <div class="row py-5">
+                    <div class="col-lg-10 mx-auto">
+                        <div class="card rounded shadow border-0">
+                            <div class="card-body p-5 bg-white rounded">
+                                <div class="table-responsive">
+                                    <table id="tbl_carrello_utente" style="width:100%;" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Nome</th>
+                                                <th>Qt.&agrave;</th>
+                                                <th>Prezzzo Unitario</th>
+                                                <th>Prezzo Totale</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $usr_cart = $dbh->get_carrello($_SESSION["IdUtente"]);
+                                            for ($i = 0; $i < sizeof($usr_cart); $i++) {
+                                                echo "
+                                                        <tr>
+                                                            <td><img src=.\images\prodotti\\" . $usr_cart[$i]["ImagePath"] . " width=\"64\" height=\"64\">                                                            </td>
+                                                            <td>" . $usr_cart[$i]["Nome"] . "</td>
+                                                            <td>" . $usr_cart[$i]["Qta"] . "</td>
+                                                            <td>" . $usr_cart[$i]["PrezzoUnitario"] . "  &euro; </td>
+                                                            <td>" . $usr_cart[$i]["PrezzoTotale"] . "  &euro; </td>
+                                                        </tr> ";
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form action="utils/insert.php" method="post">
+                <input type="hidden" value="ordine" name="obj_to_insert" id="obj_to_insert">
+                <label class="form-check-label" for="useContanti">
+                    Pagare alla consegna ?
+                </label>
+                <input class="form-check-input" type="checkbox" value="" id="useContanti" name="useContanti">
+                <div class="form-group" id="carta_div">
+                    <label for="select_carta">Seleziona una carta di pagamento : </label>
+                    <select class="form-control" id="select_carta" name="select_carta">
+                        <?php
+                        $usr_carte = $dbh->get_carte($idUtente);
+                        for ($i = 0; $i < sizeof($usr_carte); $i++) {
+                            echo "<option value=" . $usr_carte[$i]["Numero"] . ">" . $usr_carte[$i]["Numero"] . "</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="select_add">Seleziona un indirizzo :</label>
+                    <select class="form-control" id="select_add" name="select_add">
+                        <?php
+                        $usr_add = $dbh->get_recapiti($idUtente);
+                        for ($i = 0; $i < sizeof($usr_carte); $i++) {
+                            echo "<option value=" . $usr_add[$i]["ID"] . ">" . $usr_add[$i]["Via"] . "," . $usr_add[$i]["NumeroCivico"] . " - " . $usr_add[$i]["Citta"] . "</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <div class="md-form">
+                        <label for="note">Inserire alcune note per il fattorino : </label>
+                        <textarea id="note" name="note" class="md-textarea form-control" rows="3"></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Acquista</button>
+            </form>
+        </section>
+    </main>
+    <script>
+        $(document).ready(function() {
+            $("#tbl_carrello_utente").DataTable();
+            $("#useContanti").change(function() {
+                if (this.checked) {
+                    $("#carta_div").addClass("hidden-field");
+                } else {
+                    $("#carta_div").removeClass("hidden-field");
+                }
+            });
+        });
+    </script>
+</body>
+
 </html>

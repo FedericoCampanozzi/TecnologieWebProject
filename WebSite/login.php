@@ -20,6 +20,6 @@
     if($login[0]["IdRuolo"] == 5) echo "<script>location.href='homepageSupplier.php';</script>";
     if($login[0]["IdRuolo"] == 6) echo "<script>location.href='homepageDeliveryMan.php';</script>";
   } else {
-    $msh->show_in_next_page("nome utente oppure e-mail non trovata", "index.php", "login.php", MsgType::Error);
+    $msh->show_in_next_page_l0("nome utente oppure e-mail non trovata", "index.php", "login.php", MsgType::Error, false);
   }
 ?>
