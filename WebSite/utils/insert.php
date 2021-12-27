@@ -20,6 +20,10 @@ switch ($obj) {
             $msg->show_in_next_page("c'&egrave; stato un problema inaspettato, <br> <strong> fornitore non inserito</strong>", "homepageAdmin.php", "homepageAdmin.php", MsgType::Error, $dbg);
         break;
     case ("fornitura"):
+        if ($dbh->insert_fornitura($_REQUEST["qta"], $_REQUEST["az_prodotto"], $_SESSION["PIVA_Azienda"]))
+            $msg->show_in_next_page("fornitura inserita correttamente", "homepageSupplier.php?showTab=forniture-tab", "fornitura", MsgType::Successfull, $dbg);
+        else
+            $msg->show_in_next_page("c'&egrave; stato un problema inaspettato, <br> <strong> carta di pagamento non inserito</strong>", "userProfile.php?showTab=card", "card", MsgType::Error, $dbg);
         break;
     case ("prodotto"):
         break;

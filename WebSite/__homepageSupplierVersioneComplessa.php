@@ -4,14 +4,16 @@
 require_once("utils/database.php");
 require_once("utils/htmlHelper.php");
 $hh = new HTML_Helper();
-$hh->generate_header("Pagina Fornitore", "", true, true);
+$hh->generate_header("Pagina Fornitore", "", true, "homepageSupplier.php", true);
 $dbh = new DatabaseHelper("localhost", "root", "", "plant");
 $tab = "supp_profile";
 if (isset($_GET["showTab"])) {
     $tab = $_GET["showTab"];
 }
-$hh->check_modals("supp_profile");
-$hh->check_modals("forniture-tab");
+$stati = array(false, false, false, false, false, false, false, false,);
+$stati[0] = isset($_REQUEST[""]) && $_REQUEST[""];
+$stati[0] = isset($_REQUEST[""]) && $_REQUEST[""];
+$stati[0] = isset($_REQUEST[""]) && $_REQUEST[""];
 ?>
 
 <body>
@@ -48,38 +50,39 @@ $hh->check_modals("forniture-tab");
         <div class="tab-content">
             <div class="tab-pane" id="supp_profile" role="tabpanel" aria-labelledby="supp_profile-tab">
                 <section>
-                    <?php
-                    $log = $dbh->get_fornitore_login($_SESSION["PIVA_Azienda"]);
-                    ?>
                     <form action="utils/update.php" method="get">
-                        <input type="hidden" name="obj_to_update" value="fornitore">
+                        <input type="hidden" name="obj_to_insert" value="fornitore">
+                        <div class="form-group">
+                            <label for="ragione_sociale">Ragione Sociale : </label>
+                            <input type="text" class="form-control" name="ragione_sociale" id="ragione_sociale" placeholder="Ragione Sociale">
+                        </div>
                         <div class="form-group">
                             <label for="via">Via : </label>
-                            <input type="text" class="form-control" name="via" id="via" placeholder="<?php echo $log[0]["Via"]; ?>">
+                            <input type="text" class="form-control" name="via" id="via" placeholder="Via">
                         </div>
                         <div class="form-group">
                             <label for="numero_civico">Numero Civico : </label>
-                            <input type="text" class="form-control" name="numero_civico" id="numero_civico" placeholder="<?php echo $log[0]["NumeroCivico"]; ?>">
+                            <input type="text" class="form-control" name="numero_civico" id="numero_civico" placeholder="Numero Civico">
                         </div>
                         <div class="form-group">
                             <label for="citta">Citt&agrave; : </label>
-                            <input type="text" class="form-control" name="citta" id="citta" placeholder="<?php echo $log[0]["Citta"]; ?>">
+                            <input type="text" class="form-control" name="citta" id="citta" placeholder="citt&agrave;">
                         </div>
                         <div class="form-group">
-                            <label for="pecMail">Pec-Mail : </label>
-                            <input type="text" class="form-control" name="pecMail" id="pecMail" placeholder="<?php echo $log[0]["PecMail"]; ?>">
+                            <label for="citta">Pec-Mail : </label>
+                            <input type="text" class="form-control" name="citta" id="citta" placeholder="citt&agrave;">
                         </div>
                         <div class="form-group">
-                            <label for="infoMail">Info-Mail : </label>
-                            <input type="text" class="form-control" name="infoMail" id="infoMail" placeholder="<?php echo $log[0]["InfoMail"]; ?>">
+                            <label for="citta">Info-Mail : </label>
+                            <input type="text" class="form-control" name="citta" id="citta" placeholder="citt&agrave;">
                         </div>
                         <div class="form-group">
-                            <label for="tell">Telefono : </label>
-                            <input type="text" class="form-control" name="tell" id="tell" placeholder="<?php echo $log[0]["Telefono"]; ?>">
+                            <label for="citta">Telefono : </label>
+                            <input type="text" class="form-control" name="citta" id="citta" placeholder="citt&agrave;">
                         </div>
                         <div class="form-group">
-                            <label for="fax">Fax : </label>
-                            <input type="text" class="form-control" name="fax" id="fax" placeholder="<?php echo $log[0]["Fax"]; ?>">
+                            <label for="citta">Fax : </label>
+                            <input type="text" class="form-control" name="citta" id="citta" placeholder="citt&agrave;">
                         </div>
                         <button type="submit" class="btn btn-primary">Aggiorna Dati</button>
                     </form>
@@ -88,10 +91,55 @@ $hh->check_modals("forniture-tab");
             <div class="tab-pane" id="forniture" role="tabpanel" aria-labelledby="ven-tab">
                 <section>
                     <div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                            <label class="form-check-label" for="inlineRadio1">Barre Verticali</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                            <label class="form-check-label" for="inlineRadio2">Barre Orizzontali</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                            <label class="form-check-label" for="inlineRadio2">Torta</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                            <label class="form-check-label" for="inlineRadio2">Torta Area</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                            <label class="form-check-label" for="inlineRadio2">Linea</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                            <label class="form-check-label" for="inlineRadio2">Ciambella</label>
+                        </div>
+                        <div>
+                            Visualizza :
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" value="" id="upd_Dettaglio">
+                                <label class="form-check-label" for="upd_Dettaglio">
+                                    Dettaglio
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" value="" id="upd_AnnoMese">
+                                <label class="form-check-label" for="upd_AnnoMese">
+                                    Anno Mese
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" value="" id="upd_Prodotto">
+                                <label class="form-check-label" for="upd_Prodotto">
+                                    Prodotto
+                                </label>
+                            </div>
+                        </div>
                         <form action="utils/insert.php" method="get">
-                            <input type="hidden" name="obj_to_insert" value="fornitura">
+                            <input type="hidden" name="obj_to_insert" value="fornitore">
                             <div class="form-group">
-                                <select class="form-control" id="az_prodotto" name="az_prodotto">";
+                                <select class="form-control" id="az_prodotti" name="az_prodotti">";
                                     <?php
                                     $prod = $dbh->get_products_forn($_SESSION["PIVA_Azienda"]);
                                     for ($i = 0; $i < sizeof($prod); $i++)
@@ -101,7 +149,7 @@ $hh->check_modals("forniture-tab");
                             </div>
                             <div class="form-group">
                                 <label for="qta" class="form-label">Quantit&agrave;: </label>
-                                <input type="range" class="form-range" id="qta" name="qta">
+                                <input type="range" class="form-range" id="qta">
                                 <label id="qta_out"></label>
                             </div>
                             <button type="submit" class="btn btn-primary">Inserisci</button>
@@ -137,16 +185,31 @@ $hh->check_modals("forniture-tab");
                             </div>
                         </div>
                     </div>
+                    <div class="row py-5">
+                        <div class="col-lg-10 mx-auto">
+                            <div class="card rounded shadow border-0">
+                                <div class="card-body p-5 bg-white rounded">
+                                    <div class="table-responsive">
+                                        <div class="container">
+                                            <canvas id="graficoVenditeAnnoMese"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </section>
             </div>
         </div>
 
         <script>
+            //let curTab = "forniture-tab";
+
             function Color(r, g, b, a) {
-                this.r = parseFloat(r);
-                this.g = parseFloat(g);
-                this.b = parseFloat(b);
-                this.a = parseFloat(a);
+                this.r = r;
+                this.g = g;
+                this.b = b;
+                this.a = a;
             }
 
             function colorLerp(a, b, t) {
@@ -155,16 +218,31 @@ $hh->check_modals("forniture-tab");
                     c.g = a.g + (b.g - a.g) * t,
                     c.b = a.b + (b.b - a.b) * t,
                     c.a = a.a + (b.a - a.a) * t
-                return "rgb(" + c.r + "," + c.g + "," + c.b + "," + c.a + ")";
+                return "rgb(" + c.r + "," + c.g + "," + c.b + "," + c.a + ",)";
             }
 
             $(document).ready(function() {
                 let gForn = document.getElementById("graficoForniture").getContext('2d');
                 let gVen = document.getElementById("graficoVenditeProdUser").getContext('2d');
-                let fornLabel = [<?php $hh->generate_js_array($dbh->get_tot_forniture($_SESSION["PIVA_Azienda"]), "NomeMese")?>];
-                let fornData = [<?php $hh->generate_js_array($dbh->get_tot_forniture($_SESSION["PIVA_Azienda"]), "Totale")?>];
-                let venLabel = [<?php $hh->generate_js_array($dbh->get_tot_products($_SESSION["PIVA_Azienda"]), "Nome")?>];
-                let venData = [<?php $hh->generate_js_array($dbh->get_tot_products($_SESSION["PIVA_Azienda"]), "QtaVenduta")?>];
+                let fornLabel = [
+                    <?php
+                    //$dbh->get
+                    ?>
+                ];
+                let fornData = [
+                    <?php
+                    ?>
+                ];
+                let venLabel = [
+                    <?php
+                    //$prod = $dbh->get_products_forn($_SESSION["PIVA_Azienda"]);
+                    //for($i=0;$i<sizeof($prod);$i++) echo "\"".$prod[$i]["Nome"]."\"";
+                    ?>
+                ];
+                let venData = [
+                    <?php
+                    ?>
+                ];
 
                 let a = new Color(255, 255, 255, 255);
                 let b = new Color(255, 255, 255, 255);
@@ -176,10 +254,10 @@ $hh->check_modals("forniture-tab");
                     fornColor.push(colorLerp(a, b, t));
                 }
 
-                a = new Color(255, 255, 255, 255);
-                b = new Color(0, 0, 0, 255);
+                a = [255, 255, 255, 255];
+                b = [255, 255, 255, 255];
 
-                for (let t = 0.0; t <= 1.0; t += 1.0 / venLabel.length) {
+                for (let i = 0; i < fornData.length; i++) {
                     venColor.push(colorLerp(a, b, t));
                 }
 
@@ -205,8 +283,18 @@ $hh->check_modals("forniture-tab");
                         }]
                     }
                 });
+
+                //$("li a").click(function(){
+                //    curTab = $(this).id
+                //});
                 $('a[href="#<?php echo $tab; ?>"]').addClass("active");
                 $('#<?php echo $tab; ?>').addClass("active");
+
+                $('[id*=upd]').change(function() {
+                    var params = new URLSearchParams();
+                    params.set("showTab", "forniture");
+                    window.location.href = "homepageSupplier.php?" + params.toString();
+                });
             });
         </script>
         <footer>

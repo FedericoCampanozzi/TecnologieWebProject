@@ -4,10 +4,49 @@ class HTML_Helper
     public function __construct()
     {
     }
-    public function generate_header($pageTitle, $pageName, $useDataTable, $check)
+    public function check_modals($check)
+    {
+        if (isset($_SESSION["upd"]) && $_SESSION["upd"] && $_SESSION["last_page"] = $check) {
+            $_SESSION["upd"] = false;
+?>
+            <div class="modal fade" id="myGeneralModal" tabindex="-1" role="dialog" aria-labelledby="generalModal" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content"></div>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="generalModal">Messaggio Importante</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body<?php
+                                            if ($_SESSION["msg_type"] = MsgType::Successfull) echo " modal-msg-successfull ";
+                                            else if ($_SESSION["msg_type"] = MsgType::Error) echo " modal-msg-error ";
+                                            else if ($_SESSION["msg_type"] = MsgType::Warning) echo " modal-msg-warning ";
+                                            else echo " modal-msg-info ";
+                                            ?>">
+                        <?php
+                        echo $_SESSION["msg"];
+                        ?>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <script>
+                $(document).ready(function() {
+                    $('#myGeneralModal').modal('show');
+                });
+            </script>
+        <?php
+            var_dump($_SESSION);
+        }
+    }
+    public function generate_header($pageTitle, $check = "", $useDataTable = false, $useCart = false)
     {
         session_start();
-?>
+        ?>
 
         <head>
             <meta charset="utf-8">
@@ -24,47 +63,21 @@ class HTML_Helper
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
         </head>
-        <?php
-        if ($useDataTable) {
-
-        ?>
-            <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.css" />
-            <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js"></script>
-        <?php
-        }
-        ?>
-        <?php
-        if ($_SESSION["upd"] && $_SESSION["last_page"] = $check) {
-        ?>
-            <div class="modal fade" id="generalModal" tabindex="-1" role="dialog" aria-labelledby="generalModal" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content" style="background-color: yellow;">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="generalModal">Modal title</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <?php
-                            echo $_SESSION["msg"];
-                            ?>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <script>
-                $(function() {
-                    $(document).ready(function() {
-                        $('#generalModal').modal('show');
-                    });
-                });
-            </script>
 <?php
-            $_SESSION["upd"] = false;
+        if ($useDataTable) {
+            echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.css\" />";
+            echo "<script type=\"text/javascript\" src=\"https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js\"></script>";
+        }
+        if ($useCart) {
+            echo "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js\"></script>";
+        }
+        $this->check_modals($check);
+    }
+    public function generate_js_array($phpArray, $propName)
+    {
+        for ($i = 0; $i < sizeof($phpArray); $i++) {
+            if ($i == sizeof($phpArray) - 1) echo "\"" . $phpArray[$i][$propName] . "\"";
+            else echo "\"" . $phpArray[$i][$propName] . "\",";
         }
     }
 }

@@ -10,6 +10,16 @@ class DatabaseHelper
     }
   }
   /* MISC */
+  public function find_user($user)
+  {
+    /*Da cambiare in Psw che usa SHA512*/
+    $stmt = $this->db->prepare("SELECT * FROM ruoli_utente WHERE (Username = ? OR EMail = ?)");
+    $stmt->bind_param("ss", $user, $user);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $result->fetch_all(MYSQLI_ASSOC);
+    return $stmt->affected_rows == 1;
+  }
   public function find_login($user, $password)
   {
     /*Da cambiare in Psw che usa SHA512*/
@@ -32,6 +42,14 @@ class DatabaseHelper
   }
   /*-----------------------------------------------------------------------------------------------------------*/
   /* GET */
+  public function get_fornitore_login($piva)
+  {
+    $stmt = $this->db->prepare("SELECT * FROM fornitore WHERE PIVA = ?");
+    $stmt->bind_param("s", $piva);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+  }
   public function get_login($user, $password)
   {
     $stmt = $this->db->prepare("SELECT * FROM ruoli_utente WHERE (Username = ? OR EMail = ?) AND PswInChiaro = ?");
@@ -57,6 +75,30 @@ class DatabaseHelper
   public function get_products()
   {
     $stmt = $this->db->prepare("SELECT * FROM info_prodotto");
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+  }
+  public function get_products_forn($pivaFornitore)
+  {
+    $stmt = $this->db->prepare("SELECT * FROM info_prodotto WHERE PIVA_Fornitore = ?");
+    $stmt->bind_param("s", $pivaFornitore);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+  }
+  public function get_tot_products($pivaFornitore)
+  {
+    $stmt = $this->db->prepare("SELECT * FROM totali_prodotto WHERE PIVA_Fornitore = ?");
+    $stmt->bind_param("s", $pivaFornitore);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+  }
+  public function get_tot_forniture($pivaFornitore)
+  {
+    $stmt = $this->db->prepare("SELECT * FROM totali_fornitura WHERE PIVA = ?");
+    $stmt->bind_param("s", $pivaFornitore);
     $stmt->execute();
     $result = $stmt->get_result();
     return $result->fetch_all(MYSQLI_ASSOC);
@@ -102,6 +144,20 @@ class DatabaseHelper
   }
   /*-----------------------------------------------------------------------------------------------------------*/
   /* INSERT */
+  public function insert_prodotto($nome, $descrizione, $prezo, $piva, $imgPath, $categoria)
+  {
+    $query = "INSERT INTO `prodotto`(`Nome`, `Descrizione`, `Prezzo`, `PIVA`, `ImagePath`, `IdCategoria`) VALUES (CURRENT_TIMESTAMP(),?,?,?)";
+    $stmt = $this->db->prepare($query);
+    $stmt->bind_param("iis", $idprodotto, $p_iva);
+    return $stmt->execute();
+  }
+  public function insert_fornitura($qta, $idprodotto, $p_iva)
+  {
+    $query = "INSERT INTO `fornitore`(`DataConsegnaMerce`, `Qta`, `IdProdotto`, `PIVA`) VALUES (CURRENT_TIMESTAMP(),?,?,?)";
+    $stmt = $this->db->prepare($query);
+    $stmt->bind_param("iis", $qta, $idprodotto, $p_iva);
+    return $stmt->execute();
+  }
   public function insert_fornitore($p_iva, $rs, $via, $nc, $citta)
   {
     $query = "INSERT INTO `fornitore`(`PIVA`,`RagioneSociale`, `Via`, `NumeroCivico`, `Citta`) VALUES (?,?,?,?,?)";
@@ -166,6 +222,13 @@ class DatabaseHelper
   }
   /*-----------------------------------------------------------------------------------------------------------*/
   /* UPDATE */
+  public function update_fornitore($p_iva, $via, $nc, $citta, $infoMail, $pecMail, $fax, $tell)
+  {
+    $query = "UPDATE `fornitore` SET Via = ?, NumeroCivico = ?, Citta = ?, InfoMail = ?, PerMail = ?, Fax = ?, Telefono = ? WHERE PIVA = ?";
+    $stmt = $this->db->prepare($query);
+    $stmt->bind_param("sissssss", $via, $nc, $citta, $infoMail, $pecMail, $fax, $tell, $p_iva);
+    return $stmt->execute();
+  }
   public function update_riga_carrello($idUtente, $idprodotto, $idOrdine)
   {
     $query = "UPDATE `riga_carrello` SET DataEvasione = CURRENT_TIMESTAMP(), IdOrdine = ? WHERE IdUtente = ? AND IdProdotto = ?";
@@ -178,6 +241,20 @@ class DatabaseHelper
     $query = "UPDATE `ordine` SET Id_Stato = 6, DataConsegna = CURRENT_TIMESTAMP(), IdUtenteFattorino = ? WHERE ID = ?";
     $stmt = $this->db->prepare($query);
     $stmt->bind_param("ii", $idFattorino, $idOrdine);
+    return $stmt->execute();
+  }
+  public function update_user()
+  {
+    $query = "UPDATE `utente` SET ";
+    $stmt = $this->db->prepare($query);
+    $stmt->bind_param("ii", $idFattorino, $idOrdine);
+    return $stmt->execute();
+  }
+  public function update_user_psw($username, $newPsw)
+  {
+    $query = "UPDATE `utente` SET PswInChiaro = ? WHERE Username = ?";
+    $stmt = $this->db->prepare($query);
+    $stmt->bind_param("ss", $newPsw, $username);
     return $stmt->execute();
   }
   /*-----------------------------------------------------------------------------------------------------------*/

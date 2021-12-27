@@ -5,7 +5,7 @@
   require_once("utils/database.php");
   $dbh = new DatabaseHelper("localhost", "root", "", "plant");
   $hh = new HTML_Helper();
-  $hh->generate_header("Support", "support.php", false, "");
+  $hh->generate_header("Homepage", "homepageUser.php", false, false);
   ?>
 <body>
   <main>
