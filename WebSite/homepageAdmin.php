@@ -57,8 +57,6 @@ $hh->generate_header("Pagina Amministratore", "homepageAdmin.php", true, true);
                 </div>
             </div>
         </div>
-        Dettaglio Fornitura
-        Anno Mese
         <div>
             <div class="row py-5">
                 <div class="col-lg-10 mx-auto">
@@ -82,10 +80,6 @@ $hh->generate_header("Pagina Amministratore", "homepageAdmin.php", true, true);
                 </div>
             </div>
         </div>
-        Ordini-Prodotto
-        Dettaglio
-        Anno Mese
-        Categoria
         <div>
             <div class="row py-5">
                 <div class="col-lg-10 mx-auto">

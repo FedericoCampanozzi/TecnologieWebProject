@@ -10,7 +10,7 @@ class DatabaseHelper
     }
   }
   /* MISC */
-  public function find_user($user)
+  public function find_user_from_username($user)
   {
     /*Da cambiare in Psw che usa SHA512*/
     $stmt = $this->db->prepare("SELECT * FROM ruoli_utente WHERE (Username = ? OR EMail = ?)");
@@ -144,6 +144,14 @@ class DatabaseHelper
   }
   /*-----------------------------------------------------------------------------------------------------------*/
   /* INSERT */
+  public function insert_user($username, $pswInChiaro, $nome, $cognome, $dataNascita, $email, $tell)
+  {
+    $query = "INSERT INTO `utente`(`Username`, `Psw`, `PswInChiaro`, `Nome`, `Cognome`, `DataDiNascita`,`EMail`,`Telefono`,`IdRuolo`, `ImagePath`, `PIVA_Fornitore`) 
+      VALUES (?,'',?,?,?,?,?,?,4,'base.png', NULL)";
+    $stmt = $this->db->prepare($query);
+    $stmt->bind_param("ssssssi", $username, $pswInChiaro, $nome, $cognome, $dataNascita, $email, $tell);
+    return $stmt->execute();
+  }
   public function insert_prodotto($nome, $descrizione, $prezo, $piva, $imgPath, $categoria)
   {
     $query = "INSERT INTO `prodotto`(`Nome`, `Descrizione`, `Prezzo`, `PIVA`, `ImagePath`, `IdCategoria`) VALUES (CURRENT_TIMESTAMP(),?,?,?)";
@@ -153,7 +161,7 @@ class DatabaseHelper
   }
   public function insert_fornitura($qta, $idprodotto, $p_iva)
   {
-    $query = "INSERT INTO `fornitore`(`DataConsegnaMerce`, `Qta`, `IdProdotto`, `PIVA`) VALUES (CURRENT_TIMESTAMP(),?,?,?)";
+    $query = "INSERT INTO `fornitura`(`DataConsegnaMerce`, `Qta`, `IdProdotto`, `PIVA`) VALUES (CURRENT_TIMESTAMP(),?,?,?)";
     $stmt = $this->db->prepare($query);
     $stmt->bind_param("iis", $qta, $idprodotto, $p_iva);
     return $stmt->execute();
@@ -243,11 +251,11 @@ class DatabaseHelper
     $stmt->bind_param("ii", $idFattorino, $idOrdine);
     return $stmt->execute();
   }
-  public function update_user()
+  public function update_user($idUtente, $username, $email, $tell)
   {
-    $query = "UPDATE `utente` SET ";
+    $query = "UPDATE `utente` SET Username = ?, EMail = ?, Telefono = ? WHERE ID = ?";
     $stmt = $this->db->prepare($query);
-    $stmt->bind_param("ii", $idFattorino, $idOrdine);
+    $stmt->bind_param("ssii", $username, $email, $tell, $idUtente);
     return $stmt->execute();
   }
   public function update_user_psw($username, $newPsw)

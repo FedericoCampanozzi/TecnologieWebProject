@@ -4,32 +4,30 @@ class HTML_Helper
     public function __construct()
     {
     }
-    public function check_modals($check)
-    {
-        if (isset($_SESSION["upd"]) && $_SESSION["upd"] && $_SESSION["last_page"] = $check) {
-            $_SESSION["upd"] = false;
-?>
+    public function modals_error(){
+        ?>
             <div class="modal fade" id="myGeneralModal" tabindex="-1" role="dialog" aria-labelledby="generalModal" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content"></div>
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="generalModal">Messaggio Importante</h5>
+                <div class="modal-dialog modal-msg-error" role="document">
+                    <div class="modal-content modal-msg-error"></div>
+                    <div class="modal-header modal-msg-error">
+                        <h5 class="modal-title" id="generalModal"> 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+                                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                            </svg> </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body<?php
-                                            if ($_SESSION["msg_type"] = MsgType::Successfull) echo " modal-msg-successfull ";
-                                            else if ($_SESSION["msg_type"] = MsgType::Error) echo " modal-msg-error ";
-                                            else if ($_SESSION["msg_type"] = MsgType::Warning) echo " modal-msg-warning ";
-                                            else echo " modal-msg-info ";
-                                            ?>">
+                    <div class="modal-body modal-msg-error">                                            
                         <?php
                         echo $_SESSION["msg"];
                         ?>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn close-btn" data-dismiss="modal">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>   Close</button>
                     </div>
                 </div>
             </div>
@@ -40,11 +38,127 @@ class HTML_Helper
                 });
             </script>
         <?php
-            var_dump($_SESSION);
-        }
     }
-    public function generate_header($pageTitle, $check = "", $useDataTable = false, $useCart = false)
-    {
+    public function modals_warnings(){
+        ?>
+            <div class="modal fade" id="myGeneralModal" tabindex="-1" role="dialog" aria-labelledby="generalModal" aria-hidden="true">
+                <div class="modal-dialog modal-msg-warning" role="document">
+                    <div class="modal-content modal-msg-warning"></div>
+                    <div class="modal-header modal-msg-warning">
+                        <h5 class="modal-title" id="generalModal">Messaggio Importante</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body modal-msg-warning">                                            
+                        <?php
+                        echo $_SESSION["msg"];
+                        ?>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn close-btn" data-dismiss="modal">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>   Close</button>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <script>
+                $(document).ready(function() {
+                    $('#myGeneralModal').modal('show');
+                });
+            </script>
+        <?php
+    }
+    public function modals_information(){
+        ?>
+            <div class="modal fade" id="myGeneralModal" tabindex="-1" role="dialog" aria-labelledby="generalModal" aria-hidden="true">
+                <div class="modal-dialog modal-msg-info" role="document">
+                    <div class="modal-content modal-msg-info"></div>
+                    <div class="modal-header modal-msg-info">
+                        <h5 class="modal-title" id="generalModal">Messaggio Importante</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body modal-msg-info">                                            
+                        <?php
+                        echo $_SESSION["msg"];
+                        ?>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn close-btn" data-dismiss="modal">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>   Close</button>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <script>
+                $(document).ready(function() {
+                    $('#myGeneralModal').modal('show');
+                });
+            </script>
+        <?php
+    }
+    public function modals_successfull(){
+        ?>
+            <div class="modal fade" id="myGeneralModal" tabindex="-1" role="dialog" aria-labelledby="generalModal" aria-hidden="true">
+                <div class="modal-dialog modal-msg-successfull" role="document">
+                    <div class="modal-content modal-msg-successfull"></div>
+                    <div class="modal-header modal-msg-successfull">
+                        <h5 class="modal-title" id="generalModal">Messaggio Importante</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body modal-msg-successfull">                                            
+                        <?php
+                        echo $_SESSION["msg"];
+                        ?>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn close-btn" data-dismiss="modal">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>   Close</button>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <script>
+                $(document).ready(function() {
+                    $('#myGeneralModal').modal('show');
+                });
+            </script>
+        <?php
+    }
+    public function check_page($check) {
+        //var_dump($_SESSION);
+        if (isset($_SESSION["upd"]) && $_SESSION["upd"] && $_SESSION["last_page"] == $check) {
+            $_SESSION["upd"] = false;
+            return true;
+        }
+        return false;
+    }
+    public function check_modals($check) {
+        //echo "<br><br><br>";
+        //var_dump($check);
+        //var_dump($_SESSION["last_page"]);
+        require_once("utils/modalMessageHelper.php");
+        if (isset($_SESSION["upd"]) && $_SESSION["upd"] && $_SESSION["last_page"] == $check) {
+            if ($_SESSION["msg_type"] == MsgType::Successfull) $this->modals_successfull();
+            else if ($_SESSION["msg_type"] == MsgType::Error) $this->modals_error();
+            else if ($_SESSION["msg_type"] == MsgType::Warning) $this->modals_warnings();
+            else $this->modals_information();
+            $_SESSION["upd"] = false;
+            return true;
+        }
+        return false;
+    }
+    public function generate_header($pageTitle, $check = "", $useDataTable = false, $useCart = false) {
         session_start();
         ?>
 
@@ -79,6 +193,13 @@ class HTML_Helper
             if ($i == sizeof($phpArray) - 1) echo "\"" . $phpArray[$i][$propName] . "\"";
             else echo "\"" . $phpArray[$i][$propName] . "\",";
         }
+    }
+    public function generate_footer(){
+        ?>
+        <footer>
+            
+        </footer>
+        <?php
     }
 }
 ?>

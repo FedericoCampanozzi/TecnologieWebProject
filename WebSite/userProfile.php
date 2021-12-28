@@ -109,33 +109,30 @@ $hh->generate_header("Profilo Utente", "userProfile.php", true, "noCheck");
                 </div>
                 <div class="dati-user-update">
                     <form action="utils/update.php" method="get">
-                        <input type="hidden" name="obj_to_insert" value="user">
+                        <input type="hidden" name="obj_to_update" value="user">
                         <div class="form-group">
-                            <label for="p_iva">Username : </label>
-                            <input type="text" class="form-control" name="p_iva" id="p_iva" value="<?php echo $_SESSION["usr_un"]; ?>">
+                            <label for="username">Username : </label>
+                            <input type="text" class="form-control" name="username" id="username" value="<?php echo $_SESSION["usr_un"]; ?>">
                         </div>
                         <div class="form-group">
-                            <label for="p_iva">Email : </label>
-                            <input type="text" class="form-control" name="p_iva" id="p_iva" value="<?php echo $_SESSION["usr_email"]; ?>">
+                            <label for="email">Email : </label>
+                            <input type="text" class="form-control" name="email" id="email" value="<?php echo $_SESSION["usr_email"]; ?>">
                         </div>
                         <div class="form-group">
                             <label for="p_iva">Telefono : </label>
-                            <input type="text" class="form-control" name="p_iva" id="p_iva" value="<?php echo $_SESSION["usr_tell"]; ?>">
+                            <input type="text" class="form-control" name="tell" id="tell" value="<?php echo $_SESSION["usr_tell"]; ?>">
                         </div>
                         <button type="submit" class="btn btn-primary">Aggiorna</button>
                     </form>
                     <form action="utils/update.php" method="post">
                         <input type="hidden" name="obj_to_update" value="password">
-                        <div>
-                            <p>Inserire user name oppure e-mail</p>
+                        <div class="form-group">
+                            <label for="old_psw">Vecchia Password:</label>
+                            <input type="password" class="form-control" id="old_psw" name="old_psw" placeholder="Old Password">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Vecchia Password:</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Nuova Password:</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            <label for="new_psw">Nuova Password:</label>
+                            <input type="password" class="form-control" id="new_psw" name="new_psw" placeholder="New Password">
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
@@ -182,8 +179,8 @@ $hh->generate_header("Profilo Utente", "userProfile.php", true, "noCheck");
                                                     ?>
                                                         <td>
                                                             <form action="utils/insert.php" method="post">
-                                                                <input type="text" name="product_id" class="hidden-field" id="product_id" value="<?php echo $usr_cart[$i]["IdProdotto"]; ?>">
-                                                                <input type="text" name="obj_to_insert" class="hidden-field" id="obj_to_insert" value="rc_usr_prof">
+                                                                <input type="text" name="product_id" class="hidden-field" value="<?php echo $usr_cart[$i]["IdProdotto"]; ?>">
+                                                                <input type="text" name="obj_to_insert" class="hidden-field" value="rc_usr_prof">
                                                                 <button type="submit" class="rounded-btn">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 16 16">
                                                                         <path fill="rgb(0, 255, 0)" stoke="black" stroke-width="2" d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z" />
@@ -193,8 +190,8 @@ $hh->generate_header("Profilo Utente", "userProfile.php", true, "noCheck");
                                                         </td>
                                                         <td>
                                                             <form action="utils/delete.php" method="post">
-                                                                <input type="text" name="product_id" class="hidden-field" id="product_id" value="<?php echo $usr_cart[$i]["IdProdotto"]; ?>">
-                                                                <input type="text" name="obj_to_delete" class="hidden-field" id="obj_to_delete" value="riga_carrello">
+                                                                <input type="text" name="product_id" class="hidden-field" value="<?php echo $usr_cart[$i]["IdProdotto"]; ?>">
+                                                                <input type="text" name="obj_to_delete" class="hidden-field" value="riga_carrello">
                                                                 <button type="submit" class="rounded-btn">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 16 16">
                                                                         <path fill="rgb(255, 0, 0)" stoke="black" stroke-width="2" d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM6.5 7h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1 0-1z" />
@@ -225,7 +222,7 @@ $hh->generate_header("Profilo Utente", "userProfile.php", true, "noCheck");
                         Carte
                     </h1>
                     <form action="utils/insert.php" method="post">
-                        <input type="text" name="obj_to_insert" class="hidden-field" id="obj_to_insert" value="carta">
+                        <input type="text" name="obj_to_insert" class="hidden-field" value="carta">
                         <div class="row py-5">
                             <div class="col-lg-10 mx-auto">
                                 <div class="card rounded shadow border-0">
@@ -250,8 +247,8 @@ $hh->generate_header("Profilo Utente", "userProfile.php", true, "noCheck");
                                                             <td>" . $carte[$i]["Numero"] . "</td>
                                                             <td style=\"max-width: 150px;\">" . $carte[$i]["DataScadenza"] . "</td>
                                                             <td>" . $carte[$i]["Tipo"] . "</td>
-                                                            <td> <td>
-                                                            <td> <td>
+                                                            <td> </td>
+                                                            <td> </td>
                                                         </tr>";
                                                     }
                                                     ?>
