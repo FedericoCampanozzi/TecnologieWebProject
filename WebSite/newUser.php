@@ -3,11 +3,12 @@
   <?php
   require_once("utils/htmlHelper.php");
   $hh = new HTML_Helper();
-  $hh->generate_header("Registrazione Utente", "newUser.php");
+  $hh->generate_page_head("Registrazione Utente", "newUser.php");
   ?>
 <body>
   <main>
-    <section>
+    <?php $hh->generate_header("Registrazione"); ?>
+    <section class="container">
       <form action="utils/insert.php" method="post">
         <input type="hidden" name="obj_to_insert" value="user">
         <div class="form-group">
@@ -38,13 +39,13 @@
           <label for="telefono">Telefono : </label>
           <input type="text" class="form-control" name="telefono" id="telefono" placeholder="">
         </div>
-        <button type="submit" class="btn btn-primary">Registrazione</button>
+        <button type="submit" class="btn-rounded-1">Registrazione</button>
       </form>
     </section>
-    Tornare <a href="index.php">qui</a>
-    <footer>
-      <p> Federico Campanozzi </p>
-    </footer>
+    <aside class="gfx-link">
+      Clicca <a href="index.php">qui</a> per tornare alla homepage
+    </aside>
+    <?php $hh->generate_footer(); ?>
   </main>
 </body>
 

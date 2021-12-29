@@ -53,7 +53,9 @@ switch ($obj) {
                 $_SESSION["usr_cognome"] = $login[0]["Cognome"];
                 $_SESSION["usr_dn"] = $login[0]["DataDiNascita"];
                 $_SESSION["usr_email"] = $login[0]["EMail"];
+                $_SESSION["usr_email"] = $login[0]["EMail"];
                 $_SESSION["usr_tell"] = $login[0]["Telefono"];
+                $_SESSION["img_name"] = $login[0]["ImagePath"];
 
                 if(!is_null($login[0]["PIVA_Fornitore"])){
                     $_SESSION["PIVA_Azienda"] = $login[0]["PIVA_Fornitore"];

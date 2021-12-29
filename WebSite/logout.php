@@ -4,22 +4,17 @@
 <?php
 require_once("utils/htmlHelper.php");
 $hh = new HTML_Helper();
-$hh->generate_header("Logout");
+$hh->generate_page_head("Logout");
 session_destroy();
 ?>
 
 <body>
   <main>
-    <header>
-      <h1> Grazie e Arriverdi </h1>
-    </header>
-    <section>
-      <p><a href="index.php">Login</a></p>
+    <?php $hh->generate_header("Grazie e Arriverdi"); ?>  
+    <section class="gfx-link">
+      Se vuoi ritornare alla pagina di login, clicca <a href="index.php">qui</a>
     </section>
-
-    <footer>
-      <p> Federico Campanozzi </p>
-    </footer>
+    <?php $hh->generate_footer(); ?>
   </main>
 </body>
 
