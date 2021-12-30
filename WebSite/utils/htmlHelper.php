@@ -200,6 +200,18 @@ class HTML_Helper
             else echo "\"" . $phpArray[$i][$propName] . "\",";
         }
     }
+    public function generate_js_array_2($phpArray, $propArrName)
+    {
+        for ($i = 0; $i < sizeof($phpArray); $i++) {
+            $res = "";
+            for ($j = 0; $j < sizeof($propArrName); $j++) {
+                if ($j == sizeof($propArrName) - 1) $res .= $phpArray[$i][$propArrName[$j]];
+                else  $res .= $phpArray[$i][$propArrName[$j]] . " - ";
+            }
+            if ($i == sizeof($phpArray) - 1) echo "\"" . $res . "\"";
+            else echo "\"" . $res . "\",";
+        }
+    }
     public function generate_header($title)
     {
         echo "
@@ -210,6 +222,14 @@ class HTML_Helper
     public function generate_footer()
     {
         ?>
+        <footer>
+            <strong>Federico Campanozzi</strong><span>Matr.: 0000895693</span> <span>Alma Mater Studiorum Bologna - Sede di Cesena</span>
+        </footer>
+    <?php
+    }
+    public function generate_non_fixed_footer()
+    {
+    ?>
         <footer>
             <strong>Federico Campanozzi</strong><span>Matr.: 0000895693</span> <span>Alma Mater Studiorum Bologna - Sede di Cesena</span>
         </footer>
@@ -253,9 +273,9 @@ class HTML_Helper
                     <input class="form-control mr-sm-2" type="search" placeholder="Search">
                     <button class="btn-rounded-2" type="submit"><i class="fa fa-fw fa-search"></i> Search</button>
                 </form>
-            <?php
+    <?php
             }
             echo "</div>";
         }
     }
-?>
+    ?>

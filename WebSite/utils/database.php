@@ -67,7 +67,7 @@ class DatabaseHelper
   }
   public function get_role()
   {
-    $stmt = $this->db->prepare("SELECT * FROM ruolo");
+    $stmt = $this->db->prepare("SELECT * FROM ruolo WHERE ID <> 3");
     $stmt->execute();
     $result = $stmt->get_result();
     return $result->fetch_all(MYSQLI_ASSOC);
@@ -87,9 +87,24 @@ class DatabaseHelper
     $result = $stmt->get_result();
     return $result->fetch_all(MYSQLI_ASSOC);
   }
+  public function get_categoria()
+  {
+    $stmt = $this->db->prepare("SELECT * FROM categoria");
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+  }
+  public function get_forniture($pivaFornitore)
+  {
+    $stmt = $this->db->prepare("SELECT *, Qta * Prezzo AS CostoTotale  FROM fornitura INNER JOIN prodotto ON fornitura.IdProdotto = prodotto.ID WHERE PIVA_Fornitore = ?");
+    $stmt->bind_param("s", $pivaFornitore);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+  }
   public function get_tot_products($pivaFornitore)
   {
-    $stmt = $this->db->prepare("SELECT * FROM totali_prodotto WHERE PIVA_Fornitore = ?");
+    $stmt = $this->db->prepare("SELECT * FROM totali_vendite_prodotto WHERE PIVA_Fornitore = ?");
     $stmt->bind_param("s", $pivaFornitore);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -97,7 +112,7 @@ class DatabaseHelper
   }
   public function get_tot_forniture($pivaFornitore)
   {
-    $stmt = $this->db->prepare("SELECT * FROM totali_fornitura WHERE PIVA = ?");
+    $stmt = $this->db->prepare("SELECT * FROM totali_fornitura WHERE PIVA_Fornitore = ?");
     $stmt->bind_param("s", $pivaFornitore);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -152,18 +167,18 @@ class DatabaseHelper
     $stmt->bind_param("ssssssi", $username, $pswInChiaro, $nome, $cognome, $dataNascita, $email, $tell);
     return $stmt->execute();
   }
-  public function insert_prodotto($nome, $descrizione, $prezo, $piva, $imgPath, $categoria)
+  public function insert_prodotto($nome, $descrizione, $prezzo, $piva, $imgPath, $categoria)
   {
-    $query = "INSERT INTO `prodotto`(`Nome`, `Descrizione`, `Prezzo`, `PIVA`, `ImagePath`, `IdCategoria`) VALUES (CURRENT_TIMESTAMP(),?,?,?)";
+    $query = "INSERT INTO `prodotto`(`Nome`, `Descrizione`, `Prezzo`, `PIVA_Fornitore`, `ImagePath`, `IdCategoria`) VALUES (?,?,?,?,?,?)";
     $stmt = $this->db->prepare($query);
-    $stmt->bind_param("iis", $idprodotto, $p_iva);
+    $stmt->bind_param("ssdsi", $nome, $descrizione, $prezzo, $piva, $imgPath, $categoria);
     return $stmt->execute();
   }
-  public function insert_fornitura($qta, $idprodotto, $p_iva)
+  public function insert_fornitura($qta, $idProdotto)
   {
-    $query = "INSERT INTO `fornitura`(`DataConsegnaMerce`, `Qta`, `IdProdotto`, `PIVA`) VALUES (CURRENT_TIMESTAMP(),?,?,?)";
+    $query = "INSERT INTO `fornitura`(`DataConsegnaMerce`, `Qta`, `IdProdotto`) VALUES (CURRENT_TIMESTAMP(),?,?)";
     $stmt = $this->db->prepare($query);
-    $stmt->bind_param("iis", $qta, $idprodotto, $p_iva);
+    $stmt->bind_param("ii", $qta, $idProdotto);
     return $stmt->execute();
   }
   public function insert_fornitore($p_iva, $rs, $via, $nc, $citta)
@@ -182,7 +197,7 @@ class DatabaseHelper
   }
   public function insert_rc($idprodotto, $idUtente)
   {
-    $query = "INSERT INTO `riga_carrello`(`DataCreate`,`IdUtente`, `IdProdotto`, `IdOrdine`, `DataEvasione`) VALUES (CURRENT_TIMESTAMP(),?,?,NULL,NULL)";
+    $query = "INSERT INTO `riga_carrello`(`DataCreate`,`IdUtente`, `IdProdotto`, `IdOrdine`) VALUES (CURRENT_TIMESTAMP(), ?, ?, NULL)";
     $stmt = $this->db->prepare($query);
     $stmt->bind_param("ii", $idUtente, $idprodotto);
     return $stmt->execute();
@@ -239,7 +254,7 @@ class DatabaseHelper
   }
   public function update_riga_carrello($idUtente, $idprodotto, $idOrdine)
   {
-    $query = "UPDATE `riga_carrello` SET DataEvasione = CURRENT_TIMESTAMP(), IdOrdine = ? WHERE IdUtente = ? AND IdProdotto = ?";
+    $query = "UPDATE `riga_carrello` SET IdOrdine = ? WHERE IdUtente = ? AND IdProdotto = ? AND IdOrdine IS NULL";
     $stmt = $this->db->prepare($query);
     $stmt->bind_param("iii", $idOrdine, $idUtente, $idprodotto);
     return $stmt->execute();

@@ -96,6 +96,12 @@ switch ($obj) {
             $msg->show_in_next_page("utente non trovato", "recuperaAccount.php", "acc_non_recuperato", MsgType::Error, $dbg);
         }
         break;
+    case("ordine"):
+        if ($dbh->update_ordine($_SESSION["IdUtente"], $_REQUEST["id_ordine"]))
+            $msg->show_in_next_page("Consegna registrata correttamente", "homepageDeliveryMan.php", "homepageDeliveryMan.php", MsgType::Successfull, $dbg);
+        else
+            $msg->show_in_next_page("Consegna errata", "homepageDeliveryMan.php", "homepageDeliveryMan.php", MsgType::Error, $dbg);
+        break;
     default:
         die("codice inserimento non trovato");
         break;

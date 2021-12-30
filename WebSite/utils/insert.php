@@ -26,10 +26,10 @@ switch ($obj) {
             $msg->show_in_next_page("dasda", "homepageSupplier.php?showTab=forniture", "forniture", MsgType::Error, $dbg);
         break;
     case ("prodotto"):
-        if ($dbh->insert_prodotto($_REQUEST["nome"], $_REQUEST["desc"], $_REQUEST["prezzo"], $_SESSION["PIVA_Azienda"], "", $_REQUEST["categoria"]))
-            $msg->show_in_next_page("fornitura inserita correttamente", "homepageSupplier.php?showTab=forniture-tab", "fornitura-tab", MsgType::Successfull, $dbg);
+        if ($dbh->insert_prodotto($_REQUEST["nome"], $_REQUEST["desc"], $_REQUEST["prezzo"], $_SESSION["PIVA_Azienda"], 'cactus.jpg', $_REQUEST["categoria"]))
+            $msg->show_in_next_page("prodotto inserito correttamente", "homepageSupplier.php?showTab=product", "product", MsgType::Successfull, $dbg);
         else
-            $msg->show_in_next_page("dasda", "homepageSupplier.php?showTab=forniture-tab", "fornitura-tab", MsgType::Error, $dbg);
+            $msg->show_in_next_page("dasda", "homepageSupplier.php?showTab=product", "product", MsgType::Error, $dbg);
         break;
     case ("user"):
         if ($dbh->insert_user($_REQUEST["username"], $_REQUEST["psw"], $_REQUEST["nome"], $_REQUEST["cognome"], $_REQUEST["dataNascita"], $_REQUEST["email"], $_REQUEST["telefono"]))
@@ -50,7 +50,7 @@ switch ($obj) {
             $msg->show_in_next_page("c'&egrave; stato un problema inaspettato, <br> <strong>recapito non inserito</strong>", "userProfile.php?showTab=address", "address", MsgType::Error, $dbg);
         break;
     case ("ordine"):
-        if ($dbh->insert_ordine($_REQUEST["useContanti"], $_REQUEST["note"], $_REQUEST["useContanti"], $_SESSION["IdUtente"], $_REQUEST["select_add"], $_REQUEST["select_carta"])){
+        if ($dbh->insert_ordine($_REQUEST["useContanti"], $_REQUEST["note"], $_SESSION["IdUtente"], $_REQUEST["select_add"], $_REQUEST["select_carta"])){
             $id_ordine = $dbh->last_ordine($_SESSION["IdUtente"]);
             $usr_cart = $dbh->get_carrello($_SESSION["IdUtente"]);
             for($i = 0; $i < sizeof($usr_cart); $i++){
