@@ -14,8 +14,7 @@ $hh->generate_page_head("Homepage", "homepageUser.php", false, false);
       $hh->generate_header("User Homepage"); 
       $hh->generate_user_nav(true);
     ?>
-    <section>
-      <div style="height: 750px; overflow-y:scroll;">
+      <div class="scrollable-content">
         <?php
         $products = $dbh->get_products();
         for ($i = 0; $i < sizeof($products); $i++) {
@@ -32,9 +31,8 @@ $hh->generate_page_head("Homepage", "homepageUser.php", false, false);
         }
         ?>
       </div>
-    </section>
     <?php
-    $hh->generate_footer();
+    $hh->generate_footer(true);
     ?>
   </main>
 </body>

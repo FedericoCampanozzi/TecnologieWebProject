@@ -106,28 +106,32 @@ $hh->check_modals("product");
                 </div>
             </div>
             <div class="tab-pane" id="forniture" role="tabpanel" aria-labelledby="ven-tab">
-            <form action="utils/insert.php" method="get">
-                <input type="hidden" name="obj_to_insert" value="fornitura">
-                <div class="card rounded shadow border-0">
-                    <div class="card-body p-5 bg-white rounded">
-                        <div class="table-responsive">
-                            <div class="container">
-                                <canvas id="graficoForniture"></canvas>
-                                <table id="tbl_forniture" style="width:150%" class="table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Nome Prodotto</th>
-                                            <th>Qta</th>
-                                            <th>Data Consegna Merce</th>
-                                            <th>Costo Totale</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $forniture = $dbh->get_forniture($_SESSION["PIVA_Azienda"]);
-                                        for ($i = 0; $i < sizeof($forniture); $i++) {
-                                            echo "
+                <div class="container">
+                    <canvas id="graficoForniture">
+
+                    </canvas>
+                </div>
+                <form action="utils/insert.php" method="get">
+                    <input type="hidden" name="obj_to_insert" value="fornitura">
+                    <div class="card rounded shadow border-0">
+                        <div class="card-body p-5 bg-white rounded">
+                            <div class="table-responsive">
+                                <div class="container">
+                                    <table id="tbl_forniture" style="width:150%" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Nome Prodotto</th>
+                                                <th>Qta</th>
+                                                <th>Data Consegna Merce</th>
+                                                <th>Costo Totale</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $forniture = $dbh->get_forniture($_SESSION["PIVA_Azienda"]);
+                                            for ($i = 0; $i < sizeof($forniture); $i++) {
+                                                echo "
                                                 <tr>
                                                     <td>" . $forniture[$i]["Nome"] . "</td>                                                    
                                                     <td>" . $forniture[$i]["Qta"] . "</td>
@@ -135,34 +139,34 @@ $hh->check_modals("product");
                                                     <td>" . $forniture[$i]["CostoTotale"] . "</td>
                                                     <td> </td>
                                                 </tr>";
-                                        }
-                                        ?>
-                                        <tr>
-                                            <td>
-                                            <select class="form-control" id="az_prodotto" name="az_prodotto">";
-                                                <?php
-                                                $prod = $dbh->get_products_forn($_SESSION["PIVA_Azienda"]);
-                                                for ($i = 0; $i < sizeof($prod); $i++)
-                                                    echo "<option value=" . $prod[$i]["ID"] . ">" . $prod[$i]["Nome"] . "</option>";
-                                                ?>
-                                            </select>
-                                            </td>
-                                            <td>
-                                                <input type="range" class="form-range" id="qta" name="qta">
-                                                <label id="qta_out"></label>
-                                            </td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <button type="submit" class="btn-rounded-2">Inserisci</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                            }
+                                            ?>
+                                            <tr>
+                                                <td>
+                                                    <select class="form-control" id="az_prodotto" name="az_prodotto">";
+                                                        <?php
+                                                        $prod = $dbh->get_products_forn($_SESSION["PIVA_Azienda"]);
+                                                        for ($i = 0; $i < sizeof($prod); $i++)
+                                                            echo "<option value=" . $prod[$i]["ID"] . ">" . $prod[$i]["Nome"] . "</option>";
+                                                        ?>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="range" class="form-range" id="qta" name="qta">
+                                                    <label id="qta_out"></label>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+                                                    <button type="submit" class="btn-rounded-2">Inserisci</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 </form>
             </div>
             <div class="tab-pane" id="product" role="tabpanel" aria-labelledby="product">
@@ -175,9 +179,9 @@ $hh->check_modals("product");
                                     <thead>
                                         <tr>
                                             <th>Nome</th>
-                                            <th>Immagine</th>
+                                            <th></th>
                                             <th>Descrizione</th>
-                                            <th>Prezzo</th>
+                                            <th style="min-width: 60px;">Prezzo</th>
                                             <th>Categoria</th>
                                             <th></th>
                                         </tr>
@@ -199,6 +203,9 @@ $hh->check_modals("product");
                                         <tr>
                                             <td>
                                                 <input type="text" class="form-control" name="nome" id="nome" placeholder="Nome">
+                                            </td>
+                                            <td>
+
                                             </td>
                                             <td>
                                                 <input type="text" class="form-control" name="desc" id="desc" placeholder="Descrizione">
@@ -228,19 +235,11 @@ $hh->check_modals("product");
                 </div>
             </div>
             <div class="tab-pane" id="ven" role="tabpanel" aria-labelledby="ven-tab">
-                    <div class="row py-5">
-                        <div class="col-lg-10 mx-auto">
-                            <div class="card rounded shadow border-0">
-                                <div class="card-body p-5 bg-white rounded">
-                                    <div class="table-responsive">
-                                        <div class="container">
-                                            <canvas id="graficoVenditeProdUser"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div style="height: auto;width:70%;margin:5% 15%">
+                    <canvas id="graficoVenditeProdUser">
+
+                    </canvas>
+                </div>
             </div>
         </div>
 
@@ -255,10 +254,10 @@ $hh->check_modals("product");
             function colorLerp(a, b, t) {
                 c = new Color(255, 255, 255, 255);
                 c.r = a.r + (b.r - a.r) * t,
-                c.g = a.g + (b.g - a.g) * t,
-                c.b = a.b + (b.b - a.b) * t,
-                c.a = a.a + (b.a - a.a) * t
-                return "rgb(" + c.r + "," + c.g + "," + c.b + "," + c.a + ")";
+                    c.g = a.g + (b.g - a.g) * t,
+                    c.b = a.b + (b.b - a.b) * t,
+                    c.a = a.a + (b.a - a.a) * t
+                return "rgba(" + c.r + "," + c.g + "," + c.b + "," + c.a + ")";
             }
 
             $(document).ready(function() {
@@ -268,7 +267,7 @@ $hh->check_modals("product");
                 let fornData = [<?php $hh->generate_js_array($dbh->get_tot_forniture($_SESSION["PIVA_Azienda"]), "Totale") ?>];
                 let venLabel = [<?php $hh->generate_js_array($dbh->get_tot_products($_SESSION["PIVA_Azienda"]), "Nome") ?>];
                 let venData = [<?php $hh->generate_js_array($dbh->get_tot_products($_SESSION["PIVA_Azienda"]), "QtaVenduta") ?>];
-                
+
                 let fornColor = [];
                 let venColor = [];
 
@@ -279,8 +278,8 @@ $hh->check_modals("product");
                     fornColor.push(colorLerp(a, b, t));
                 }
 
-                a = new Color(0, 128, 43, 240);
-                b = new Color(0, 0, 0, 155);
+                a = new Color(0, 128, 43, 150);
+                b = new Color(0, 0, 0, 50);
 
                 for (let t = 0.0; t <= 1.0; t += 1.0 / venLabel.length) {
                     venColor.push(colorLerp(a, b, t));
@@ -295,6 +294,19 @@ $hh->check_modals("product");
                             data: fornData,
                             backgroundColor: fornColor
                         }]
+                    },
+                    options: {
+
+                        scales: {
+                            x: {
+                                min: 0,
+                                max: 500
+                            },
+                            y: {
+                                min: 0,
+                                max: 500
+                            }
+                        }
                     }
                 });
                 chart = new Chart(gVen, {
@@ -302,7 +314,7 @@ $hh->check_modals("product");
                     data: {
                         labels: venLabel,
                         datasets: [{
-                            label: "Vendite",
+                            label: "",
                             data: venData,
                             backgroundColor: venColor
                         }]
@@ -317,10 +329,10 @@ $hh->check_modals("product");
                 $('a[href="#<?php echo $tab; ?>"]').addClass("active");
                 $('#<?php echo $tab; ?>').addClass("active");
 
-                $('#tbl_prodotti').DataTable();
-                $('#tbl_forniture').DataTable();
+                $("#tbl_prodotti").DataTable();
+                $("#tbl_forniture").DataTable();
             });
-        </script>        
+        </script>
         <?php $hh->generate_footer(); ?>
     </main>
 </body>

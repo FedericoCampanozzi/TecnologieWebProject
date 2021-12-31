@@ -3,7 +3,7 @@
   <?php
   require_once("utils/htmlHelper.php");
   $hh = new HTML_Helper();
-  $hh->generate_page_head("Registrazione Utente", "newUser.php");
+  $hh->generate_page_head("Registrazione Utente", "newUser");
   ?>
 <body>
   <main>

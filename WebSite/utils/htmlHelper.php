@@ -4,7 +4,7 @@ class HTML_Helper
     public function __construct()
     {
     }
-    public function modals_error()
+    private function modals_error()
     {
 ?>
         <div class="modal fade" id="myGeneralModal" tabindex="-1" role="dialog" aria-labelledby="generalModal" aria-hidden="true">
@@ -43,7 +43,7 @@ class HTML_Helper
         </script>
     <?php
     }
-    public function modals_warnings()
+    private function modals_warnings()
     {
     ?>
         <div class="modal fade" id="myGeneralModal" tabindex="-1" role="dialog" aria-labelledby="generalModal" aria-hidden="true">
@@ -76,7 +76,7 @@ class HTML_Helper
         </script>
     <?php
     }
-    public function modals_information()
+    private function modals_information()
     {
     ?>
         <div class="modal fade" id="myGeneralModal" tabindex="-1" role="dialog" aria-labelledby="generalModal" aria-hidden="true">
@@ -109,7 +109,7 @@ class HTML_Helper
         </script>
     <?php
     }
-    public function modals_successfull()
+    private function modals_successfull()
     {
     ?>
         <div class="modal fade" id="myGeneralModal" tabindex="-1" role="dialog" aria-labelledby="generalModal" aria-hidden="true">
@@ -172,8 +172,7 @@ class HTML_Helper
             <meta charset="utf-8">
             <title> <?php echo $pageTitle; ?> </title>
             <link rel="stylesheet" href="css/reset.css" type="text/css">
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+            <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
             <script src='https://kit.fontawesome.com/a076d05399.js'></script>
@@ -219,25 +218,17 @@ class HTML_Helper
             <h1>" . $title . "</h1>
         </header>";
     }
-    public function generate_footer()
+    public function generate_footer($scrollable = false)
     {
-        ?>
-        <footer>
-            <strong>Federico Campanozzi</strong><span>Matr.: 0000895693</span> <span>Alma Mater Studiorum Bologna - Sede di Cesena</span>
-        </footer>
-    <?php
-    }
-    public function generate_non_fixed_footer()
-    {
-    ?>
-        <footer>
-            <strong>Federico Campanozzi</strong><span>Matr.: 0000895693</span> <span>Alma Mater Studiorum Bologna - Sede di Cesena</span>
-        </footer>
-    <?php
+        if ($scrollable) {
+            echo  "<div id=\"fix-on-bot\" style=\"position:absolute;bottom:0;\"></div>";
+            echo "<script src='js/perfectScrollableElement.js'></script>";
+        }
+        echo " <footer><strong>Federico Campanozzi</strong><span>Matr.: 0000895693</span> <span>Alma Mater Studiorum Bologna - Sede di Cesena</span></footer>";
     }
     public function generate_user_nav($needSearBox = false)
     {
-    ?>
+        ?>
         <div class="navbar">
             <a href="homepageUser.php">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-house-fill" viewBox="0 0 16 16">
@@ -250,11 +241,6 @@ class HTML_Helper
                     <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
                     <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
                 </svg> Profilo Utente
-            </a>
-            <a href="contactSupport.php">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-telephone-inbound-fill" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511zM15.854.146a.5.5 0 0 1 0 .708L11.707 5H14.5a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 1 0v2.793L15.146.146a.5.5 0 0 1 .708 0z" />
-                </svg> Servizio Clienti
             </a>
             <a href="logout.php">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" viewBox="0 0 512 512">
@@ -273,7 +259,7 @@ class HTML_Helper
                     <input class="form-control mr-sm-2" type="search" placeholder="Search">
                     <button class="btn-rounded-2" type="submit"><i class="fa fa-fw fa-search"></i> Search</button>
                 </form>
-    <?php
+            <?php
             }
             echo "</div>";
         }

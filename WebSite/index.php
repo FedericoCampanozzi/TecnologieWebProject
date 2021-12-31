@@ -9,7 +9,7 @@ $hh->generate_page_head("Login", "index.php");
 <body>
   <main>
     <?php $hh->generate_header("Welcome"); ?>
-    <section class="container">
+    <section class="container" style="margin: 100px 100px;">
       <form action="utils/update.php" method="post">
         <input type="hidden" value="login" id="obj_to_update" name="obj_to_update">
         <div class="form-group">
@@ -30,6 +30,9 @@ $hh->generate_page_head("Login", "index.php");
     </div>
     <div class="gfx-link">
       Clicca <a href="newUser.php">qui</a> per creare un account
+    </div>
+    <div class="gfx-link">
+      Per contattare l'assistenza scrivere una mail al seguente indirizzo : <br> federico.campanozzi@studio.unibo.it
     </div>
     <?php $hh->generate_footer(); ?>
   </main>

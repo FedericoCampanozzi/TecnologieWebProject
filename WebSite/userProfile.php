@@ -71,7 +71,7 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
             </li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane container" id="usr_profile" role="tabpanel" aria-labelledby="usr_profile-tab" style="margin-top: 20px;">
+            <div class="tab-pane container scrollable-content" id="usr_profile" role="tabpanel" aria-labelledby="usr_profile-tab" style="margin-top: 20px;">
                 <div class="row">
                     <div class="col-4">
                         <form action="utils/update.php" method="post">
@@ -121,7 +121,7 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                     </div>
                 </div>
             </div>
-            <div class="tab-pane" id="cart" role="tabpanel" aria-labelledby="cart-tab">
+            <div class="tab-pane scrollable-content" id="cart" role="tabpanel" aria-labelledby="cart-tab">
                 <div class="card rounded shadow border-0">
                     <div class="card-body p-5 bg-white rounded">
                         <div class="table-responsive">
@@ -154,32 +154,33 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                                                     <td>" . $usr_cart[$i]["PrezzoUnitario"] . "  &euro; </td>
                                                     <td>" . $usr_cart[$i]["PrezzoTotale"] . "  &euro; </td>";
                                     ?>
-                                        <td>
-                                            <form action="utils/insert.php" method="post">
-                                                <input type="hidden" name="product_id" value="<?php echo $usr_cart[$i]["IdProdotto"]; ?>">
-                                                <input type="hidden" name="obj_to_insert" value="rc_usr_prof">
-                                                <button type="submit" class="rounded-btn">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 16 16">
-                                                        <path fill="rgb(0, 255, 0)" stoke="black" stroke-width="2" d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z" />
-                                                    </svg>
-                                                </button>
-                                            </form>
-                                        </td>
-                                        <td>
-                                            <form action="utils/delete.php" method="post">
-                                                <input type="hidden" name="product_id" value="<?php echo $usr_cart[$i]["IdProdotto"]; ?>">
-                                                <input type="hidden" name="obj_to_delete" value="riga_carrello">
-                                                <button type="submit" class="rounded-btn">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 16 16">
-                                                        <path fill="rgb(255, 0, 0)" stoke="black" stroke-width="2" d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM6.5 7h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1 0-1z" />
-                                                    </svg>
-                                                </button>
-                                            </form>
-                                        </td>
+                                            <td>
+                                                <form action="utils/insert.php" method="post">
+                                                    <input type="hidden" name="product_id" value="<?php echo $usr_cart[$i]["IdProdotto"]; ?>">
+                                                    <input type="hidden" name="obj_to_insert" value="rc_usr_prof">
+                                                    <button type="submit" class="rounded-btn">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 16 16">
+                                                            <path fill="rgb(0, 255, 0)" stoke="black" stroke-width="2" d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z" />
+                                                        </svg>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <form action="utils/delete.php" method="post">
+                                                    <input type="hidden" name="product_id" value="<?php echo $usr_cart[$i]["IdProdotto"]; ?>">
+                                                    <input type="hidden" name="obj_to_delete" value="riga_carrello">
+                                                    <button type="submit" class="rounded-btn">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 16 16">
+                                                            <path fill="rgb(255, 0, 0)" stoke="black" stroke-width="2" d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM6.5 7h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1 0-1z" />
+                                                        </svg>
+                                                    </button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     <?php
                                         $tot += $usr_cart[$i]["PrezzoTotale"];
                                     }
+                                    /*
                                     echo "
                                         <tr>
                                             <td colspan=\"6\" style=\"text-aling:center;\"> Totale : </td>
@@ -190,6 +191,7 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                                                 </form>
                                             </td>
                                           </tr>";
+                                          */
                                     ?>
                                 </tbody>
                             </table>
@@ -197,7 +199,7 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                     </div>
                 </div>
             </div>
-            <div class="tab-pane" id="card" role="tabpanel" aria-labelledby="card-tab">
+            <div class="tab-pane scrollable-content" id="card" role="tabpanel" aria-labelledby="card-tab">
                 <form action="utils/insert.php" method="post">
                     <input type="hidden" name="obj_to_insert" value="carta">
                     <div class="card rounded shadow border-0">
@@ -255,7 +257,7 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                     </div>
                 </form>
             </div>
-            <div class="tab-pane" id="address" role="tabpanel" aria-labelledby="address-tab">
+            <div class="tab-pane scrollable-content" id="address" role="tabpanel" aria-labelledby="address-tab">
                 <form action="utils/insert.php" method="get">
                     <input type="hidden" name="obj_to_insert" value="recapito">
                     <div class="card rounded shadow border-0">
@@ -313,8 +315,7 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                     </div>
                 </form>
             </div>
-            <div class="tab-pane" id="ordini" role="tabpanel" aria-labelledby="ordini-tab">
-                <div style="height: 700px; overflow-y:scroll;">
+            <div class="tab-pane scrollable-content" id="ordini" role="tabpanel" aria-labelledby="ordini-tab">
                     <?php
                     $userOrdini = $dbh->get_user_ordini($_SESSION["IdUtente"]);
                     for ($i = 0; $i < sizeof($userOrdini); $i++) {
@@ -348,10 +349,8 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                         echo "</div>";
                     }
                     ?>
-                </div>
-            </div>
         </div>
-        <?php $hh->generate_footer(); ?>
+        <?php $hh->generate_footer(true); ?>
     </main>
 </body>
 

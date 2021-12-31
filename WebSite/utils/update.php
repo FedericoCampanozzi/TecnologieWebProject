@@ -102,6 +102,18 @@ switch ($obj) {
         else
             $msg->show_in_next_page("Consegna errata", "homepageDeliveryMan.php", "homepageDeliveryMan.php", MsgType::Error, $dbg);
         break;
+    case("usr_admin"):
+        if ($dbh->update_user_ruolo($_REQUEST["IdUtenteCambio"], 3, NULL))
+            $msg->show_in_next_page("Consegna registrata correttamente", "homepageDeliveryMan.php", "homepageDeliveryMan.php", MsgType::Successfull, $dbg);
+        else
+            $msg->show_in_next_page("Consegna errata", "homepageDeliveryMan.php", "homepageDeliveryMan.php", MsgType::Error, $dbg);
+        break;
+    case("usr_ruolo"):
+        if($dbh->update_user_ruolo($_REQUEST["IdUtenteCambio"], $_REQUEST["IdNuovoRuolo"], $_REQUEST["P_IVA"]))
+            $msg->show_in_next_page("Consegna registrata correttamente", "homepageDeliveryMan.php", "homepageDeliveryMan.php", MsgType::Successfull, $dbg);
+        else
+            $msg->show_in_next_page("Consegna registrata correttamente", "homepageDeliveryMan.php", "homepageDeliveryMan.php", MsgType::Successfull, $dbg);
+        break;
     default:
         die("codice inserimento non trovato");
         break;

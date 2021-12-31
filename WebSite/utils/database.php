@@ -72,6 +72,13 @@ class DatabaseHelper
     $result = $stmt->get_result();
     return $result->fetch_all(MYSQLI_ASSOC);
   }
+  public function get_fornitori()
+  {
+    $stmt = $this->db->prepare("SELECT * FROM fornitore");
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+  }
   public function get_products()
   {
     $stmt = $this->db->prepare("SELECT * FROM info_prodotto");
@@ -190,9 +197,16 @@ class DatabaseHelper
   }
   public function insert_carta($numero, $dataScadenza, $ccv, $tipo, $idUtente)
   {
-    $query = "INSERT INTO `carta`(`Numero`,`DataScadenza`, `CCV`, `Tipo`, `IdUtente`) VALUES (?,?,?,?,?)";
+    $query = "INSERT INTO `carta`(`Numero`,`DataScadenza`, `CCV`, `Tipo`, `IdUtente`, Disponibilita) VALUES (?,?,?,?,?,0)";
     $stmt = $this->db->prepare($query);
     $stmt->bind_param("isisi", $numero, $dataScadenza, $ccv, $tipo, $idUtente);
+    return $stmt->execute();
+  }
+  public function insert_categoria($nome, $descrizione)
+  {
+    $query = "INSERT INTO `categoria`(`Nome`, `Descrizione`) VALUES (?,?)";
+    $stmt = $this->db->prepare($query);
+    $stmt->bind_param("ss", $nome, $descrizione);
     return $stmt->execute();
   }
   public function insert_rc($idprodotto, $idUtente)
@@ -278,6 +292,19 @@ class DatabaseHelper
     $query = "UPDATE `utente` SET PswInChiaro = ? WHERE Username = ?";
     $stmt = $this->db->prepare($query);
     $stmt->bind_param("ss", $newPsw, $username);
+    return $stmt->execute();
+  }
+  public function update_user_ruolo($idUtente, $idRuolo, $p_iva)
+  {
+    if($idRuolo == 5 || $idRuolo == 6){
+      $query = "UPDATE `utente` SET IdRuolo = ? , PIVA_Fornitore = ? WHERE ID = ?";
+      $stmt = $this->db->prepare($query);
+      $stmt->bind_param("isi", $idUtente, $p_iva, $idRuolo);
+    } else{
+      $query = "UPDATE `utente` SET IdRuolo = ? WHERE ID = ?";
+      $stmt = $this->db->prepare($query);
+      $stmt->bind_param("ii", $idUtente, $idRuolo);    
+    }
     return $stmt->execute();
   }
   /*-----------------------------------------------------------------------------------------------------------*/

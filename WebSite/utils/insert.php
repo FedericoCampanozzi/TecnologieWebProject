@@ -13,6 +13,12 @@ $obj = $_REQUEST["obj_to_insert"];
 $msg = new MesssageModalHelper();
 
 switch ($obj) {
+    case ("categoria"):
+        if ($dbh->insert_categoria($_REQUEST["nome"], $_REQUEST["desc"]))
+            $msg->show_in_next_page("categoria inserito correttamente", "homepageAdmin.php", "homepageAdmin.php", MsgType::Successfull, $dbg);
+        else
+            $msg->show_in_next_page("c'&egrave; stato un problema inaspettato, <br> <strong> categoria non inserito</strong>", "homepageAdmin.php", "homepageAdmin.php", MsgType::Error, $dbg);
+        break;
     case ("fornitore"):
         if ($dbh->insert_fornitore($_REQUEST["p_iva"], $_REQUEST["ragione_sociale"], $_REQUEST["via"], $_REQUEST["numero_civico"], $_REQUEST["citta"]))
             $msg->show_in_next_page("fornitore inserito correttamente", "homepageAdmin.php", "homepageAdmin.php", MsgType::Successfull, $dbg);
@@ -33,9 +39,9 @@ switch ($obj) {
         break;
     case ("user"):
         if ($dbh->insert_user($_REQUEST["username"], $_REQUEST["psw"], $_REQUEST["nome"], $_REQUEST["cognome"], $_REQUEST["dataNascita"], $_REQUEST["email"], $_REQUEST["telefono"]))
-            $msg->show_in_next_page("utente inserito", "newUser.php", "newUser", MsgType::Successfull, $dbg);
+            $msg->show_in_next_page("<strong>Complimenti !!!</strong> ti sei registrato al nostro webstore", "newUser.php", "newUser", MsgType::Successfull, $dbg);
         else
-            $msg->show_in_next_page("errore", "newUser.php", "newUser", MsgType::Error, $dbg);
+            $msg->show_in_next_page("C'&egrave; stato un problema inaspettato<br>Riprova pi&ugrave; tardi oppure contatta il servizio clienti", "newUser.php", "newUser", MsgType::Error, $dbg);
         break;
     case ("carta"):
         if ($dbh->insert_carta($_REQUEST["numero"], $_REQUEST["datascadenza"], $_REQUEST["ccv"], $_REQUEST["tipo_carta"], $_SESSION["IdUtente"]))
