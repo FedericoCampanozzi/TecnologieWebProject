@@ -13,16 +13,7 @@ $obj = $_REQUEST["obj_to_update"];
 $msg = new MesssageModalHelper();
 switch ($obj) {
     case ("fornitore"):
-        if ($dbh->update_fornitore(
-            $_SESSION["PIVA_Azienda"],
-            $_REQUEST["via"],
-            $_REQUEST["numero_civico"],
-            $_REQUEST["citta"],
-            $_REQUEST["pecMail"],
-            $_REQUEST["infoMail"],
-            $_REQUEST["tell"],
-            $_REQUEST["fax"]
-        ))
+        if ($dbh->update_fornitore($_SESSION["PIVA_Azienda"],$_REQUEST["via"],$_REQUEST["numero_civico"],$_REQUEST["citta"],$_REQUEST["pecMail"],$_REQUEST["infoMail"],$_REQUEST["tell"],$_REQUEST["fax"]))
             $msg->show_in_next_page("dati aggiornati", "homepageSupplier?showTab=supp_profile", "supp_profile", MsgType::Successfull, $dbg);
         else
             $msg->show_in_next_page("dati non aggiornati", "homepageSupplier?showTab=supp_profile", "supp_profile", MsgType::Error, $dbg);
@@ -69,10 +60,6 @@ switch ($obj) {
                     $_SESSION["TelefonoF"] = $login[0]["TelefonoF"];
                 }
 
-                //if ($login[0]["IdRuolo"] == 3) echo "<script>location.href='../homepageAdmin.php';</script>";
-                //if ($login[0]["IdRuolo"] == 4) echo "<script>location.href='../homepageUser.php';</script>";
-                //if ($login[0]["IdRuolo"] == 5) echo "<script>location.href='../homepageSupplier.php';</script>";
-                //if ($login[0]["IdRuolo"] == 6) echo "<script>location.href='../homepageDeliveryMan.php';</script>";
                 echo "<script>location.href='../".$login[0]["Homepage"]."';</script>";
             } else {
                 $msg->show_in_next_page("password non corrispondente", "index.php", "index.php", MsgType::Error, $dbg);
@@ -90,13 +77,7 @@ switch ($obj) {
             var_dump($newPsw);
             $dbh->update_user_psw($_REQUEST["user"], $newPsw);
             $login = $dbh->get_login($_REQUEST["user"], $newPsw);
-            $msg->show_in_next_page(
-                "abbiamo cambiato la password per l'utente " . $login[0]["Username"] . " con e-mail : " . $login[0]["EMail"] . " in " . $newPsw,
-                "recuperaAccount.php",
-                "acc_recuperato",
-                MsgType::Information,
-                $dbg
-            );
+            $msg->show_in_next_page("abbiamo cambiato la password per l'utente " . $login[0]["Username"] . " con e-mail : " . $login[0]["EMail"] . " in " . $newPsw,"recuperaAccount.php","acc_recuperato",MsgType::Information,$dbg);
         } else {
             $msg->show_in_next_page("utente non trovato", "recuperaAccount.php", "acc_non_recuperato", MsgType::Error, $dbg);
         }

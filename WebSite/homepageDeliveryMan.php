@@ -14,33 +14,31 @@ $hh->generate_page_head("Pagina Fattorino", "homepageDeliveryMan.php", true, tru
 
 <body>
   <main>
-    <?php $hh->generate_header("Pannello Consegne"); ?>
-    <div style="height: 825px; overflow-y:scroll;">
-    <div class="card rounded shadow border-0">
-      <div class="card-body p-5 bg-white rounded">
-        <div class="table-responsive">
-          <table id="tbl_consegne" style="width:100%" class="table table-striped table-bordered">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Cognome</th>
-                <th>Tipo Pagamento</th>
-                <th>Indirizzo</th>
-                <th>Note</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php
-              require_once("utils/database.php");
-              $dbh = new DatabaseHelper("localhost", "root", "", "plant");
-              $consegne  = $dbh->get_open_ordini();
-              for ($i = 0; $i < sizeof($consegne); $i++) {
-                $tp = "";
-                if ($consegne[$i]["SceltaContanti"] == 1) $tp = "In Contanti";
-                else $tp = "Carta";
-                echo "<tr>
+    <section>
+      <?php $hh->generate_header("Pannello Consegne"); ?>
+      <div class="scrollable-content p-5 table-responsive">
+        <table id="tbl_consegne" style="width:100%" class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>Cognome</th>
+              <th>Tipo Pagamento</th>
+              <th>Indirizzo</th>
+              <th>Note</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            require_once("utils/database.php");
+            $dbh = new DatabaseHelper("localhost", "root", "", "plant");
+            $consegne  = $dbh->get_open_ordini();
+            for ($i = 0; $i < sizeof($consegne); $i++) {
+              $tp = "";
+              if ($consegne[$i]["SceltaContanti"] == 1) $tp = "In Contanti";
+              else $tp = "Carta";
+              echo "<tr>
                         <td>" . $consegne[$i]["ID"] . "</td>
                         <td>" . $consegne[$i]["Nome"] . "</td>
                         <td>" . $consegne[$i]["Cognome"] . "</td>
@@ -55,17 +53,15 @@ $hh->generate_page_head("Pagina Fattorino", "homepageDeliveryMan.php", true, tru
                           </form> 
                         </td>
                       </tr>";
-              }
-              ?>
-            </tbody>
-          </table>
-        </div>
+            }
+            ?>
+          </tbody>
+        </table>
       </div>
-    </div>
-    <div class="gfx-link">
+    </section>
+    <aside class="gfx-link">
       Clicca <a href="logout.php">qui</a> per effettuare il logout
-    </div>
-    </div>
+    </aside>
     <?php $hh->generate_footer(); ?>
   </main>
 </body>

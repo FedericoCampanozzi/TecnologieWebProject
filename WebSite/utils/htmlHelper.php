@@ -205,7 +205,7 @@ class HTML_Helper
             $res = "";
             for ($j = 0; $j < sizeof($propArrName); $j++) {
                 if ($j == sizeof($propArrName) - 1) $res .= $phpArray[$i][$propArrName[$j]];
-                else  $res .= $phpArray[$i][$propArrName[$j]] . " - ";
+                else  $res .= $phpArray[$i][$propArrName[$j]] . " ";
             }
             if ($i == sizeof($phpArray) - 1) echo "\"" . $res . "\"";
             else echo "\"" . $res . "\",";

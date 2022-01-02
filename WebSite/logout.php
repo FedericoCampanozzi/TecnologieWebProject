@@ -11,9 +11,9 @@ session_destroy();
 <body>
   <main>
     <?php $hh->generate_header("Grazie e Arriverdi"); ?>  
-    <div class="gfx-link scrollable-content">
+    <aside class="centerd-itm gfx-link">
       Se vuoi ritornare alla pagina di login, clicca <a href="index.php">qui</a>
-    </div>
+    </aside>
     <?php $hh->generate_footer(); ?>
   </main>
 </body>

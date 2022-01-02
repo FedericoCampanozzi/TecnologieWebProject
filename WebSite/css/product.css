@@ -1,0 +1,57 @@
+.product-container {
+    height: 250px;
+    width: 80%;
+    margin: 25px 10%;
+    padding: 10px;
+    background-color: brown;
+    border-radius: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.product-container>.nome {
+    font-size: 24px;
+    font-weight: bold;
+    background-color: cadetblue;
+}
+
+.product-container>.desc {
+    font-size: 24px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    background-color: chartreuse;
+}
+
+.product-container>.prezzo {
+    font-size: 24px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    color: black;
+    background-color: yellow;
+}
+
+.product-container>.produttore {
+    font-size: 24px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    background-color: red;
+}
+
+.product-container>.categoria {
+    font-size: 24px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    background-color: blueviolet;
+}
+
+.product-container>.add-btn {
+    border-radius: 25px 10px;
+    border: 2px solid #73AD21;
+    padding: 20px;
+    width: 256px;
+    height: 54px;
+}
+
+.product-container>.add-btn:hover {
+    border: 2px solid #555;
+    border-radius: 0;
+}

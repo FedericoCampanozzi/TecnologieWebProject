@@ -1,0 +1,47 @@
+footer {
+    height: 50px;
+    width: 100%;
+    background-color: rgb(102, 255, 51);
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    height: 50px;
+}
+
+header {
+    height: 50px;
+    width: 100%;
+    background-color: rgb(102, 255, 51);
+    text-align: center;
+    height: 50px;
+}
+
+header>h1 {
+    font-size: 35px;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+    color: black;
+}
+
+footer>span {
+    font-size: 15px;
+    padding: 5px 10px;
+    margin-top: 20px;
+}
+
+.navbar {
+    width: 100%;
+    background-color: #555;
+}
+
+.navbar a {
+    float: left;
+    padding: 12px;
+    font-size: 17px;
+    text-decoration: none;
+    color: white;
+}
+
+.navbar a :hover {
+    text-decoration: none;
+}
