@@ -21,7 +21,7 @@ $hh->generate_page_head("Login", "index.php");
           <input type="password" class="form-control" name="password" id="password" placeholder="Password">
         </div>
         <button type="submit" class="btn-rounded-1">
-          <img alt="" src="./images/Ico/ico-login.ico" width="36" height="16" style="padding-right:20px;" />Login
+          <img alt="" src="./images/Ico/ico-login.ico" width="36" height="16" class="distance-to-img"/>Login
         </button>
       </form>
     </section>

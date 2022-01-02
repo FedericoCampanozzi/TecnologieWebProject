@@ -6,18 +6,12 @@ require_once("utils/htmlHelper.php");
 $hh = new HTML_Helper();
 $hh->generate_page_head("Pagina Fattorino", "homepageDeliveryMan.php", true, true);
 ?>
-<script>
-  $(document).ready(function() {
-    $('#tbl_consegne').DataTable();
-  });
-</script>
-
 <body>
   <main>
     <section>
       <?php $hh->generate_header("Pannello Consegne"); ?>
       <div class="scrollable-content p-5 table-responsive">
-        <table id="tbl_consegne" style="width:100%" class="table table-striped table-bordered">
+        <table id="tbl_consegne" class="table table-striped table-bordered">
           <thead>
             <tr>
               <th>ID</th>
@@ -62,6 +56,7 @@ $hh->generate_page_head("Pagina Fattorino", "homepageDeliveryMan.php", true, tru
     <aside class="gfx-link">
       Clicca <a href="logout.php">qui</a> per effettuare il logout
     </aside>
+    <script src="./js/homepageDeliveryMan.js"></script>
     <?php $hh->generate_footer(); ?>
   </main>
 </body>

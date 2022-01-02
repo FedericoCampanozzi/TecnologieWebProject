@@ -119,7 +119,7 @@ $hh->check_modals("product");
                 <form action="utils/insert.php" method="get">
                     <input type="hidden" name="obj_to_insert" value="fornitura">
                     <div class="p-5 table-responsive">
-                        <table id="tbl_forniture" style="width:150%" class="table table-striped table-bordered">
+                        <table id="tbl_forniture" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
                                     <th>Nome Prodotto</th>
@@ -172,13 +172,13 @@ $hh->check_modals("product");
                 <form action="utils/insert.php" method="get">
                     <input type="hidden" name="obj_to_insert" value="prodotto">
                     <div class="p-5 table-responsive">
-                    <table id="tbl_prodotti" style="width:100%" class="table table-striped table-bordered">
+                    <table id="tbl_prodotti" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
                                     <th>Nome</th>
                                     <th></th>
                                     <th>Descrizione</th>
-                                    <th style="min-width: 60px;">Prezzo</th>
+                                    <th>Prezzo</th>
                                     <th>Categoria</th>
                                     <th></th>
                                 </tr>
@@ -208,7 +208,7 @@ $hh->check_modals("product");
                                         <input type="text" class="form-control" name="desc" id="desc" placeholder="Descrizione">
                                     </td>
                                     <td>
-                                        <input type="text" class="form-control" name="prezzo" id="prezzo" placeholder="Prezzo" style="width: 80%;margin-right:0;display:inline;"> &euro;
+                                        <input type="text" class="form-control" name="prezzo" id="prezzo" placeholder="Prezzo" class="inline-table-text"> &euro;
                                     </td>
                                     <td>
                                         <select id="categoria" name="categoria" class="form-control">
@@ -236,108 +236,25 @@ $hh->check_modals("product");
             </div>
         </div>
 
+        <script src="./js/color.js"></script>
+        <script src="./js/graph.js"></script>
         <script>
-            function Color(r, g, b, a) {
-                this.r = parseFloat(r);
-                this.g = parseFloat(g);
-                this.b = parseFloat(b);
-                this.a = parseFloat(a);
-            }
-
-            function colorLerp(a, b, t) {
-                c = new Color(255, 255, 255, 255);
-                c.r = a.r + (b.r - a.r) * t,
-                    c.g = a.g + (b.g - a.g) * t,
-                    c.b = a.b + (b.b - a.b) * t,
-                    c.a = a.a + (b.a - a.a) * t
-                return "rgba(" + c.r + "," + c.g + "," + c.b + "," + c.a + ")";
-            }
-
             $(document).ready(function() {
-                let gForn = document.getElementById("graficoForniture").getContext('2d');
-                let gVen = document.getElementById("graficoVenditeProdUser").getContext('2d');
                 let fornLabel = [<?php $hh->generate_js_array_2($dbh->get_tot_forniture($_SESSION["PIVA_Azienda"]), array("MeseNome", "Nome")) ?>];
                 let fornData = [<?php $hh->generate_js_array($dbh->get_tot_forniture($_SESSION["PIVA_Azienda"]), "Totale") ?>];
                 let venLabel = [<?php $hh->generate_js_array($dbh->get_tot_products($_SESSION["PIVA_Azienda"]), "Nome") ?>];
                 let venData = [<?php $hh->generate_js_array($dbh->get_tot_products($_SESSION["PIVA_Azienda"]), "QtaVenduta") ?>];
-
-                let fornColor = [];
-                let venColor = [];
-
-                let a = new Color(102, 0, 204, 240);
-                let b = new Color(255, 153, 0, 155);
-
-                for (let t = 0.0; t <= 1.0; t += 1.0 / fornLabel.length) {
-                    fornColor.push(colorLerp(a, b, t));
-                }
-
-                a = new Color(0, 128, 43, 150);
-                b = new Color(0, 0, 0, 50);
-
-                for (let t = 0.0; t <= 1.0; t += 1.0 / venLabel.length) {
-                    venColor.push(colorLerp(a, b, t));
-                }
-
-                let chart = new Chart(gForn, {
-                    type: 'bar',
-                    data: {
-                        labels: fornLabel,
-                        datasets: [{
-                            label: "Forniture",
-                            data: fornData,
-                            backgroundColor: fornColor
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            x: {
-                                min: 0
-                            },
-                            y: {
-                                min: 0
-                            }
-                        }
-                    }
-                });
-
-                chart = new Chart(gVen, {
-                    type: 'bar',
-                    data: {
-                        labels: venLabel,
-                        datasets: [{
-                            label: "Vendite",
-                            data: venData,
-                            backgroundColor: venColor
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            x: {
-                                min: 0
-                            },
-                            y: {
-                                min: 0
-                            }
-                        }
-                    }
-                });
-
-                $("#qta_out").text($("#qta").val());
-                $("#qta").on('input', function() {
-                    $("#qta_out").text($(this).val())
-                });
-
+                let a = new Color(102, 0, 204, 255);
+                let b = new Color(255, 153, 0, 255);
+                generateBarGraph("graficoForniture", a, b, fornLabel, fornData, "mese-prodotti", "Qt.à Fornita");
+                a = new Color(51, 102, 255, 255);
+                b = new Color(255, 153, 153, 255);
+                generateBarGraph("graficoVenditeProdUser", a, b, venLabel, venData, "prodotti", "Qt.à Venduta");
                 $('a[href="#<?php echo $tab; ?>"]').addClass("active");
                 $('#<?php echo $tab; ?>').addClass("active");
-
-                $("#tbl_prodotti").DataTable();
-                $("#tbl_forniture").DataTable();
-
-                $("#imageLoad").click(function() {
-
-                });
             });
         </script>
+        <script src="./js/homepageSupplier.js"></script>
         <?php $hh->generate_footer(); ?>
     </main>
 </body>

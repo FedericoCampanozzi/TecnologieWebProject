@@ -3,14 +3,27 @@
     width: 80%;
     margin: 25px 10%;
     padding: 30px;
-    background-color: rgb(113, 233, 0);
+    background-color: rgb(255, 179, 102);
     border-radius: 20px;
+    font-family: Lato;
+}
+
+.ordini-container>.indirizzo {
+    width: 50%;
+    float: right;
+    font-size: 16px;
+}
+
+.ordini-container>.indirizzo>span {
+    color: blue;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .ordini-container>.data {
     margin: 25px 10%;
     padding: 10px;
-    background-color: brown;
+    float: right;
 }
 
 .ordini-container>.pagamento {
@@ -18,18 +31,15 @@
     height: 80px;
     margin: 10px;
     padding: 10px;
-    background-color: brown;
+    float: right;
 }
 
 .ordini-container>.totale {
-    height: 250px;
-    width: 80%;
-    margin: 25px 10%;
-    padding: 10px;
-    background-color: brown;
+    background-color: blue;
+    width: 150px;
+    height: 150px;
     position: relative;
-    top: 50;
-    right: 50;
+    top: 10px;
 }
 
 .ordini-container>.data-arrivo {

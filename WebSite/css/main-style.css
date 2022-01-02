@@ -21,3 +21,26 @@
     width: 50%;
     margin: 20% 25%;
 }
+
+.inline-table-text {
+    width: 80%;
+    margin-right: 0;
+    display: inline;
+}
+
+.tbl-150 {
+    width: 150%;
+}
+
+.fix-on-bot {
+    position: absolute;
+    bottom: 0;
+}
+
+.distance-to-img {
+    padding-right: 20px;
+}
+
+.bold {
+    font: bold;
+}

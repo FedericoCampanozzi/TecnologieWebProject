@@ -7,49 +7,13 @@ $hh = new HTML_Helper();
 $hh->generate_page_head("Pagina Amministratore", "homepageAdmin.php", true, true);
 $dbh = new DatabaseHelper("localhost", "root", "", "plant");
 ?>
-<script>
-    $(document).ready(function() {
-        $('#tbl_ruoli_utente').DataTable();
-        $('#tbl_fornitori').DataTable();
-        $('#tbl_ordini').DataTable();
-
-        $(".changeInAdmin").click(function() {
-            const id_parts = $(this).attr("id").split("_");
-            $.post("utils/update.php", {
-                obj_to_update: "usr_ruolo",
-                IdUtenteCambio: document.getElementById("IdUtente_" + id_parts[1]).value,
-                IdNuovoRuolo: 3,
-                P_IVA: null
-            }, function(response) {
-                console.log("Response: " + response);
-                location.reload();
-            });
-        });
-
-        $(".change_ruolo").click(function() {
-            const id_parts = $(this).attr("id").split("_");
-            const new_idr = parseInt(document.getElementById("ruolo_" + id_parts[1]).value);
-            let piva = null;
-            $.post('utils/update.php', {
-                obj_to_update: "usr_ruolo",
-                IdUtenteCambio: document.getElementById("IdUtente_" + id_parts[1]).value,
-                IdNuovoRuolo: new_idr,
-                P_IVA: piva
-            }, function(response) {
-                console.log("Response: " + response);
-                location.reload();
-            });
-        });
-    });
-</script>
-
 <body>
     <main>
         <?php $hh->generate_header("Pannello Amministrazione"); ?>
         <div class="scrollable-content">
             <section>
                 <div class="p-5 table-responsive">
-                    <table id="tbl_ruoli_utente" style="width:100%" class="table table-striped table-bordered">
+                    <table id="tbl_ruoli_utente" class="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>Username</th>
@@ -111,7 +75,7 @@ $dbh = new DatabaseHelper("localhost", "root", "", "plant");
                 <form action="utils/insert.php" method="get">
                     <input type="hidden" name="obj_to_insert" value="categoria">
                     <div class="p-5 table-responsive">
-                        <table id="tbl_fornitori" style="width:100%" class="table table-striped table-bordered">
+                        <table id="tbl_fornitori" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
                                     <th>Nome</th>
@@ -123,10 +87,10 @@ $dbh = new DatabaseHelper("localhost", "root", "", "plant");
                             $cat = $dbh->get_categoria();
                             for ($i = 0; $i < sizeof($cat); $i++) {
                                 echo "<tr>
-                                                    <td>" . $cat[$i]["Nome"] . "</td>
-                                                    <td>" . $cat[$i]["Descrizione"] . "</td>
-                                                    <td> </td>
-                                                    </tr>";
+                                    <td>" . $cat[$i]["Nome"] . "</td>
+                                    <td>" . $cat[$i]["Descrizione"] . "</td>
+                                    <td> </td>
+                                </tr>";
                             }
                             ?>
                             <tr>

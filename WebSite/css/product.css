@@ -3,55 +3,187 @@
     width: 80%;
     margin: 25px 10%;
     padding: 10px;
-    background-color: brown;
+    background-color: rgb(102, 255, 153);
     border-radius: 20px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
-
-.product-container>.nome {
-    font-size: 24px;
-    font-weight: bold;
-    background-color: cadetblue;
-}
-
-.product-container>.desc {
-    font-size: 24px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-weight: bold;
-    background-color: chartreuse;
-}
-
-.product-container>.prezzo {
-    font-size: 24px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-weight: bold;
     color: black;
-    background-color: yellow;
+    font-family: Lato;
 }
 
-.product-container>.produttore {
-    font-size: 24px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+.product-container>.nome-prodotto {
+    position: relative;
+    top: 10px;
+    left: 10px;
+    width: 156px;
+    margin: 2px 1%;
+    padding: 2px;
+    font-size: 32px;
     font-weight: bold;
-    background-color: red;
+}
+
+.product-container>.immagine {
+    position: relative;
+    top: 10px;
+    left: 10px;
+    width: 156px;
+    height: 156px;
+    margin: 0;
+    padding: 0;
+}
+
+.product-container>.giacenza {
+    position: relative;
+    bottom: 95%;
+    right: -75%;
+    width: 25%;
+    margin: 5px 4px;
+    font-size: 12px;
+}
+
+.product-container>.giacenza>span {
+    font-size: 32px;
+    color: red;
+    font-weight: bold;
 }
 
 .product-container>.categoria {
     font-size: 24px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: black;
+    position: relative;
+    top: 0px;
+    left: 0px;
+}
+
+.product-container>.desc {
+    position: relative;
+    top: 65px;
+    left: 200px;
+    font-size: 12px;
+    margin: 2px 1%;
+    padding: 1px;
+    width: 50%;
+    max-height: 50px;
+    height: 150px;
+    background-color: blue;
+}
+
+.product-container>.prezzo {
+    font-size: 24px;
+    float: left;
+    width: 100px;
     font-weight: bold;
-    background-color: blueviolet;
 }
 
-.product-container>.add-btn {
-    border-radius: 25px 10px;
-    border: 2px solid #73AD21;
-    padding: 20px;
-    width: 256px;
-    height: 54px;
+.product-container>.produttore {
+    display: inline-block;
+    font-size: 18px;
+    width: 50%;
+    margin: 2px;
 }
 
-.product-container>.add-btn:hover {
-    border: 2px solid #555;
-    border-radius: 0;
+.product-container>.produttore>span {
+    color: blue;
 }
+
+.product-container>button {
+    background-color: green;
+    color: black;
+    border-radius: 10px;
+    font-family: Lato;
+    padding: 4px;
+    font-size: 20px;
+    margin: 4px;
+}
+
+
+/*
+.product-container {
+    height: 250px;
+    width: 80%;
+    margin: 25px 10%;
+    background-color: rgb(102, 255, 153);
+}
+
+.product-container>.nome-prodotto {
+    position: relative;
+    top: 15px;
+    left: 15px;
+    width: 156px;
+    height: 50px;
+    background-color: rgb(229, 102, 255);
+}
+
+.product-container>.immagine {
+    position: relative;
+    top: 15px;
+    left: 15px;
+    width: 156px;
+    height: 156px;
+}
+
+.product-container>.giacenza {
+    position: relative;
+    top: -156px;
+    right: 15px;
+    left: auto;
+    width: 150px;
+    height: 25px;
+    background-color: cadetblue;
+}
+
+.product-container>.giacenza>span {
+    font-size: 32px;
+    color: red;
+    font-weight: bold;
+    background-color: rgb(124, 219, 15);
+}
+
+.product-container>.categoria {
+    font-size: 24px;
+    color: black;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    width: 100px;
+    height: 50px;
+    background-color: rgb(140, 0, 255);
+}
+
+.product-container>.desc {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    font-size: 12px;
+    margin: 2px 1%;
+    padding: 1px;
+    width: 50%;
+    max-height: 50px;
+    height: 150px;
+    background-color: blue;
+}
+
+.product-container>.prezzo {
+    font-size: 24px;
+    float: left;
+    width: 100px;
+    font-weight: bold;
+}
+
+.product-container>.produttore {
+    display: inline-block;
+    font-size: 18px;
+    width: 50%;
+    margin: 2px;
+}
+
+.product-container>.produttore>span {
+    color: blue;
+}
+
+.product-container>button {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    height: 30px;
+    width: 100px;
+}
+*/

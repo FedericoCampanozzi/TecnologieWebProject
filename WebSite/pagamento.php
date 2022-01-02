@@ -20,10 +20,8 @@ $dbh = new DatabaseHelper("localhost", "root", "", "plant");
     <main>
         <?php $hh->generate_header("Pagamento"); ?>
         <div class="scrollable-content">
-            <div class="card rounded shadow border-0">
-                <div class="card-body p-5 bg-white rounded">
-                    <div class="table-responsive">
-                        <table id="tbl_riepilogo" style="width:100%;" class="table table-striped table-bordered">
+                    <div class="p-5 table-responsive">
+                        <table id="tbl_riepilogo" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
                                     <th></th>
@@ -47,25 +45,19 @@ $dbh = new DatabaseHelper("localhost", "root", "", "plant");
                                                             <td>" . $usr_cart[$i]["PrezzoTotale"] . "  &euro; </td>
                                                         </tr> ";
                                     $tot += $usr_cart[$i]["PrezzoTotale"];
-                                }/*
-                                    echo "
-                                            <tr>
-                                                <td colspan=\"4\" style=\"font-weight: bold;\"> Totale : </td>
-                                                <td style=\"font-weight: bold;\"> " . $tot . " &euro; </td>
-                                            </tr>";*/
+                                }
                                 echo "
                                     <tr>
-                                        <td style=\"font-weight: bold;\"> Totale : </td>
+                                        <td class=\"bold\"> Totale : </td>
                                         <td> </td>
                                         <td> </td>
                                         <td> </td>
-                                        <td style=\"font-weight: bold;\"> " . $tot . " &euro; </td>
+                                        <td class=\"bold\"> " . $tot . " &euro; </td>
                                     </tr>";
                                 ?>
                             </tbody>
                         </table>
                     </div>
-                </div>
                 <div class="container">
                     <form action="utils/insert.php" method="post">
                         <input type="hidden" name="totale" value="<?php echo $tot; ?>">
@@ -117,22 +109,10 @@ $dbh = new DatabaseHelper("localhost", "root", "", "plant");
                         <a href="homepageUser.php" class="btn-rounded-1">Annulla</a>
                     </form>
                 </div>
-            </div>
         </div>
         <?php $hh->generate_footer(true); ?>
     </main>
-    <script>
-        $(document).ready(function() {
-            $("#carta_div").css("visibility", "hidden");
-            $("#usaContanti").change(function() {
-                $("#carta_div").css("visibility", "hidden");
-            });
-            $("#usaCarte").change(function() {
-                $("#carta_div").css("visibility", "visible");
-            });
-            $("#tbl_riepilogo").DataTable();
-        });
-    </script>
+    <script src="./js/pagamento.js"></script>
 </body>
 
 </html>
