@@ -26,8 +26,11 @@ $hh->generate_page_head("Homepage", "homepageUser.php", false, false);
           <div class=\"prezzo\">" . $products[$i]["Prezzo"] . "  &euro;</div>
           <div class=\"categoria\">" . $products[$i]["NomeC"] . "</div>
           <div class=\"produttore\">" . $products[$i]["RagioneSociale"] . "</div>
-          <button type=\"submit\" class=\"add-btn\"> Aggiungi </button>
-          </form>";
+          <div class=\"giacenza\">" . $products[$i]["Giacenza"] . "</div>";
+          if($products[$i]["Giacenza"]>0){
+            echo"<button type=\"submit\" class=\"add-btn\"> Aggiungi </button>";
+          }
+          echo "</form>";
         }
         ?>
       </div>

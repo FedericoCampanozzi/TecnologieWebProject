@@ -12,30 +12,33 @@ $dbh = new DatabaseHelper("localhost", "root", "", "plant");
         $('#tbl_ruoli_utente').DataTable();
         $('#tbl_fornitori').DataTable();
         $('#tbl_ordini').DataTable();
+        
         $(".changeInAdmin").click(function() {
-            $('#modalWarningAdmin').modal('show');
-        });
-        $("#change_admin").click(function() {
-            const id_parts = $(this).id.split(" ");
-            const row = parseInt(id_parts[1]);
-            $.post("utils/update.php", {
-                obj_to_update: "usr_admin",
-                IdUtenteCambio: $("IdUtente_" + row).val()
-            });
-        });
-        $(".change_ruolo").click(function() {
-            const id_parts = $(this).id.split(" ");
-            const row = parseInt(id_parts[1]);
-            const piva = null;
-            if ($("#ruolo_" + row) == 3) {
-                piva = $("forn_" + row).val();
-            }
+            const id_parts = $(this).attr("id").split("_");
             $.post("utils/update.php", {
                 obj_to_update: "usr_ruolo",
-                IdUtenteCambio: $("IdUtente_" + row).val(),
-                IdNuovoRuolo: $("ruolo_" + row).val(),
+                IdUtenteCambio: document.getElementById("IdUtente_" + id_parts[1]).value,
+                IdNuovoRuolo: 3,
+                P_IVA : null
+            }, function(response) {
+                console.log("Response: " + response);
+                location.reload();
+            });
+        });
+        
+        $(".change_ruolo").click(function() {
+            const id_parts = $(this).attr("id").split("_");
+            const new_idr = parseInt(document.getElementById("ruolo_" + id_parts[1]).value);
+            let piva = null;
+            wwwwwwwwwwww
+            $.post('utils/update.php', {
+                obj_to_update: "usr_ruolo",
+                IdUtenteCambio: document.getElementById("IdUtente_" + id_parts[1]).value,
+                IdNuovoRuolo: new_idr,
                 P_IVA: piva
-
+            }, function(response) {
+                console.log("Response: " + response);
+                location.reload();
             });
         });
     });
@@ -44,30 +47,6 @@ $dbh = new DatabaseHelper("localhost", "root", "", "plant");
 <body>
     <main>
         <?php $hh->generate_header("Pannello Amministrazione"); ?>
-        <div class="modal fade" id="modalWarningAdmin" tabindex="-1" role="dialog" aria-labelledby="generalModal" aria-hidden="true">
-            <div class="modal-dialog modal-msg-warning" role="document">
-                <div class="modal-content modal-msg-warning"></div>
-                <div class="modal-header modal-msg-warning">
-                    <h5 class="modal-title" id="generalModal">Messaggio Importante</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body modal-msg-warning">
-                    Sicuro di voler cambiare il ruolo di questo utente in Amministratore?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn-rounded-2" data-dismiss="modal" id="change_admin">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
-                            <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
-                        </svg> SI </button>
-                    <button type="button" class="btn-rounded-2" data-dismiss="modal">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
-                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-                        </svg> NO </button>
-                </div>
-            </div>
-        </div>
         <div class="scrollable-content">
             <div class="card rounded shadow border-0">
                 <div class="card-body p-5 bg-white rounded">
@@ -105,7 +84,7 @@ $dbh = new DatabaseHelper("localhost", "root", "", "plant");
                                                 <td> <select class=\"form-control\" id=\"forn_" . $i . "\">
                                                      <option value=\"NULL\"> NULL </option>";
                                     for ($j = 0; $j < sizeof($all_az); $j++) {
-                                        if (isset($all_az[$j]["PIVA"]) && $users[$i]["PIVA_Fornitore"] == $all_az[$j]["PIVA"])
+                                        if (isset($all_az[$j]["PIVA"]) && $users[$i]["PIVA"] == $all_az[$j]["PIVA"])
                                             echo "<option value=" . $all_az[$j]["PIVA"] . " selected>" . $all_az[$j]["RagioneSociale"] . "</option>";
                                         else
                                             echo "<option value=" . $all_az[$j]["PIVA"] . ">" . $all_az[$j]["RagioneSociale"] . "</option>";
@@ -122,7 +101,7 @@ $dbh = new DatabaseHelper("localhost", "root", "", "plant");
                                     }
                                     echo "
                                                     <td>
-                                                        <input type=\"hidden\" id=\"IdUtente_" . $i . "\">
+                                                        <input type=\"hidden\" id=\"IdUtente_" . $i . "\" value=\"".$users[$i]["ID"]."\">
                                                         <button class=\"btn-rounded-2 change_ruolo\" id=\"cambia_" . $i . "\">Cambia</button> </td>
                                                     </td>
                                                 </tr>";

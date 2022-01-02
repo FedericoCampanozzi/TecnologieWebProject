@@ -67,39 +67,35 @@ $hh->check_modals("product");
         <div class="tab-content">
             <div class="tab-pane" id="supp_profile" role="tabpanel" aria-labelledby="supp_profile-tab">
                 <div class="container" style="margin-top:50px;">
-                    <?php
-                    /* si dovrebbe fare al login */
-                    $log = $dbh->get_fornitore_login($_SESSION["PIVA_Azienda"]);
-                    ?>
                     <form action="utils/update.php" method="get">
                         <input type="hidden" name="obj_to_update" value="fornitore">
                         <div class="form-group">
                             <label for="via">Via : </label>
-                            <input type="text" class="form-control" name="via" id="via" placeholder="<?php echo $log[0]["Via"]; ?>">
+                            <input type="text" class="form-control" name="via" id="via" placeholder="<?php echo $_SESSION["ViaF"]; ?>">
                         </div>
                         <div class="form-group">
                             <label for="numero_civico">Numero Civico : </label>
-                            <input type="text" class="form-control" name="numero_civico" id="numero_civico" placeholder="<?php echo $log[0]["NumeroCivico"]; ?>">
+                            <input type="text" class="form-control" name="numero_civico" id="numero_civico" placeholder="<?php echo $_SESSION["NumeroCivicoF"]; ?>">
                         </div>
                         <div class="form-group">
                             <label for="citta">Citt&agrave; : </label>
-                            <input type="text" class="form-control" name="citta" id="citta" placeholder="<?php echo $log[0]["Citta"]; ?>">
+                            <input type="text" class="form-control" name="citta" id="citta" placeholder="<?php echo $_SESSION["CittaF"]; ?>">
                         </div>
                         <div class="form-group">
                             <label for="pecMail">Pec-Mail : </label>
-                            <input type="text" class="form-control" name="pecMail" id="pecMail" placeholder="<?php echo $log[0]["PecMail"]; ?>">
+                            <input type="text" class="form-control" name="pecMail" id="pecMail" placeholder="<?php echo $_SESSION["PecMail"]; ?>">
                         </div>
                         <div class="form-group">
                             <label for="infoMail">Info-Mail : </label>
-                            <input type="text" class="form-control" name="infoMail" id="infoMail" placeholder="<?php echo $log[0]["InfoMail"]; ?>">
+                            <input type="text" class="form-control" name="infoMail" id="infoMail" placeholder="<?php echo $_SESSION["InfoMail"]; ?>">
                         </div>
                         <div class="form-group">
                             <label for="tell">Telefono : </label>
-                            <input type="text" class="form-control" name="tell" id="tell" placeholder="<?php echo $log[0]["Telefono"]; ?>">
+                            <input type="text" class="form-control" name="tell" id="tell" placeholder="<?php echo $_SESSION["TelefonoF"]; ?>">
                         </div>
                         <div class="form-group">
                             <label for="fax">Fax : </label>
-                            <input type="text" class="form-control" name="fax" id="fax" placeholder="<?php echo $log[0]["Fax"]; ?>">
+                            <input type="text" class="form-control" name="fax" id="fax" placeholder="<?php echo $_SESSION["Fax"]; ?>">
                         </div>
                         <button type="submit" class="btn-rounded-2">Aggiorna Dati</button>
                     </form>
@@ -205,7 +201,7 @@ $hh->check_modals("product");
                                                 <input type="text" class="form-control" name="nome" id="nome" placeholder="Nome">
                                             </td>
                                             <td>
-
+                                                <button class="btn-rounded-2" id="imageLoad">Load</button>
                                             </td>
                                             <td>
                                                 <input type="text" class="form-control" name="desc" id="desc" placeholder="Descrizione">
@@ -296,7 +292,6 @@ $hh->check_modals("product");
                         }]
                     },
                     options: {
-
                         scales: {
                             x: {
                                 min: 0,
@@ -309,6 +304,7 @@ $hh->check_modals("product");
                         }
                     }
                 });
+
                 chart = new Chart(gVen, {
                     type: 'bar',
                     data: {
@@ -331,6 +327,10 @@ $hh->check_modals("product");
 
                 $("#tbl_prodotti").DataTable();
                 $("#tbl_forniture").DataTable();
+
+                $("#imageLoad").click(function(){
+
+                });
             });
         </script>
         <?php $hh->generate_footer(); ?>

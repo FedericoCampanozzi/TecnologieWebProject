@@ -25,6 +25,18 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                 $("#tbl_carrello_utente").DataTable();
                 $("#tbl_carte_utente").DataTable();
                 $("#tbl_recapiti_utente").DataTable();
+                $("#addCard").click(function(){
+                    $.post('./utils/insert.php',{
+                        obj_to_insert : "carta",
+                        numero : $("#numero").val(),
+                        datascadenza : $("#datascadenza").val(),
+                        tipo_carta : $("#tipo_carta").val(),
+                        ccv : $("#ccv").val()
+                    },function(response) {
+                        location.reload();
+                        console.log("Response: " + response);
+                    });
+                });
             });
         </script>
         <?php
@@ -32,6 +44,7 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
         $hh->check_modals("cart");
         $hh->check_modals("card");
         $hh->check_modals("address");
+        $hh->check_modals("card-denaro");
         ?>
         <ul class="nav nav-tabs" id="userTab" role="tablist">
             <li class="nav-item">
@@ -191,7 +204,24 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                                                 </form>
                                             </td>
                                           </tr>";
-                                          */
+                                    */
+                                    if($tot <> 0)
+                                    echo "
+                                    <tr>
+                                        <td style=\"font-weight: bold;\"> Totale : </td>
+                                        <td> </td>
+                                        <td> </td>
+                                        <td> </td>
+                                        <td> </td>
+                                        <td> </td>
+                                        <td style=\"font-weight: bold;\"> " . $tot . " &euro; </td>
+                                        <td> </td>
+                                        <td>
+                                            <form action=\"pagamento.php\" method=\"get\">
+                                                <button type=\"submit\" class=\"btn-rounded-2\">Acquista</button>
+                                            </form>
+                                        </td>
+                                    </tr>"
                                     ?>
                                 </tbody>
                             </table>
@@ -200,8 +230,6 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                 </div>
             </div>
             <div class="tab-pane scrollable-content" id="card" role="tabpanel" aria-labelledby="card-tab">
-                <form action="utils/insert.php" method="post">
-                    <input type="hidden" name="obj_to_insert" value="carta">
                     <div class="card rounded shadow border-0">
                         <div class="card-body p-5 bg-white rounded">
                             <div class="table-responsive">
@@ -212,6 +240,7 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                                             <th style="max-width: 100px;">Data di scadenza</th>
                                             <th>Tipo</th>
                                             <th>CCV</th>
+                                            <th>Disponibilit&agrave;</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -224,8 +253,15 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                                                             <td>" . $carte[$i]["Numero"] . "</td>
                                                             <td style=\"max-width: 150px;\">" . $carte[$i]["DataScadenza"] . "</td>
                                                             <td>" . $carte[$i]["Tipo"] . "</td>
-                                                            <td> </td>
-                                                            <td> </td>
+                                                            <td> *** </td>
+                                                            <td> " . $carte[$i]["Disponibilita"] . " &euro; </td>
+                                                            <td> 
+                                                                <form action=\"utils/update.php\" method=\"post\">
+                                                                    <input type=\"hidden\" name=\"obj_to_update\" value=\"denaro\">
+                                                                    <input type=\"hidden\" name=\"numero_carta\" value=\"" . $carte[$i]["Numero"] . "\">
+                                                                    <button type=\"submit\" class=\"btn-rounded-2\"> +100 &euro;</button>
+                                                                </form>
+                                                            </td>
                                                         </tr>";
                                         }
                                         ?>
@@ -233,7 +269,7 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                                             <td>
                                                 <input type="text" class="form-control" name="numero" id="numero" placeholder="Numero">
                                             </td>
-                                            <td style="max-width: 175px;">
+                                            <td style="max-width: 155px;">
                                                 <input type="date" class="form-control" name="datascadenza" id="datascadenza" placeholder="Data di scadenza">
                                             </td>
                                             <td>
@@ -244,10 +280,11 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" name="ccv" id="ccv" placeholder="CCV">
+                                                <input type="password" class="form-control" name="ccv" id="ccv" maxlength="3" placeholder="CCV">
                                             </td>
+                                            <td></td>
                                             <td>
-                                                <button type="submit" class="btn-rounded-2">Aggiungi</button>
+                                                <button class="btn-rounded-2" id="addCard">Aggiungi</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -255,7 +292,6 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                             </div>
                         </div>
                     </div>
-                </form>
             </div>
             <div class="tab-pane scrollable-content" id="address" role="tabpanel" aria-labelledby="address-tab">
                 <form action="utils/insert.php" method="get">

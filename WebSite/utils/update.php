@@ -28,7 +28,7 @@ switch ($obj) {
             $msg->show_in_next_page("dati non aggiornati", "homepageSupplier?showTab=supp_profile", "supp_profile", MsgType::Error, $dbg);
         break;
     case ("password"):
-        if($dbh->find_login($_SESSION["IdUtente"], $_REQUEST["old_psw"]))
+        if ($dbh->find_login($_SESSION["IdUtente"], $_REQUEST["old_psw"]))
             if ($dbh->update_user_psw($_SESSION["IdUtente"], $_REQUEST["new_psw"]))
                 $msg->show_in_next_page("dati aggiornati", "userProfile.php?showTab=usr_profile", "usr_profile", MsgType::Successfull, $dbg);
             else
@@ -57,22 +57,27 @@ switch ($obj) {
                 $_SESSION["usr_tell"] = $login[0]["Telefono"];
                 $_SESSION["img_name"] = $login[0]["ImagePath"];
 
-                if(!is_null($login[0]["PIVA_Fornitore"])){
-                    $_SESSION["PIVA_Azienda"] = $login[0]["PIVA_Fornitore"];
-                    //$_SESSION["rs_az"] = $login[0]["RagioneSociale"];
-                    //$_SESSION["via_az"] = $login[0]["RagioneSociale"];
-                    //$_SESSION["PIVA_Azienda"] = $login[0]["RagioneSociale"];
-                    //$_SESSION["PIVA_Azienda"] = $login[0]["RagioneSociale"];
+                if (!is_null($login[0]["PIVA"])) {
+                    $_SESSION["PIVA_Azienda"] = $login[0]["PIVA"];
+                    $_SESSION["RagioneSociale"] = $login[0]["RagioneSociale"];
+                    $_SESSION["ViaF"] = $login[0]["ViaF"];
+                    $_SESSION["NumeroCivicoF"] = $login[0]["NumeroCivicoF"];
+                    $_SESSION["CittaF"] = $login[0]["CittaF"];
+                    $_SESSION["InfoMail"] = $login[0]["InfoMail"];
+                    $_SESSION["PecMail"] = $login[0]["PecMail"];
+                    $_SESSION["Fax"] = $login[0]["Fax"];
+                    $_SESSION["TelefonoF"] = $login[0]["TelefonoF"];
                 }
 
-                if ($login[0]["IdRuolo"] == 3) echo "<script>location.href='../homepageAdmin.php';</script>";
-                if ($login[0]["IdRuolo"] == 4) echo "<script>location.href='../homepageUser.php';</script>";
-                if ($login[0]["IdRuolo"] == 5) echo "<script>location.href='../homepageSupplier.php';</script>";
-                if ($login[0]["IdRuolo"] == 6) echo "<script>location.href='../homepageDeliveryMan.php';</script>";
+                //if ($login[0]["IdRuolo"] == 3) echo "<script>location.href='../homepageAdmin.php';</script>";
+                //if ($login[0]["IdRuolo"] == 4) echo "<script>location.href='../homepageUser.php';</script>";
+                //if ($login[0]["IdRuolo"] == 5) echo "<script>location.href='../homepageSupplier.php';</script>";
+                //if ($login[0]["IdRuolo"] == 6) echo "<script>location.href='../homepageDeliveryMan.php';</script>";
+                echo "<script>location.href='../".$login[0]["Homepage"]."';</script>";
             } else {
                 $msg->show_in_next_page("password non corrispondente", "index.php", "index.php", MsgType::Error, $dbg);
             }
-        } else{
+        } else {
             $msg->show_in_next_page("utente non trovato", "index.php", "index.php", MsgType::Error, $dbg);
         }
         break;
@@ -92,27 +97,27 @@ switch ($obj) {
                 MsgType::Information,
                 $dbg
             );
-        } else{
+        } else {
             $msg->show_in_next_page("utente non trovato", "recuperaAccount.php", "acc_non_recuperato", MsgType::Error, $dbg);
         }
         break;
-    case("ordine"):
+    case ("ordine"):
         if ($dbh->update_ordine($_SESSION["IdUtente"], $_REQUEST["id_ordine"]))
             $msg->show_in_next_page("Consegna registrata correttamente", "homepageDeliveryMan.php", "homepageDeliveryMan.php", MsgType::Successfull, $dbg);
         else
             $msg->show_in_next_page("Consegna errata", "homepageDeliveryMan.php", "homepageDeliveryMan.php", MsgType::Error, $dbg);
         break;
-    case("usr_admin"):
-        if ($dbh->update_user_ruolo($_REQUEST["IdUtenteCambio"], 3, NULL))
-            $msg->show_in_next_page("Consegna registrata correttamente", "homepageDeliveryMan.php", "homepageDeliveryMan.php", MsgType::Successfull, $dbg);
+    case ("usr_ruolo"):
+        if ($dbh->update_user_ruolo($_REQUEST["IdUtenteCambio"], $_REQUEST["IdNuovoRuolo"], $_REQUEST["P_IVA"]))
+            $msg->ajax_response("Consegna registrata correttamente", "", "homepageAdmin.php", MsgType::Successfull, $dbg);
         else
-            $msg->show_in_next_page("Consegna errata", "homepageDeliveryMan.php", "homepageDeliveryMan.php", MsgType::Error, $dbg);
+            $msg->ajax_response("Consegna registrata correttamente", "", "homepageAdmin.php", MsgType::Successfull, $dbg);
         break;
-    case("usr_ruolo"):
-        if($dbh->update_user_ruolo($_REQUEST["IdUtenteCambio"], $_REQUEST["IdNuovoRuolo"], $_REQUEST["P_IVA"]))
-            $msg->show_in_next_page("Consegna registrata correttamente", "homepageDeliveryMan.php", "homepageDeliveryMan.php", MsgType::Successfull, $dbg);
+    case ("denaro"):
+        if ($dbh->update_conto($_REQUEST["numero_carta"]))
+            $msg->show_in_next_page("transazione avvenuta corretamente", "userProfile.php?showTab=card", "card-denaro", MsgType::Successfull, $dbg);
         else
-            $msg->show_in_next_page("Consegna registrata correttamente", "homepageDeliveryMan.php", "homepageDeliveryMan.php", MsgType::Successfull, $dbg);
+            $msg->show_in_next_page("c'&egrave; stato un problema inaspettato, <br> <strong>transazione annullata</strong>", "userProfile.php?showTab=card", "card-denaro", MsgType::Error, $dbg);
         break;
     default:
         die("codice inserimento non trovato");

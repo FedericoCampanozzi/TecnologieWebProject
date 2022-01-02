@@ -9,10 +9,12 @@ class DatabaseHelper
       die("Connesione fallita al db");
     }
   }
+  private function get_cripted_password($data){
+    return hash("sha256", "2342werfwexv".$data."vghjklp,.m,£$%&");
+  }
   /* MISC */
   public function find_user_from_username($user)
   {
-    /*Da cambiare in Psw che usa SHA512*/
     $stmt = $this->db->prepare("SELECT * FROM ruoli_utente WHERE (Username = ? OR EMail = ?)");
     $stmt->bind_param("ss", $user, $user);
     $stmt->execute();
@@ -22,8 +24,8 @@ class DatabaseHelper
   }
   public function find_login($user, $password)
   {
-    /*Da cambiare in Psw che usa SHA512*/
-    $stmt = $this->db->prepare("SELECT * FROM ruoli_utente WHERE (Username = ? OR EMail = ?) AND PswInChiaro = ?");
+    $password = $this->get_cripted_password($password);
+    $stmt = $this->db->prepare("SELECT * FROM ruoli_utente WHERE (Username = ? OR EMail = ?) AND Psw = ?");
     $stmt->bind_param("sss", $user, $user, $password);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -40,8 +42,27 @@ class DatabaseHelper
     if ($stmt->affected_rows <= 0) return -1;
     return $result[0]["LastID"];
   }
+  public function denaro_carta($nrCarta)
+  {
+    $stmt = $this->db->prepare("SELECT Disponibilita FROM carta WHERE Numero = ?");
+    $stmt->bind_param("i", $nrCarta);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $result = $result->fetch_all(MYSQLI_ASSOC);
+    return $result[0]["Disponibilita"];
+  }
+  public function qta_giacenza_prodotto($idProdotto)
+  {
+    $stmt = $this->db->prepare("SELECT Giacenza FROM prodotto_magazzino WHERE ID = ?");
+    $stmt->bind_param("i", $idProdotto);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $result = $result->fetch_all(MYSQLI_ASSOC);
+    return $result[0]["Giacenza"];
+  }
   /*-----------------------------------------------------------------------------------------------------------*/
   /* GET */
+  /*
   public function get_fornitore_login($piva)
   {
     $stmt = $this->db->prepare("SELECT * FROM fornitore WHERE PIVA = ?");
@@ -50,9 +71,11 @@ class DatabaseHelper
     $result = $stmt->get_result();
     return $result->fetch_all(MYSQLI_ASSOC);
   }
+  */
   public function get_login($user, $password)
   {
-    $stmt = $this->db->prepare("SELECT * FROM ruoli_utente WHERE (Username = ? OR EMail = ?) AND PswInChiaro = ?");
+    $password = $this->get_cripted_password($password);
+    $stmt = $this->db->prepare("SELECT * FROM ruoli_utente WHERE (Username = ? OR EMail = ?) AND Psw = ?");
     $stmt->bind_param("sss", $user, $user, $password);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -166,12 +189,13 @@ class DatabaseHelper
   }
   /*-----------------------------------------------------------------------------------------------------------*/
   /* INSERT */
-  public function insert_user($username, $pswInChiaro, $nome, $cognome, $dataNascita, $email, $tell)
+  public function insert_user($username, $psw, $nome, $cognome, $dataNascita, $email, $tell)
   {
-    $query = "INSERT INTO `utente`(`Username`, `Psw`, `PswInChiaro`, `Nome`, `Cognome`, `DataDiNascita`,`EMail`,`Telefono`,`IdRuolo`, `ImagePath`, `PIVA_Fornitore`) 
-      VALUES (?,'',?,?,?,?,?,?,4,'base.png', NULL)";
+    $psw = $this->get_cripted_password($psw);
+    $query = "INSERT INTO `utente`(`Username`, `Psw`, `Nome`, `Cognome`, `DataDiNascita`,`EMail`,`Telefono`,`IdRuolo`, `ImagePath`, `PIVA_Fornitore`) 
+      VALUES (?,?,?,?,?,?,?,4,'base.png', NULL)";
     $stmt = $this->db->prepare($query);
-    $stmt->bind_param("ssssssi", $username, $pswInChiaro, $nome, $cognome, $dataNascita, $email, $tell);
+    $stmt->bind_param("ssssssi", $username, $psw, $nome, $cognome, $dataNascita, $email, $tell);
     return $stmt->execute();
   }
   public function insert_prodotto($nome, $descrizione, $prezzo, $piva, $imgPath, $categoria)
@@ -289,7 +313,8 @@ class DatabaseHelper
   }
   public function update_user_psw($username, $newPsw)
   {
-    $query = "UPDATE `utente` SET PswInChiaro = ? WHERE Username = ?";
+    $newPsw = $this->get_cripted_password($newPsw);
+    $query = "UPDATE `utente` SET Psw = ? WHERE Username = ?";
     $stmt = $this->db->prepare($query);
     $stmt->bind_param("ss", $newPsw, $username);
     return $stmt->execute();
@@ -299,12 +324,19 @@ class DatabaseHelper
     if($idRuolo == 5 || $idRuolo == 6){
       $query = "UPDATE `utente` SET IdRuolo = ? , PIVA_Fornitore = ? WHERE ID = ?";
       $stmt = $this->db->prepare($query);
-      $stmt->bind_param("isi", $idUtente, $p_iva, $idRuolo);
+      $stmt->bind_param("isi", $idRuolo, $p_iva, $idUtente);
     } else{
-      $query = "UPDATE `utente` SET IdRuolo = ? WHERE ID = ?";
+      $query = "UPDATE `utente` SET IdRuolo = ?, PIVA_Fornitore = NULL WHERE ID = ?";
       $stmt = $this->db->prepare($query);
-      $stmt->bind_param("ii", $idUtente, $idRuolo);    
+      $stmt->bind_param("ii", $idRuolo, $idUtente);    
     }
+    return $stmt->execute();
+  }
+  public function update_conto($nrCarta)
+  {
+    $query = "UPDATE `carta` SET Disponibilita = Disponibilita + 100 WHERE Numero = ?";
+    $stmt = $this->db->prepare($query);
+    $stmt->bind_param("i", $nrCarta);
     return $stmt->execute();
   }
   /*-----------------------------------------------------------------------------------------------------------*/
