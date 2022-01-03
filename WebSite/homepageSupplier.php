@@ -61,7 +61,7 @@ $hh->check_modals("product");
             </li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane container" id="supp_profile" role="tabpanel" aria-labelledby="supp_profile-tab">
+            <div class="tab-pane container scrollable-content" id="supp_profile" role="tabpanel" aria-labelledby="supp_profile-tab">
                 <form action="utils/update.php" method="get">
                     <input type="hidden" name="obj_to_update" value="fornitore">
                     <div class="form-group">
@@ -98,7 +98,7 @@ $hh->check_modals("product");
             <div class="tab-pane" id="forniture" role="tabpanel" aria-labelledby="ven-tab">
                 <div class="scrollable-content">
                     <div class="container">
-                        <canvas id="graficoForniture" height="200">
+                        <canvas id="graficoForniture" height="200px">
                         </canvas>
                         <form action="utils/insert.php" method="get">
                             <input type="hidden" name="obj_to_insert" value="fornitura">
@@ -219,11 +219,9 @@ $hh->check_modals("product");
                 </div>
             </div>
         </div>
-        <div class="tab-pane" id="ven" role="tabpanel" aria-labelledby="ven-tab">
-            <div class="canvas-container">
-                <canvas id="graficoVenditeProdUser" height="600px" width="600px">
-                </canvas>
-            </div>
+        <div class="tab-pane container canvas-container scrollable-content" id="ven" role="tabpanel" aria-labelledby="ven-tab">
+            <canvas id="graficoVenditeProdUser">
+            </canvas>
         </div>
         </div>
 
