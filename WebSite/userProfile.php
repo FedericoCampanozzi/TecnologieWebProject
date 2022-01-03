@@ -84,7 +84,7 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
             </li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane container" id="usr_profile" role="tabpanel" aria-labelledby="usr_profile-tab">
+            <div class="tab-pane container top-40" id="usr_profile" role="tabpanel" aria-labelledby="usr_profile-tab">
                 <div class="row">
                     <div class="col-4">
                         <form action="utils/update.php" method="post">
@@ -144,7 +144,7 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                     </div>
                 </form>
             </div>
-            <div class="tab-pane scrollable-content" id="cart" role="tabpanel" aria-labelledby="cart-tab">
+            <div class="tab-pane" id="cart" role="tabpanel" aria-labelledby="cart-tab">
                 <div class="scrollable-content">
                     <div class="container">
                         <div class="p-5 table-responsive">

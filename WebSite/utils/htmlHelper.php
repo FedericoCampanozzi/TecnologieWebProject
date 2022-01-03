@@ -41,11 +41,11 @@ class HTML_Helper
                 $('#myGeneralModal').modal('show');
             });
         </script>
-    <?php
+<?php
     }
     private function modals_warnings()
     {
-    ?>
+?>
         <div class="modal fade" id="myGeneralModal" tabindex="-1" role="dialog" aria-labelledby="generalModal" aria-hidden="true">
             <div class="modal-dialog modal-msg-warning" role="document">
                 <div class="modal-content modal-msg-warning"></div>
@@ -74,11 +74,11 @@ class HTML_Helper
                 $('#myGeneralModal').modal('show');
             });
         </script>
-    <?php
+<?php
     }
     private function modals_information()
     {
-    ?>
+?>
         <div class="modal fade" id="myGeneralModal" tabindex="-1" role="dialog" aria-labelledby="generalModal" aria-hidden="true">
             <div class="modal-dialog modal-msg-info" role="document">
                 <div class="modal-content modal-msg-info"></div>
@@ -107,11 +107,11 @@ class HTML_Helper
                 $('#myGeneralModal').modal('show');
             });
         </script>
-    <?php
+<?php
     }
     private function modals_successfull()
     {
-    ?>
+?>
         <div class="modal fade" id="myGeneralModal" tabindex="-1" role="dialog" aria-labelledby="generalModal" aria-hidden="true">
             <div class="modal-dialog modal-msg-successfull" role="document">
                 <div class="modal-content modal-msg-successfull"></div>
@@ -140,7 +140,7 @@ class HTML_Helper
                 $('#myGeneralModal').modal('show');
             });
         </script>
-    <?php
+<?php
     }
     public function check_page($check)
     {
@@ -166,7 +166,7 @@ class HTML_Helper
     public function generate_page_head($pageTitle, $check = "", $useDataTable = false, $useCart = false)
     {
         session_start();
-    ?>
+?>
 
         <head>
             <meta charset="utf-8">
@@ -183,7 +183,7 @@ class HTML_Helper
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
             <link rel="stylesheet" href="css/main-style.css" type="text/css">
         </head>
-        <?php
+<?php
         if ($useDataTable) {
             echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.css\" />";
             echo "<script type=\"text/javascript\" src=\"https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js\"></script>";
@@ -229,7 +229,7 @@ class HTML_Helper
     }
     public function generate_user_nav($needSearchBar = false)
     {
-        ?>
+?>
         <div class="navbar">
             <a href="homepageUser.php">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" viewBox="0 0 16 16">
@@ -249,16 +249,16 @@ class HTML_Helper
                     <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
                 </svg> Logout
             </a>
-            <?php
+<?php
             if ($needSearchBar) {
-            ?>
+?>
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search">
                     <button class="btn-rounded-2" type="submit"><i class="fa fa-fw fa-search"></i> Search</button>
                 </form>
-    <?php
+<?php
             }
             echo "</div>";
         }
     }
-    ?>
+?>
