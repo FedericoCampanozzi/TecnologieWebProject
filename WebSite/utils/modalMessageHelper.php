@@ -29,7 +29,6 @@ class MesssageModalHelper
     {
         $_SESSION["upd"] = true;
         $_SESSION["msg"] = $msg;
-        //$_SESSION["cur_page"] = $page_to;
         $_SESSION["last_page"] = $page_from;
         $_SESSION["msg_type"] = $msg_type;
     }

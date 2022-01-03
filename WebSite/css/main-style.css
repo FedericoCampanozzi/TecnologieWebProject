@@ -1,46 +1,66 @@
-@import "modal-style.css";
-@import "structure-style.css";
-@import "product.css";
-@import "ordini.css";
-.gfx-link {
-    margin: 25px 50px;
-    font-style: italic;
-}
-
-.gfx-not-resizable {
-    resize: none !important;
-}
-
-.gfx-grafics-container {
-    height: auto;
-    width: 35%;
-    margin: 5% 15%
-}
-
-.centerd-itm {
-    width: 50%;
-    margin: 20% 25%;
-}
-
-.inline-table-text {
-    width: 80%;
-    margin-right: 0;
-    display: inline;
-}
-
-.tbl-150 {
-    width: 150%;
-}
-
-.fix-on-bot {
-    position: absolute;
-    bottom: 0;
-}
-
-.distance-to-img {
-    padding-right: 20px;
-}
-
-.bold {
-    font: bold;
-}
+    @import "modal-style.css";
+    @import "structure-style.css";
+    @import "product.css";
+    @import "ordini.css";
+    .gfx-link {
+        margin: 25px 50px;
+        font-style: italic;
+    }
+    
+    .gfx-not-resizable {
+        resize: none !important;
+    }
+    
+    .centerd-itm {
+        width: 50%;
+        margin: 100px 25%;
+    }
+    
+    .inline-table-text {
+        width: 80%;
+        margin-right: 0;
+        display: inline;
+    }
+    
+    .tbl-150 {
+        width: 150% !important;
+    }
+    
+    .tbl-100 {
+        width: 150% !important;
+    }
+    
+    .tbl-125 {
+        width: 125% !important;
+    }
+    
+    .fix-on-bot {
+        position: absolute;
+        bottom: 0;
+    }
+    
+    .distance-to-img {
+        padding-right: 20px;
+    }
+    
+    .bold {
+        font: bold;
+    }
+    
+    .canvas-container {
+        width: 80%;
+        margin: 50px 10%;
+    }
+    
+    canvas {
+        width: 100%;
+        height: 100%;
+    }
+    
+    .bg-white {
+        background-color: white;
+    }
+    
+    a>span {
+        margin-left: 15px;
+    }

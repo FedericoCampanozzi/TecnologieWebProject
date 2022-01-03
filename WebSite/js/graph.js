@@ -88,4 +88,5 @@ function generateBarGraph(canvasId, colorTo, colorFrom, lbls, data, xText, yText
             }
         }
     });
+    graph.style.height = "500px";
 }
