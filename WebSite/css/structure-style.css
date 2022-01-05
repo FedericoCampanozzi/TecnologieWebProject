@@ -2,8 +2,6 @@ footer {
     height: 50px;
     width: 100%;
     background-color: #AA8700;
-    position: absolute;
-    bottom: 0;
     text-align: center;
     height: 50px;
 }
@@ -57,10 +55,6 @@ footer>span:nth-child(3) {
 }
 
 @media screen and (min-width: 0px) and (max-width: 500px) {
-    footer {
-        position: unset;
-        margin-top: 20px;
-    }
     footer>span:first-child {
         font-size: 18px;
         margin: 5px 20px;

@@ -7,6 +7,11 @@
 @import "product.css";
 @import "ordini.css";
 @import "buttons.css";
+body {
+    font-family: Lato;
+    background-color: whitesmoke;
+}
+
 .gfx-link {
     margin: 25px 50px;
     font-style: italic;
@@ -57,11 +62,6 @@ a>span {
     margin-top: 40px;
 }
 
-body {
-    font-family: Lato;
-    background-color: whitesmoke;
-}
-
 .grid-input-big {
     min-width: 80px;
 }
@@ -97,4 +97,17 @@ svg {
 
 .w-180 {
     width: 180px;
+}
+
+.usr-profile-image {
+    width: 60%;
+    height: 80%;
+    margin: 10% 20%;
+}
+
+@media screen and (min-width: 0px) and (max-width: 700px) {
+    .gfx-link {
+        margin: 10px 25px;
+        font-style: italic;
+    }
 }

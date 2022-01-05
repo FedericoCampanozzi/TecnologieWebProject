@@ -43,7 +43,7 @@ $hh->generate_page_head("Login", "index.php");
     <aside class="gfx-link">
       Per contattare l'assistenza scrivere una mail al seguente indirizzo : <br> federico.campanozzi@studio.unibo.it
     </aside>
-    <?php $hh->generate_footer(); ?>
+    <?php $hh->generate_footer(false, true); ?>
   </main>
 </body>
 

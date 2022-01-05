@@ -86,13 +86,8 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
         <div class="tab-content">
             <div class="tab-pane container top-40" id="usr_profile" role="tabpanel" aria-labelledby="usr_profile-tab">
                 <div class="row">
-                    <div class="col-4">
-                        <img width="250px" height="300px" alt="" src="./images/utenti/<?php echo $_SESSION["img_name"]; ?>">
-                        <label> Nome : <?php echo $_SESSION["usr_nome"]; ?> </label>
-                        <label> Cognome : <?php echo $_SESSION["usr_cognome"]; ?> </label>
-                        <label> Data di nascita : <?php echo $_SESSION["usr_dn"]; ?> </label>
-                    </div>
-                    <div class="col-2">
+                    <div class="col-6">
+                        <img class="usr-profile-image" alt="" src="./images/utenti/<?php echo $_SESSION["img_name"]; ?>">
                     </div>
                     <div class="col-6">
                         <form action="utils/update.php" method="post">
@@ -109,6 +104,17 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                         </form>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-4">
+                        <p>Nome : <?php echo $_SESSION["usr_nome"]; ?></p>
+                    </div>
+                    <div class="col-4">
+                        <p>Cognome : <?php echo $_SESSION["usr_cognome"]; ?></p>
+                    </div>
+                    <div class="col-4">
+                        <p>Data di nascita : <?php echo $_SESSION["usr_dn"]; ?></p>
+                    </div>
+                </div>
                 <form action="utils/update.php" method="get">
                     <div class="row">
                         <div class="col-4">
@@ -118,25 +124,24 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                                 <input type="text" class="form-control" name="username" id="username" value="<?php echo $_SESSION["usr_un"]; ?>" />
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-6">
                             <div class="form-group">
                                 <label for="email">Email : </label>
                                 <input type="text" class="form-control" name="email" id="email" value="<?php echo $_SESSION["usr_email"]; ?>" />
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-2">
                             <div class="form-group">
                                 <label for="p_iva">Telefono : </label>
-                                <input type="text" class="form-control" name="tell" id="tell" value="<?php echo $_SESSION["usr_tell"]; ?>" />
+                                <input type="text" class="form-control grid-input-so-big" name="tell" id="tell" value="<?php echo $_SESSION["usr_tell"]; ?>" />
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-4">
-                            <input class="top-40" name="image" type="file" size="40" />
+                            <button type="submit" class="custom-btn btn-5 top-40">Aggiorna</button>
                         </div>
                         <div class="col-8">
-                            <button type="submit" class="custom-btn btn-3 top-40">Aggiorna</button>
                         </div>
                     </div>
                 </form>

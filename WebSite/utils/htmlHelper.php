@@ -219,13 +219,17 @@ class HTML_Helper
             <h1>" . $title . "</h1>
         </header>";
     }
-    public function generate_footer($scrollable = false)
+    public function generate_footer($scrollable = false, $fixedheader = false)
     {
-        if ($scrollable) {
-            echo  "<div id=\"fix-on-bot\" class=\"fix-on-bot\"></div>";
-            echo "<script src='js/perfectScrollableElement.js'></script>";
-        }
-        echo " <footer><span>Federico Campanozzi</span><span>Matr.: 0000895693</span> <span>Alma Mater Studiorum Bologna - Sede di Cesena</span></footer>";
+        if ($scrollable) 
+            echo  " 
+                <script src='js/perfectScrollableElement.js'></script>
+                <footer class=\"fix-on-bot\"><span>Federico Campanozzi</span><span>Matr.: 0000895693</span> <span>Alma Mater Studiorum Bologna - Sede di Cesena</span>
+                </footer>";
+        else if($fixedheader)
+            echo " <footer class=\"fix-on-bot\"><span>Federico Campanozzi</span><span>Matr.: 0000895693</span> <span>Alma Mater Studiorum Bologna - Sede di Cesena</span></footer>";
+        else
+            echo " <footer><span>Federico Campanozzi</span><span>Matr.: 0000895693</span> <span>Alma Mater Studiorum Bologna - Sede di Cesena</span></footer>";
     }
     public function generate_user_nav()
     {

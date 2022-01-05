@@ -14,7 +14,7 @@ session_destroy();
     <aside class="centerd-itm gfx-link">
       Se vuoi ritornare alla pagina di login, clicca <a href="index.php">qui</a>
     </aside>
-    <?php $hh->generate_footer(); ?>
+    <?php $hh->generate_footer(false, true); ?>
   </main>
 </body>
 
