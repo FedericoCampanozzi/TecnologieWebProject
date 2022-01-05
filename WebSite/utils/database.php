@@ -62,16 +62,6 @@ class DatabaseHelper
   }
   /*-----------------------------------------------------------------------------------------------------------*/
   /* GET */
-  /*
-  public function get_fornitore_login($piva)
-  {
-    $stmt = $this->db->prepare("SELECT * FROM fornitore WHERE PIVA = ?");
-    $stmt->bind_param("s", $piva);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    return $result->fetch_all(MYSQLI_ASSOC);
-  }
-  */
   public function get_login($user, $password)
   {
     $password = $this->get_cripted_password($password);
@@ -276,7 +266,7 @@ class DatabaseHelper
   /* DELETE */
   public function delete_rc($idprodotto, $idUtente)
   {
-    $query = "DELETE FROM `riga_carrello` WHERE IdUtente = ? AND IdProdotto = ? LIMIT 1";
+    $query = "DELETE FROM `riga_carrello` WHERE IdUtente = ? AND IdProdotto = ? AND IdOrdine IS NULL LIMIT 1";
     $stmt = $this->db->prepare($query);
     $stmt->bind_param("ii", $idUtente, $idprodotto);
     return $stmt->execute();
@@ -332,11 +322,11 @@ class DatabaseHelper
     }
     return $stmt->execute();
   }
-  public function update_conto($nrCarta)
+  public function update_conto($nrCarta, $somma)
   {
-    $query = "UPDATE `carta` SET Disponibilita = Disponibilita + 100 WHERE Numero = ?";
+    $query = "UPDATE `carta` SET Disponibilita = Disponibilita + ? WHERE Numero = ?";
     $stmt = $this->db->prepare($query);
-    $stmt->bind_param("i", $nrCarta);
+    $stmt->bind_param("ii", $nrCarta,$somma);
     return $stmt->execute();
   }
   /*-----------------------------------------------------------------------------------------------------------*/

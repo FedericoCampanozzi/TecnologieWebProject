@@ -106,9 +106,9 @@ $dbh = new DatabaseHelper("localhost", "root", "", "plant");
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="">Acquista</button>
+                        <button type="submit" class="custom-btn btn-4">Acquista</button>
                     </form>
-                    <div class="gfx-link">
+                    <div class="gfx-link l-0">
                         premi <a href="homepageUser.php">qui </a> per annullare il pagamento e tornare alla homepage
                     </div>
                 </div>

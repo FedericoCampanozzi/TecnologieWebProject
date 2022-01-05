@@ -20,9 +20,8 @@ $hh->generate_page_head("Homepage", "homepageUser.php", false, false);
         
         for ($i = 0; $i < sizeof($products); $i++) {
           echo "
-           <form action=\"utils/insert.php\" method=\"get\">
-           <input type=\"hidden\" name=\"obj_to_insert\" value=\"rc_usr_hp\">
-           <input type=\"hidden\" name=\"product_id\" value=\"" . $products[$i]["ID"] . "\">
+           <form action=\"\" method=\"get\">
+           <input type=\"hidden\" id=\"IdProdtto_".$i."\" value=\"" . $products[$i]["ID"] . "\">
            <div class=\"product-container\">
            <!--
            <div class=\"nome-prodotto\">" . $products[$i]["Nome"] . "</div>
@@ -37,18 +36,19 @@ $hh->generate_page_head("Homepage", "homepageUser.php", false, false);
            </div>
            <div class=\"immagine\">
              <img alt=\"\" src=.\images\prodotti\\" . $products[$i]["ImagePath"] . " width=\"156\" height=\"156\">
-           </div>
+           </div> -->
           ";
           if($products[$i]["Giacenza"] > 0){
-            echo"<button type=\"submit\" class=\"custom-btn btn-11 bg-white\"> Aggiungi </button>";
+            echo"<button type=\"submit\" class=\"custom-btn btn-11 bg-white add-product\" id=\"add_".$i."\"> Aggiungi </button>";
           }
-          echo " -->
+          echo "
            </div>
            </form>
           ";
         }
         ?>
       </div>
+    <script src="js/homepageUser.js"></script>
     <?php
     $hh->generate_footer(true);
     ?>

@@ -4,10 +4,10 @@ class HTML_Helper
     public function __construct()
     {
     }
-    private function modals_error()
+    private function modals_error($id = "myGeneralModal")
     {
 ?>
-        <div class="modal fade" id="myGeneralModal" tabindex="-1" role="dialog" aria-labelledby="generalModal" aria-hidden="true">
+        <div class="modal fade" id="<?php echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="generalModal" aria-hidden="true">
             <div class="modal-dialog modal-msg-error" role="document">
                 <div class="modal-content modal-msg-error">
 
@@ -38,15 +38,15 @@ class HTML_Helper
         </div>
         <script>
             $(document).ready(function() {
-                $('#myGeneralModal').modal('show');
+                $('#<?php echo $id;?>').modal('show');
             });
         </script>
 <?php
     }
-    private function modals_warnings()
+    private function modals_warnings($id = "myGeneralModal")
     {
 ?>
-        <div class="modal fade" id="myGeneralModal" tabindex="-1" role="dialog" aria-labelledby="generalModal" aria-hidden="true">
+        <div class="modal fade" id="<?php echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="generalModal" aria-hidden="true">
             <div class="modal-dialog modal-msg-warning" role="document">
                 <div class="modal-content modal-msg-warning"></div>
                 <div class="modal-header modal-msg-warning">
@@ -71,15 +71,15 @@ class HTML_Helper
         </div>
         <script>
             $(document).ready(function() {
-                $('#myGeneralModal').modal('show');
+                $('#<?php echo $id;?>').modal('show');
             });
         </script>
 <?php
     }
-    private function modals_information()
+    private function modals_information($id = "myGeneralModal")
     {
 ?>
-        <div class="modal fade" id="myGeneralModal" tabindex="-1" role="dialog" aria-labelledby="generalModal" aria-hidden="true">
+        <div class="modal fade" id="<?php echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="generalModal" aria-hidden="true">
             <div class="modal-dialog modal-msg-info" role="document">
                 <div class="modal-content modal-msg-info"></div>
                 <div class="modal-header modal-msg-info">
@@ -104,15 +104,15 @@ class HTML_Helper
         </div>
         <script>
             $(document).ready(function() {
-                $('#myGeneralModal').modal('show');
+                $('#<?php echo $id;?>').modal('show');
             });
         </script>
 <?php
     }
-    private function modals_successfull()
+    private function modals_successfull($id = "myGeneralModal")
     {
 ?>
-        <div class="modal fade" id="myGeneralModal" tabindex="-1" role="dialog" aria-labelledby="generalModal" aria-hidden="true">
+        <div class="modal fade" id="<?php echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="generalModal" aria-hidden="true">
             <div class="modal-dialog modal-msg-successfull" role="document">
                 <div class="modal-content modal-msg-successfull"></div>
                 <div class="modal-header modal-msg-successfull">
@@ -137,7 +137,7 @@ class HTML_Helper
         </div>
         <script>
             $(document).ready(function() {
-                $('#myGeneralModal').modal('show');
+                $('#<?php echo $id;?>').modal('show');
             });
         </script>
 <?php

@@ -66,6 +66,13 @@ switch ($obj) {
                     $_SESSION["TelefonoF"] = $login[0]["TelefonoF"];
                 }
 
+                // RESET SESSION CRITICAL VARIABLES
+                if(isset($_SESSION["upd"])) $_SESSION["upd"] = false;
+                if(isset($_SESSION["msg"])) $_SESSION["msg"] = "";
+                if(isset($_SESSION["cur_page"])) $_SESSION["cur_page"] = "";
+                if(isset($_SESSION["last_page"])) $_SESSION["last_page"] = "";
+                if(isset($_SESSION["msg_type"])) $_SESSION["msg_type"] = "";
+
                 echo "<script>location.href='../".$login[0]["Homepage"]."';</script>";
             } else {
                 $msg->show_in_next_page("password non corrispondente", "index.php", "index.php", MsgType::Error, $dbg);
@@ -101,7 +108,7 @@ switch ($obj) {
             $msg->ajax_response("Consegna registrata correttamente", "", "homepageAdmin.php", MsgType::Successfull, $dbg);
         break;
     case ("denaro"):
-        if ($dbh->update_conto($_REQUEST["numero_carta"]))
+        if ($dbh->update_conto($_REQUEST["numero_carta"], 100))
             $msg->show_in_next_page("transazione avvenuta corretamente", "userProfile.php?showTab=card", "card-denaro", MsgType::Successfull, $dbg);
         else
             $msg->show_in_next_page("c'&egrave; stato un problema inaspettato, <br> <strong>transazione annullata</strong>", "userProfile.php?showTab=card", "card-denaro", MsgType::Error, $dbg);

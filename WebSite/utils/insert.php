@@ -59,35 +59,57 @@ switch ($obj) {
         $usr_cart = $dbh->get_carrello($_SESSION["IdUtente"]);
         $disp = true;
         $i = 0;
-        for(; $i < sizeof($usr_cart); $i++){
-            if($dbh->qta_giacenza_prodotto($usr_cart[$i]["IdProdotto"]) < $usr_cart[$i]["Qta"]){
+        for (; $i < sizeof($usr_cart); $i++) {
+            if ($dbh->qta_giacenza_prodotto($usr_cart[$i]["IdProdotto"]) < $usr_cart[$i]["Qta"]) {
                 $disp = false;
                 break;
             }
         }
-        if(!$disp){
-            if($_REQUEST["useContanti"] == "NO" && $dbh->denaro_carta($_REQUEST["select_carta"]) < $_REQUEST["totale"]) {
-                if ($dbh->insert_ordine($_REQUEST["useContanti"], $_REQUEST["note"], $_SESSION["IdUtente"], $_REQUEST["select_add"], $_REQUEST["select_carta"])){
-                    $id_ordine = $dbh->last_ordine($_SESSION["IdUtente"]);
-                    for($i = 0; $i < sizeof($usr_cart); $i++){
-                        $dbh->update_riga_carrello($_SESSION["IdUtente"], $usr_cart[$i]["IdProdotto"], $id_ordine);  
+        if ($disp) {
+            if ($_REQUEST["useContanti"] == "NO") {
+                // USO CARTA --> CONTROLLO SE CI SONO I SOLDI
+                if ($dbh->denaro_carta($_REQUEST["select_carta"]) < $_REQUEST["totale"]) {
+                    //  --> INSERISCO L'ORDINE
+                    if ($dbh->insert_ordine(false, $_REQUEST["note"], $_SESSION["IdUtente"], $_REQUEST["select_add"], $_REQUEST["select_carta"])) {
+                        $id_ordine = $dbh->last_ordine($_SESSION["IdUtente"]);
+                        // --> AGGIORNO IL CARRELLO
+                        for ($i = 0; $i < sizeof($usr_cart); $i++) {
+                            $dbh->update_riga_carrello($_SESSION["IdUtente"], $usr_cart[$i]["IdProdotto"], $id_ordine);
+                        }
+                        // --> AGGIORNO LA CARTA
+                        $dbh->update_conto($_REQUEST["select_carta"], -$_REQUEST["totale"]);
+                        $msg->show_in_next_page("ordine inserito", "pagamento.php", "pagamento.php", MsgType::Successfull, $dbg);
+                    } else {
+                        $msg->show_in_next_page("c'&egrave; stato un problema inaspettato, <br> <strong>ordine non inserito</strong>", "pagamento.php", "pagamento.php", MsgType::Error, $dbg);
                     }
-                    $msg->show_in_next_page("ordine inserito", "pagamento.php", "pagamento.php", MsgType::Successfull, $dbg);
-                }else{
-                    $msg->show_in_next_page("c'&egrave; stato un problema inaspettato, <br> <strong>ordine non inserito</strong>", "pagamento.php", "pagamento.php", MsgType::Error, $dbg);
+                } else {
+                    $msg->show_in_next_page("Non ci sono soldi", "pagamento.php", "pagamento.php", MsgType::Warning, $dbg);
                 }
             } else {
-                $msg->show_in_next_page("Non ci sono soldi", "pagamento.php", "pagamento.php", MsgType::Warning, $dbg);
+                // USO CONTANTI --> INSERISCO L'ORDINE
+                if ($dbh->insert_ordine(true, $_REQUEST["note"], $_SESSION["IdUtente"], $_REQUEST["select_add"], $_REQUEST["select_carta"])) {
+                    $id_ordine = $dbh->last_ordine($_SESSION["IdUtente"]);
+                    // --> AGGIORNO IL CARRELLO
+                    for ($i = 0; $i < sizeof($usr_cart); $i++) {
+                        $dbh->update_riga_carrello($_SESSION["IdUtente"], $usr_cart[$i]["IdProdotto"], $id_ordine);
+                    }
+                    $msg->show_in_next_page("ordine inserito", "pagamento.php", "pagamento.php", MsgType::Successfull, $dbg);
+                } else {
+                    $msg->show_in_next_page("c'&egrave; stato un problema inaspettato, <br> <strong>ordine non inserito</strong>", "pagamento.php", "pagamento.php", MsgType::Error, $dbg);
+                }
             }
         } else {
-            $msg->show_in_next_page("siamo spiacenti ma il prodotto ".$usr_cart[$i]["Nome"]."non &egrave; pi&ugrave; disponibile", "pagamento.php", "pagamento.php", MsgType::Warning, $dbg);
+            $msg->show_in_next_page("siamo spiacenti ma il prodotto " . $usr_cart[$i]["Nome"] . "non &egrave; pi&ugrave; disponibile", "pagamento.php", "pagamento.php", MsgType::Warning, $dbg);
         }
-            break;
+        break;
     case ("rc_usr_hp"):
+        $dbh->insert_rc($_REQUEST["product_id"], $_SESSION["IdUtente"]);
+        /*
         if ($dbh->insert_rc($_REQUEST["product_id"], $_SESSION["IdUtente"]))
             $msg->show_next_page("homepageUser.php", $dbg);
         else
             $msg->show_in_next_page("c'&egrave; stato un problema inaspettato, <br> <strong>prodotto non inserito</strong>", "homepageUser.php", "cart", MsgType::Error, $dbg);
+        */
         break;
     case ("rc_usr_prof"):
         if ($dbh->insert_rc($_REQUEST["product_id"], $_SESSION["IdUtente"]))
