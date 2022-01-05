@@ -87,11 +87,7 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
             <div class="tab-pane container top-40" id="usr_profile" role="tabpanel" aria-labelledby="usr_profile-tab">
                 <div class="row">
                     <div class="col-4">
-                        <form action="utils/update.php" method="post">
-                            <button type="submit" title="clicca per cambiare immagine">
-                                <img width="250px" height="300px" alt="" src="./images/utenti/<?php echo $_SESSION["img_name"]; ?>">
-                            </button>
-                        </form>
+                        <img width="250px" height="300px" alt="" src="./images/utenti/<?php echo $_SESSION["img_name"]; ?>">
                         <label> Nome : <?php echo $_SESSION["usr_nome"]; ?> </label>
                         <label> Cognome : <?php echo $_SESSION["usr_cognome"]; ?> </label>
                         <label> Data di nascita : <?php echo $_SESSION["usr_dn"]; ?> </label>
@@ -109,7 +105,7 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                                 <label for="new_psw">Nuova Password:</label>
                                 <input type="password" class="form-control" id="new_psw" name="new_psw" placeholder="New Password">
                             </div>
-                            <button type="submit" class="btn-rounded-1">Cambia</button>
+                            <button type="submit" class="custom-btn btn-5">Cambia</button>
                         </form>
                     </div>
                 </div>
@@ -119,55 +115,55 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                             <input type="hidden" name="obj_to_update" value="user">
                             <div class="form-group">
                                 <label for="username">Username : </label>
-                                <input type="text" class="form-control" name="username" id="username" value="<?php echo $_SESSION["usr_un"]; ?>">
+                                <input type="text" class="form-control" name="username" id="username" value="<?php echo $_SESSION["usr_un"]; ?>" />
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="email">Email : </label>
-                                <input type="text" class="form-control" name="email" id="email" value="<?php echo $_SESSION["usr_email"]; ?>">
+                                <input type="text" class="form-control" name="email" id="email" value="<?php echo $_SESSION["usr_email"]; ?>" />
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="p_iva">Telefono : </label>
-                                <input type="text" class="form-control" name="tell" id="tell" value="<?php echo $_SESSION["usr_tell"]; ?>">
+                                <input type="text" class="form-control" name="tell" id="tell" value="<?php echo $_SESSION["usr_tell"]; ?>" />
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-4">
-                            <button type="submit" class="btn-rounded-1" >Aggiorna</button>
+                            <input class="top-40" name="image" type="file" size="40" />
                         </div>
                         <div class="col-8">
+                            <button type="submit" class="custom-btn btn-3 top-40">Aggiorna</button>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="tab-pane" id="cart" role="tabpanel" aria-labelledby="cart-tab">
                 <div class="scrollable-content">
-                    <div class="container">
-                        <div class="p-5 table-responsive">
-                            <table id="tbl_carrello_utente" class="table table-striped table-bordered tbl-150">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Nome</th>
-                                        <th>Descrizione</th>
-                                        <th>Fornitore</th>
-                                        <th>Qt.&agrave;</th>
-                                        <th>Prezzzo Unitario</th>
-                                        <th>Prezzo Totale</th>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $usr_cart = $dbh->get_carrello($_SESSION["IdUtente"]);
-                                    $tot = 0;
-                                    for ($i = 0; $i < sizeof($usr_cart); $i++) {
-                                        echo "
+                    <div class="p-5 table-responsive">
+                        <table id="tbl_carrello_utente" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Nome</th>
+                                    <th>Descrizione</th>
+                                    <th>Fornitore</th>
+                                    <th>Qt.&agrave;</th>
+                                    <th>Prezzzo Unitario</th>
+                                    <th>Prezzo Totale</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $usr_cart = $dbh->get_carrello($_SESSION["IdUtente"]);
+                                $tot = 0;
+                                for ($i = 0; $i < sizeof($usr_cart); $i++) {
+                                    echo "
                                                 <tr>
                                                     <td><img src=.\images\prodotti\\" . $usr_cart[$i]["ImagePath"] . " width=\"64\" height=\"64\"></td>                                                            </td>
                                                     <td>" . $usr_cart[$i]["Nome"] . "</td>
@@ -176,35 +172,35 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                                                     <td>" . $usr_cart[$i]["Qta"] . "</td>
                                                     <td>" . $usr_cart[$i]["PrezzoUnitario"] . "  &euro; </td>
                                                     <td>" . $usr_cart[$i]["PrezzoTotale"] . "  &euro; </td>";
-                                    ?>
-                                        <td>
-                                            <form action="utils/insert.php" method="post">
-                                                <input type="hidden" name="product_id" value="<?php echo $usr_cart[$i]["IdProdotto"]; ?>">
-                                                <input type="hidden" name="obj_to_insert" value="rc_usr_prof">
-                                                <button type="submit" class="rounded-btn">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 16 16">
-                                                        <path fill="rgb(0, 255, 0)" stoke="black" stroke-width="2" d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z" />
-                                                    </svg>
-                                                </button>
-                                            </form>
-                                        </td>
-                                        <td>
-                                            <form action="utils/delete.php" method="post">
-                                                <input type="hidden" name="product_id" value="<?php echo $usr_cart[$i]["IdProdotto"]; ?>">
-                                                <input type="hidden" name="obj_to_delete" value="riga_carrello">
-                                                <button type="submit" class="rounded-btn">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 16 16">
-                                                        <path fill="rgb(255, 0, 0)" stoke="black" stroke-width="2" d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM6.5 7h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1 0-1z" />
-                                                    </svg>
-                                                </button>
-                                            </form>
-                                        </td>
-                                        </tr>
-                                    <?php
-                                        $tot += $usr_cart[$i]["PrezzoTotale"];
-                                    }
-                                    if ($tot <> 0)
-                                        echo "
+                                ?>
+                                    <td>
+                                        <form action="utils/insert.php" method="post">
+                                            <input type="hidden" name="product_id" value="<?php echo $usr_cart[$i]["IdProdotto"]; ?>">
+                                            <input type="hidden" name="obj_to_insert" value="rc_usr_prof">
+                                            <button type="submit" class="btn-grid-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 16 16">
+                                                    <path fill="rgb(0, 255, 0)" stoke="black" stroke-width="2" d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z" />
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form action="utils/delete.php" method="post">
+                                            <input type="hidden" name="product_id" value="<?php echo $usr_cart[$i]["IdProdotto"]; ?>">
+                                            <input type="hidden" name="obj_to_delete" value="riga_carrello">
+                                            <button type="submit" class="btn-grid-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 16 16">
+                                                    <path fill="rgb(255, 0, 0)" stoke="black" stroke-width="2" d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM6.5 7h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1 0-1z" />
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    </td>
+                                    </tr>
+                                <?php
+                                    $tot += $usr_cart[$i]["PrezzoTotale"];
+                                }
+                                if ($tot <> 0)
+                                    echo "
                                     <tr>
                                         <td class=\"bold\"> Totale : </td>
                                         <td> </td>
@@ -216,14 +212,13 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                                         <td> </td>
                                         <td>
                                             <form action=\"pagamento.php\" method=\"get\">
-                                                <button type=\"submit\" class=\"btn-rounded-2\">Acquista</button>
+                                                <button type=\"submit\" class=\"custom-btn btn-grid-1\">Acquista</button>
                                             </form>
                                         </td>
                                     </tr>"
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
+                                ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -255,7 +250,7 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                                                                 <form action=\"utils/update.php\" method=\"post\">
                                                                     <input type=\"hidden\" name=\"obj_to_update\" value=\"denaro\">
                                                                     <input type=\"hidden\" name=\"numero_carta\" value=\"" . $carte[$i]["Numero"] . "\">
-                                                                    <button type=\"submit\" class=\"btn-rounded-2\"> +100 &euro;</button>
+                                                                    <button type=\"submit\" class=\"custom-btn btn-grid-3\"> +100 &euro;</button>
                                                                 </form>
                                                             </td>
                                                         </tr>";
@@ -263,24 +258,24 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                             ?>
                             <tr>
                                 <td>
-                                    <input type="text" class="form-control" name="numero" id="numero" placeholder="Numero">
+                                    <input type="text" class="form-control grid-input-so-big" name="numero" id="numero" placeholder="Numero">
                                 </td>
                                 <td>
                                     <input type="date" class="form-control" name="datascadenza" id="datascadenza" placeholder="Data di scadenza">
                                 </td>
                                 <td>
-                                    <select class="form-control" id="tipo_carta" name="tipo_carta">
+                                    <select class="form-control grid-input-big" id="tipo_carta" name="tipo_carta">
                                         <option value="Visa">Visa</option>
                                         <option value="Mastercard">Mastercard</option>
                                         <option value="Altro">Altro</option>
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="password" class="form-control" name="ccv" id="ccv" maxlength="3" placeholder="CCV">
+                                    <input type="password" class="form-control grid-input-big" name="ccv" id="ccv" maxlength="3" placeholder="CCV">
                                 </td>
                                 <td></td>
                                 <td>
-                                    <button class="btn-rounded-2" id="addCard">Aggiungi</button>
+                                    <button class="custom-btn btn-grid-1" id="addCard">Aggiungi</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -333,7 +328,7 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                                         <input type="text" class="form-control" name="interno" id="interno" placeholder="Interno">
                                     </td>
                                     <td>
-                                        <button type="submit" class="btn-rounded-2">Aggiungi</button>
+                                        <button type="submit" class="custom-btn btn-grid-1">Aggiungi</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -345,20 +340,23 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                 <?php
                 $userOrdini = $dbh->get_user_ordini($_SESSION["IdUtente"]);
                 for ($i = 0; $i < sizeof($userOrdini); $i++) {
-                    echo "<div class=\"ordini-container\">
-                              <div class=\"indirizzo\"> 
-                                Indirizzo : <span>" . $userOrdini[$i]["Via"] . "," . $userOrdini[$i]["NumeroCivico"] . " - " . $userOrdini[$i]["Citta"] . " </span>
+                    if (isset($userOrdini[$i]["DataConsegna"])) {
+                        echo "<div class=\"ordini-container  ordine-consegnato\">";
+                    } else {
+                        echo "<div class=\"ordini-container  ordine-non-consegnato\">";
+                    }
+                    echo "<div class=\"indirizzo\">";
+                    echo           "Indirizzo : <span>" . $userOrdini[$i]["Via"] . "," . $userOrdini[$i]["NumeroCivico"] . " - " . $userOrdini[$i]["Citta"] . " </span>
                               </div>";
 
-                    if (isset($userOrdini[$i]["DataConsegna"])) {
-                        echo "<span class=\"data\"> Consegnato il " . $userOrdini[$i]["DataConsegna"] . "</span>";
-                    } else {
-                        echo "<span class=\"data\"> Consegna prevista per il " . $userOrdini[$i]["DataPrevista"] . " </span>";
-                        echo "<span class=\"\"> Stato : " . $userOrdini[$i]["Stato"] . "</span>";
-                    }
+                    if (isset($userOrdini[$i]["DataConsegna"]))
+                        echo "<div class=\"data\"> Consegnato il " . $userOrdini[$i]["DataConsegna"] . "</div>";
+                    else
+                        echo "<div class=\"data\"> Consegna prevista per il " . $userOrdini[$i]["DataPrevista"] . " </div>";
+
                     if ($userOrdini[$i]["SceltaContanti"] == 1) {
                         echo "<div class=\"pagamento\">
-                                <svg xmlns=\http://www.w3.org/2000/svg\" width=\"48\" height=\"48\" fill=\"currentColor\" class=\"bi bi-cash-coin\" viewBox=\"0 0 16 16\">
+                                <svg xmlns=\http://www.w3.org/2000/svg\" width=\"48\" height=\"48\" fill=\"currentColor\" viewBox=\"0 0 16 16\">
                                     <path fill-rule=\"evenodd\" d=\"M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0z\"/>
                                     <path d=\"M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1h-.003zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195l.054.012z\"/>
                                     <path d=\"M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083c.058-.344.145-.678.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1H1z\"/>
@@ -367,13 +365,13 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                             </div>";
                     } else {
                         echo "<div  class=\"pagamento\">
-                            <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"48\" height=\"48\" fill=\"currentColor\" class=\"bi bi-credit-card\" viewBox=\"0 0 16 16\">
+                            <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"48\" height=\"48\" fill=\"currentColor\" viewBox=\"0 0 16 16\">
                                 <path d=\"M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z\"/>
                                 <path d=\"M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z\"/>
                             </svg>
                             </div>
-                            <span>" . $userOrdini[$i]["NrCarta"] . "</span>
-                            <div class=\"totale\"> <span>100</span>&euro; </div>
+                            <div class=\"carta\"> Numero carta : " . $userOrdini[$i]["NrCarta"] . "</div>
+                            <div class=\"totale\"> Totale : <span> " . $userOrdini[$i]["TotaleOrdine"] . "</span> &euro; </div>
                             ";
                     }
                     echo "</div>";

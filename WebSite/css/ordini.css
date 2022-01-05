@@ -1,45 +1,69 @@
 .ordini-container {
-    height: 250px;
+    height: 150px;
     width: 80%;
     margin: 25px 10%;
     padding: 30px;
-    background-color: rgb(255, 179, 102);
     border-radius: 20px;
     font-family: Lato;
+    color: whitesmoke;
+}
+
+.ordine-consegnato {
+    background-color: #310FEE;
+}
+
+.ordine-non-consegnato {
+    background-color: #FFD11C;
+    color: black;
 }
 
 .ordini-container>.indirizzo {
+    position: relative;
+    top: 0px;
+    left: 10px;
     width: 50%;
-    float: right;
     font-size: 16px;
 }
 
 .ordini-container>.indirizzo>span {
-    color: blue;
+    color: #A80004;
     font-size: 18px;
     font-weight: bold;
 }
 
 .ordini-container>.data {
-    margin: 25px 10%;
-    padding: 10px;
-    float: right;
+    position: relative;
+    top: -30px;
+    left: 60%;
+    font-size: 18px;
 }
 
 .ordini-container>.pagamento {
-    width: 80px;
-    height: 80px;
-    margin: 10px;
-    padding: 10px;
-    float: right;
+    width: 48px;
+    height: 48px;
+    position: relative;
+    top: 0px;
+    left: 3%;
+}
+
+.ordini-container>.carta {
+    position: relative;
+    bottom: 20px;
+    left: 20%;
+    width: 300px;
+    font-size: 20px;
 }
 
 .ordini-container>.totale {
-    background-color: blue;
-    width: 150px;
-    height: 150px;
     position: relative;
-    top: 10px;
+    bottom: 70px;
+    left: 70%;
+    font-size: 20px;
+}
+
+.ordini-container>.totale>span {
+    font-weight: bold;
+    font-size: 38px;
 }
 
 .ordini-container>.data-arrivo {

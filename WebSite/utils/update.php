@@ -2,8 +2,10 @@
 session_start();
 require_once("database.php");
 require_once("modalMessageHelper.php");
+require_once("htmlHelper.php");
 $dbh = new DatabaseHelper("localhost", "root", "", "plant");
-$dbg = false;
+$dbg = true;
+$hh = new HTML_Helper();
 if ($dbg) {
     var_dump($_SESSION);
     echo "<br><br><br>";
@@ -28,6 +30,10 @@ switch ($obj) {
             $msg->show_in_next_page("le password non corrispondono", "userProfile.php?showTab=usr_profile", "usr_profile", MsgType::Error, $dbg);
         break;
     case ("user"):
+        $img_msg = $hh->uploadImage("./images/utenti/", $_FILES["Immagine"]);
+        if(strlen($img_msg) > 0){
+            $msg->show_in_next_page("Non &egrave; stao possibile caricare l'immagine per i seguenti motivi : </br> ".$img_msg, "userProfile.php?showTab=usr_profile", "error_img", MsgType::Warning, $dbg);
+        }
         if ($dbh->update_user($_SESSION["IdUtente"], $_REQUEST["username"], $_REQUEST["email"], $_REQUEST["tell"]))
             $msg->show_in_next_page("dati aggiornati", "userProfile.php?showTab=usr_profile", "usr_profile", MsgType::Successfull, $dbg);
         else

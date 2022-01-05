@@ -1,70 +1,86 @@
-    @import "modal-style.css";
-    @import "structure-style.css";
-    @import "product.css";
-    @import "ordini.css";
-    .gfx-link {
-        margin: 25px 50px;
-        font-style: italic;
-    }
-    
-    .gfx-not-resizable {
-        resize: none !important;
-    }
-    
-    .centerd-itm {
-        width: 50%;
-        margin: 100px 25%;
-    }
-    
-    .inline-table-text {
-        width: 80%;
-        margin-right: 0;
-        display: inline;
-    }
-    
-    .tbl-150 {
-        width: 150% !important;
-    }
-    
-    .tbl-100 {
-        width: 150% !important;
-    }
-    
-    .tbl-125 {
-        width: 125% !important;
-    }
-    
-    .fix-on-bot {
-        position: absolute;
-        bottom: 0;
-    }
-    
-    .distance-to-img {
-        padding-right: 20px;
-    }
-    
-    .bold {
-        font: bold;
-    }
-    
-    .canvas-container {
-        margin: 50px 10%;
-        height: 450px;
-    }
-    
-    canvas {
-        width: 100%;
-        height: 100%;
-    }
-    
-    .bg-white {
-        background-color: white;
-    }
-    
-    a>span {
-        margin-left: 15px;
-    }
-    
-    .top-40 {
-        margin-top: 40px;
-    }
+/*colori scelti : https://paletton.com/#uid=71k1v0kVjCosuRJKUUaVmrEU+li*/
+
+@import "modal-style.css";
+@import "structure-style.css";
+@import "product.css";
+@import "ordini.css";
+@import "buttons.css";
+.gfx-link {
+    margin: 25px 50px;
+    font-style: italic;
+}
+
+.gfx-not-resizable {
+    resize: none !important;
+}
+
+.centerd-itm {
+    width: 50%;
+    margin: 100px 25%;
+}
+
+.inline-table-text {
+    width: 80%;
+    margin-right: 0;
+    display: inline;
+}
+
+.fix-on-bot {
+    position: absolute;
+    bottom: 0;
+}
+
+.distance-to-img {
+    padding-right: 20px;
+}
+
+.bold {
+    font: bold;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.bg-white {
+    background-color: white;
+}
+
+a>span {
+    margin-left: 15px;
+}
+
+.top-40 {
+    margin-top: 40px;
+}
+
+body {
+    font-family: Lato;
+    background-color: whitesmoke;
+}
+
+.grid-input-big {
+    min-width: 80px;
+}
+
+.grid-input-so-big {
+    min-width: 120px;
+}
+
+.text-small {
+    font-size: 12px;
+}
+
+.display-inline {
+    display: inline-block;
+}
+
+.bot-40 {
+    margin-bottom: 40px;
+}
+
+.payment-container {
+    width: 60%;
+    margin: 20px 20%;
+}

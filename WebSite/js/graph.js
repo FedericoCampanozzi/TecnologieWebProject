@@ -1,4 +1,4 @@
-function generateBarGraph(canvasId, colorTo, colorFrom, lbls, data, xText, yText) {
+function generateBarGraph(canvasId, colorTo, colorFrom, lbls, arr_data, xText, yText) {
     let colors = []
     let step = 1.0 / parseFloat(lbls.length);
     graph = document.getElementById(canvasId);
@@ -9,38 +9,23 @@ function generateBarGraph(canvasId, colorTo, colorFrom, lbls, data, xText, yText
         colors.push(colorLerp(colorFrom, colorTo, t));
     }
 
-    const config = {
-        type: 'bar',
-        data: data,
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: 'Chart.js Bar Chart'
-                }
-            }
-        },
+    let data_cfg = {
+        labels: lbls,
+        datasets: [{
+            display: false,
+            label: "",
+            data: arr_data,
+            backgroundColor: colors
+        }]
     };
 
-    chart = new Chart(graph, {
+    let config_cfg = {
         type: 'bar',
-        data: {
-            labels: lbls,
-            datasets: [{
-                display: false,
-                label: "",
-                data: data,
-                backgroundColor: colors
-            }]
-        },
+        data: data_cfg,
         options: {
             scales: {
                 x: {
-                    min: 10,
+                    min: 0,
                     title: {
                         display: true,
                         text: xText,
@@ -77,7 +62,6 @@ function generateBarGraph(canvasId, colorTo, colorFrom, lbls, data, xText, yText
                     borderWidth: 2
                 }
             },
-
             plugins: {
                 legend: {
                     display: false
@@ -87,6 +71,7 @@ function generateBarGraph(canvasId, colorTo, colorFrom, lbls, data, xText, yText
                 }
             }
         }
-    });
-    graph.style.height = "500px";
+    };
+
+    chart = new Chart(graph, config_cfg);
 }

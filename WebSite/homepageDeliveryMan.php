@@ -43,7 +43,9 @@ $hh->generate_page_head("Pagina Fattorino", "homepageDeliveryMan.php", true, tru
                           <form action=\"utils/update.php\" method=\"get\">
                             <input type=\"hidden\" name=\"obj_to_update\" value=\"ordine\">
                             <input type=\"hidden\" name=\"id_ordine\" value=\"" . $consegne[$i]["ID"] . "\">
-                            <button type=\"submit\" class=\"btn-rounded-2\"> Consegnato </button>
+                            <button type=\"submit\" class=\"custom-btn btn-11\">
+                              Consegnato
+                            </button>
                           </form> 
                         </td>
                       </tr>";

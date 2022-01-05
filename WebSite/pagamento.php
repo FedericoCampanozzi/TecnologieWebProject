@@ -20,6 +20,7 @@ $dbh = new DatabaseHelper("localhost", "root", "", "plant");
     <main>
         <?php $hh->generate_header("Pagamento"); ?>
         <div class="scrollable-content">
+            <div class="bot-40">
                     <div class="p-5 table-responsive">
                         <table id="tbl_riepilogo" class="table table-striped table-bordered">
                             <thead>
@@ -58,7 +59,7 @@ $dbh = new DatabaseHelper("localhost", "root", "", "plant");
                             </tbody>
                         </table>
                     </div>
-                <div class="container">
+                <div class="payment-container">
                     <form action="utils/insert.php" method="post">
                         <input type="hidden" name="totale" value="<?php echo $tot; ?>">
                         <input type="hidden" value="ordine" name="obj_to_insert" id="obj_to_insert">
@@ -105,10 +106,13 @@ $dbh = new DatabaseHelper("localhost", "root", "", "plant");
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn-rounded-1">Acquista</button>
-                        <a href="homepageUser.php" class="btn-rounded-1">Annulla</a>
+                        <button type="submit" class="">Acquista</button>
                     </form>
+                    <div class="gfx-link">
+                        premi <a href="homepageUser.php">qui </a> per annullare il pagamento e tornare alla homepage
+                    </div>
                 </div>
+            </div>
         </div>
         <?php $hh->generate_footer(true); ?>
     </main>

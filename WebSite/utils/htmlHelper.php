@@ -182,15 +182,15 @@ class HTML_Helper
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
             <link rel="stylesheet" href="css/main-style.css" type="text/css">
-        </head>
-<?php
+            <?php
         if ($useDataTable) {
             echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.css\" />";
-            echo "<script type=\"text/javascript\" src=\"https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js\"></script>";
+            echo "<script src=\"https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js\"></script>";
         }
         if ($useCart) {
             echo "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js\"></script>";
         }
+        echo "</head>";
         $this->check_modals($check);
     }
     public function generate_js_array($phpArray, $propName)
@@ -225,9 +225,9 @@ class HTML_Helper
             echo  "<div id=\"fix-on-bot\" class=\"fix-on-bot\"></div>";
             echo "<script src='js/perfectScrollableElement.js'></script>";
         }
-        echo " <footer><strong>Federico Campanozzi</strong><span>Matr.: 0000895693</span> <span>Alma Mater Studiorum Bologna - Sede di Cesena</span></footer>";
+        echo " <footer><span>Federico Campanozzi</span><span>Matr.: 0000895693</span> <span>Alma Mater Studiorum Bologna - Sede di Cesena</span></footer>";
     }
-    public function generate_user_nav($needSearchBar = false)
+    public function generate_user_nav()
     {
 ?>
         <div class="navbar">
@@ -250,15 +250,53 @@ class HTML_Helper
                 </svg> Logout
             </a>
 <?php
-            if ($needSearchBar) {
-?>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search">
-                    <button class="btn-rounded-2" type="submit"><i class="fa fa-fw fa-search"></i> Search</button>
-                </form>
-<?php
-            }
             echo "</div>";
+        }
+        public function uploadImage($path, $image){
+            $imageName = basename($image["name"]);
+            $fullPath = $path.$imageName;
+            
+            $maxKB = 500;
+            $acceptedExtensions = array("jpg", "jpeg", "png", "gif");
+            $msg = "";
+    
+            //Controllo se immagine è veramente un'immagine
+            $imageSize = getimagesize($image["tmp_name"]);
+            if($imageSize === false) {
+                $msg .= "File caricato non è un'immagine! ";
+            }
+            //Controllo dimensione dell'immagine < 500KB
+            if ($image["size"] > $maxKB * 1024) {
+                $msg .= "File caricato pesa troppo! Dimensione massima è $maxKB KB. ";
+            }
+        
+            //Controllo estensione del file
+            $imageFileType = strtolower(pathinfo($fullPath,PATHINFO_EXTENSION));
+            if(!in_array($imageFileType, $acceptedExtensions)){
+                $msg .= "Accettate solo le seguenti estensioni: ".implode(",", $acceptedExtensions);
+            }
+        
+            //Controllo se esiste file con stesso nome ed eventualmente lo rinomino
+            if (file_exists($fullPath)) {
+                $i = 1;
+                do{
+                    $i++;
+                    $imageName = pathinfo(basename($image["name"]), PATHINFO_FILENAME)."_$i.".$imageFileType;
+                }
+                while(file_exists($path.$imageName));
+                $fullPath = $path.$imageName;
+            }
+        
+            //Se non ci sono errori, sposto il file dalla posizione temporanea alla cartella di destinazione
+            if(strlen($msg)==0){
+                if(!move_uploaded_file($image["tmp_name"], $fullPath)){
+                    $msg.= "Errore nel caricamento dell'immagine.";
+                }
+                else{
+                    $msg = $imageName;
+                }
+            }
+            return $msg;
         }
     }
 ?>

@@ -56,7 +56,7 @@ $dbh = new DatabaseHelper("localhost", "root", "", "plant");
                                 if ($users[$i]["IdRuolo"] != 3) {
                                     echo "
                                                     <td> 
-                                                        <button class=\"btn-rounded-2 changeInAdmin\" id=\"admin_" . $i . "\">Supervisore</button> </td>
+                                                        <button class=\"custom-btn btn-13 change_to_admin\" id=\"admin_" . $i . "\">Supervisore</button> </td>
                                                     </td>";
                                 } else {
                                     echo "<td> </td>";
@@ -64,7 +64,7 @@ $dbh = new DatabaseHelper("localhost", "root", "", "plant");
                                 echo "
                                                     <td>
                                                         <input type=\"hidden\" id=\"IdUtente_" . $i . "\" value=\"" . $users[$i]["ID"] . "\">
-                                                        <button class=\"btn-rounded-2 change_ruolo\" id=\"cambia_" . $i . "\">Cambia</button> </td>
+                                                        <button class=\"custom-btn btn-9 change_ruolo\" id=\"cambia_" . $i . "\">Cambia</button> </td>
                                                     </td>
                                                 </tr>";
                             }
@@ -75,7 +75,7 @@ $dbh = new DatabaseHelper("localhost", "root", "", "plant");
                 <form action="utils/insert.php" method="get">
                     <input type="hidden" name="obj_to_insert" value="categoria">
                     <div class="p-5 table-responsive">
-                        <table id="tbl_fornitori" class="table table-striped table-bordered">
+                        <table id="tbl_categorie" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
                                     <th>Nome</th>
@@ -101,7 +101,7 @@ $dbh = new DatabaseHelper("localhost", "root", "", "plant");
                                     <textarea class="form-control gfx-not-resizable" name="desc" id="desc" placeholder="Descrizione" rows="3"> </textarea>
                                 </td>
                                 <td>
-                                    <button type="submit" class="btn-rounded-2">Inserisce</button>
+                                    <button type="submit" class="custom-btn btn-grid-1">Inserisce</button>
                                 </td>
                             </tr>
                             <tbody>
@@ -132,7 +132,9 @@ $dbh = new DatabaseHelper("localhost", "root", "", "plant");
                             <label for="citta">Citt&agrave; : </label>
                             <input type="text" class="form-control" name="citta" id="citta" placeholder="citt&agrave;">
                         </div>
-                        <button type="submit" class="btn-rounded-1">Aggiungi</button>
+                        <button type="submit" class="custom-btn btn-6 text-small">
+                            Aggiungi Fornitore
+                        </button>
                     </form>
                 </div>
             </section>
@@ -140,6 +142,7 @@ $dbh = new DatabaseHelper("localhost", "root", "", "plant");
                 Clicca <a href="logout.php">qui</a> per effettuare il logout
             </aside>
         </div>
+        <script src='js/homepageAdmin.js'></script>
         <?php $hh->generate_footer(true); ?>
     </main>
 </body>
