@@ -371,7 +371,7 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                 ?>
             </div>
             <script src="js/userProfile.js"></script>
-            <?php $hh->generate_footer(true); ?>
+            <?php $hh->generate_footer_fix_scroll(); ?>
     </main>
 </body>
 

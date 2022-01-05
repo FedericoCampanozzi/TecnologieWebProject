@@ -9,9 +9,16 @@ $hh->generate_page_head("Pagina Fattorino", "homepageDeliveryMan.php", true, tru
 
 <body>
   <main>
-    <div class="scrollable-content">
       <section>
         <?php $hh->generate_header("Pannello Consegne"); ?>
+        <div class="container">
+          <div class="table-caption">
+            Elenco Prodotti
+          </div>
+          <div class="table-description">
+            In questa tabella ci sono tutti i prodotti che l'azienda vende, con la possibilit&agrave; di aggiungerne di nuovi
+          </div>
+        </div>
         <div class="p-5 table-responsive">
           <table id="tbl_consegne" class="table table-striped table-bordered">
             <thead>
@@ -61,8 +68,7 @@ $hh->generate_page_head("Pagina Fattorino", "homepageDeliveryMan.php", true, tru
         Clicca <a href="logout.php">qui</a> per effettuare il logout
       </aside>
       <script src="./js/homepageDeliveryMan.js"></script>
-      <?php $hh->generate_footer(true); ?>
-    </div>
+    <?php $hh->generate_footer_no_fix_no_scroll() ?>
   </main>
 </body>
 

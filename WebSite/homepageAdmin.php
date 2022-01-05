@@ -143,7 +143,7 @@ $dbh = new DatabaseHelper("localhost", "root", "", "plant");
             </aside>
         </div>
         <script src='js/homepageAdmin.js'></script>
-        <?php $hh->generate_footer(true); ?>
+        <?php $hh->generate_footer_no_fix_no_scroll(); ?>
     </main>
 </body>
 

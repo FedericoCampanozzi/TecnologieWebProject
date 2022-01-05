@@ -188,7 +188,7 @@ class HTML_Helper
             echo "<script src=\"https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js\"></script>";
         }
         if ($useCart) {
-            echo "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js\"></script>";
+            echo "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js\"></script>";
         }
         echo "</head>";
         $this->check_modals($check);
@@ -219,17 +219,20 @@ class HTML_Helper
             <h1>" . $title . "</h1>
         </header>";
     }
-    public function generate_footer($scrollable = false, $fixedheader = false)
+    // fixed footer with scrollable
+    public function generate_footer_fix_scroll()
     {
-        if ($scrollable) 
-            echo  " 
-                <script src='js/perfectScrollableElement.js'></script>
-                <footer class=\"fix-on-bot\"><span>Federico Campanozzi</span><span>Matr.: 0000895693</span> <span>Alma Mater Studiorum Bologna - Sede di Cesena</span>
-                </footer>";
-        else if($fixedheader)
-            echo " <footer class=\"fix-on-bot\"><span>Federico Campanozzi</span><span>Matr.: 0000895693</span> <span>Alma Mater Studiorum Bologna - Sede di Cesena</span></footer>";
-        else
-            echo " <footer><span>Federico Campanozzi</span><span>Matr.: 0000895693</span> <span>Alma Mater Studiorum Bologna - Sede di Cesena</span></footer>";
+        echo  " <script src='js/perfectScrollableElement.js'></script>";
+        echo " <footer class=\"fix-on-bot\"><span>Federico Campanozzi</span><span>Matr.: 0000895693</span> <span>Alma Mater Studiorum Bologna - Sede di Cesena</span></footer>";
+    }
+    // fixed footer without scrollable
+    public function generate_footer_fix_no_scroll()
+    {
+        echo " <footer class=\"fix-on-bot\"><span>Federico Campanozzi</span><span>Matr.: 0000895693</span> <span>Alma Mater Studiorum Bologna - Sede di Cesena</span></footer>";
+    }
+    public function generate_footer_no_fix_no_scroll()
+    {
+        echo " <footer><span>Federico Campanozzi</span><span>Matr.: 0000895693</span> <span>Alma Mater Studiorum Bologna - Sede di Cesena</span></footer>";
     }
     public function generate_user_nav()
     {

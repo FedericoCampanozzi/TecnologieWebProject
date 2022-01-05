@@ -50,7 +50,7 @@ $hh->generate_page_head("Homepage", "homepageUser.php", false, false);
       </div>
     <script src="js/homepageUser.js"></script>
     <?php
-    $hh->generate_footer(true);
+    $hh->generate_footer_fix_scroll();
     ?>
   </main>
 

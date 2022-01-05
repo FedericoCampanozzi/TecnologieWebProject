@@ -45,7 +45,7 @@
     <aside class="gfx-link">
       Clicca <a href="index.php">qui</a> per tornare alla homepage
     </aside>
-    <?php $hh->generate_footer(); ?>
+    <?php $hh->generate_footer_fix_scroll(); ?>
   </main>
 </body>
 
