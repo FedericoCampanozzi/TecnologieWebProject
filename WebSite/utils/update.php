@@ -4,7 +4,7 @@ require_once("database.php");
 require_once("modalMessageHelper.php");
 require_once("htmlHelper.php");
 $dbh = new DatabaseHelper("localhost", "root", "", "plant");
-$dbg = true;
+$dbg = false;
 $hh = new HTML_Helper();
 if ($dbg) {
     var_dump($_SESSION);

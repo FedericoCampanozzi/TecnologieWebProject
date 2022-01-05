@@ -171,7 +171,7 @@ class DatabaseHelper
   }
   public function get_user_ordini($idUtente)
   {
-    $stmt = $this->db->prepare("SELECT * FROM info_ordine WHERE IdUtente = ?");
+    $stmt = $this->db->prepare("SELECT * FROM info_ordine WHERE IdUtente = ? ORDER BY DataOrdine DESC");
     $stmt->bind_param("i", $idUtente);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -326,7 +326,7 @@ class DatabaseHelper
   {
     $query = "UPDATE `carta` SET Disponibilita = Disponibilita + ? WHERE Numero = ?";
     $stmt = $this->db->prepare($query);
-    $stmt->bind_param("ii", $nrCarta,$somma);
+    $stmt->bind_param("ii", $somma, $nrCarta);
     return $stmt->execute();
   }
   /*-----------------------------------------------------------------------------------------------------------*/

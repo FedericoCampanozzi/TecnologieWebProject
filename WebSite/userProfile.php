@@ -331,8 +331,10 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                     } else {
                         echo "<div class=\"ordini-container  ordine-non-consegnato\">";
                     }
-                    echo "<div class=\"indirizzo\">";
-                    echo           "Indirizzo : <span>" . $userOrdini[$i]["Via"] . "," . $userOrdini[$i]["NumeroCivico"] . " - " . $userOrdini[$i]["Citta"] . " </span>
+
+                    echo "<div class=\"data-ordine\"> Ordinato il " . $userOrdini[$i]["DataOrdine"] . "</div>
+                        <div class=\"indirizzo\">
+                               Indirizzo : <span>" . $userOrdini[$i]["Via"] . "," . $userOrdini[$i]["NumeroCivico"] . " - " . $userOrdini[$i]["Citta"] . " </span>
                               </div>";
 
                     if (isset($userOrdini[$i]["DataConsegna"]))
@@ -357,10 +359,9 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                             </svg>
                             </div>
                             <div class=\"carta\"> Numero carta : " . $userOrdini[$i]["NrCarta"] . "</div>
-                            <div class=\"totale\"> Totale : <span> " . $userOrdini[$i]["TotaleOrdine"] . "</span> &euro; </div>
                             ";
                     }
-                    echo "</div>";
+                    echo "<div class=\"totale\"> Totale : <span> " . $userOrdini[$i]["TotaleOrdine"] . "</span> &euro; </div></div>";
                 }
                 ?>
             </div>

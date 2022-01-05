@@ -68,7 +68,7 @@ switch ($obj) {
         if ($disp) {
             if ($_REQUEST["useContanti"] == "NO") {
                 // USO CARTA --> CONTROLLO SE CI SONO I SOLDI
-                if ($dbh->denaro_carta($_REQUEST["select_carta"]) < $_REQUEST["totale"]) {
+                if ($dbh->denaro_carta($_REQUEST["select_carta"]) > $_REQUEST["totale"]) {
                     //  --> INSERISCO L'ORDINE
                     if ($dbh->insert_ordine(false, $_REQUEST["note"], $_SESSION["IdUtente"], $_REQUEST["select_add"], $_REQUEST["select_carta"])) {
                         $id_ordine = $dbh->last_ordine($_SESSION["IdUtente"]);
