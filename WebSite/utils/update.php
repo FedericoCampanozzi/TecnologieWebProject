@@ -108,7 +108,7 @@ switch ($obj) {
             $msg->ajax_response("Consegna registrata correttamente", "", "homepageAdmin.php", MsgType::Successfull, $dbg);
         break;
     case ("denaro"):
-        if ($dbh->update_conto($_REQUEST["numero_carta"], 100))
+        if ($dbh->update_conto($_REQUEST["numero_carta"], 100.0))
             $msg->show_in_next_page("transazione avvenuta corretamente", "userProfile.php?showTab=card", "card-denaro", MsgType::Successfull, $dbg);
         else
             $msg->show_in_next_page("c'&egrave; stato un problema inaspettato, <br> <strong>transazione annullata</strong>", "userProfile.php?showTab=card", "card-denaro", MsgType::Error, $dbg);

@@ -326,7 +326,7 @@ class DatabaseHelper
   {
     $query = "UPDATE `carta` SET Disponibilita = Disponibilita + ? WHERE Numero = ?";
     $stmt = $this->db->prepare($query);
-    $stmt->bind_param("ii", $somma, $nrCarta);
+    $stmt->bind_param("di", $somma, $nrCarta);
     return $stmt->execute();
   }
   /*-----------------------------------------------------------------------------------------------------------*/

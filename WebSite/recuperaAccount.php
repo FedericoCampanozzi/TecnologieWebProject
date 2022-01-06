@@ -18,7 +18,7 @@ $hh->check_modals("acc_non_recuperato");
           <label for="user">Inserire E-Mail address o Username : </label>
           <input type="text" class="form-control" id="user" name="user" placeholder="Enter Email or Username">
         </div>
-        <button type="submit" class="btn-rounded-1">Recupera Account</button>
+        <button type="submit" class="custom-btn btn-15 btn-big">Recupera Account</button>
       </form>
     </section>
     <aside class="gfx-link">

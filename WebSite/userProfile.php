@@ -87,7 +87,7 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
             <div class="tab-pane container top-40" id="usr_profile" role="tabpanel" aria-labelledby="usr_profile-tab">
                 <div class="row">
                     <div class="col-6">
-                        <img class="usr-profile-image" alt="" src="./images/utenti/<?php echo $_SESSION["img_name"]; ?>">
+                        <img class="usr-profile-image" alt="" src=".\images\utenti\<?php echo $_SESSION["img_name"]; ?>">
                     </div>
                     <div class="col-6">
                         <form action="utils/update.php" method="post">
@@ -117,7 +117,7 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                 </div>
                 <form action="utils/update.php" method="get">
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-6">
                             <input type="hidden" name="obj_to_update" value="user">
                             <div class="form-group">
                                 <label for="username">Username : </label>
@@ -130,18 +130,16 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                                 <input type="text" class="form-control" name="email" id="email" value="<?php echo $_SESSION["usr_email"]; ?>" />
                             </div>
                         </div>
-                        <div class="col-2">
-                            <div class="form-group">
-                                <label for="p_iva">Telefono : </label>
-                                <input type="text" class="form-control grid-input-so-big" name="tell" id="tell" value="<?php echo $_SESSION["usr_tell"]; ?>" />
-                            </div>
-                        </div>
                     </div>
                     <div class="row">
-                        <div class="col-4">
-                            <button type="submit" class="custom-btn btn-5 top-40">Aggiorna</button>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="tell">Telefono : </label>
+                                <input type="text" class="form-control" name="tell" id="tell" value="<?php echo $_SESSION["usr_tell"]; ?>" />
+                            </div>
                         </div>
-                        <div class="col-8">
+                        <div class="col-6">
+                            <button type="submit" class="custom-btn btn-5 top-40">Aggiorna</button>
                         </div>
                     </div>
                 </form>
@@ -169,7 +167,7 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                                 for ($i = 0; $i < sizeof($usr_cart); $i++) {
                                     echo "
                                                 <tr>
-                                                    <td><img src=.\images\prodotti\\" . $usr_cart[$i]["ImagePath"] . " width=\"64\" height=\"64\"></td>                                                            </td>
+                                                    <td><img src=\".\images\prodotti\\" . $usr_cart[$i]["ImagePath"] . "\" width=\"64\" height=\"64\"></td>                                                            </td>
                                                     <td>" . $usr_cart[$i]["Nome"] . "</td>
                                                     <td>" . $usr_cart[$i]["Descrizione"] . "</td>
                                                     <td>" . $usr_cart[$i]["RagioneSociale"] . "</td>
@@ -177,16 +175,16 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                                                     <td>" . $usr_cart[$i]["PrezzoUnitario"] . "  &euro; </td>
                                                     <td>" . $usr_cart[$i]["PrezzoTotale"] . "  &euro; </td>";
                                 ?>
-                                        <td class="w-180">
-                                            <input type="hidden" id="IdProdtto_<?php echo $i;?>" value="<?php echo $usr_cart[$i]["IdProdotto"]; ?>">
-                                            <button class="icon-btn add-btn add-to-cart" id="addToCart_<?php echo $i;?>">
-                                                <div class="add-icon"></div>
-                                                <div class="btn-txt">Add</div>
-                                            </button>
-                                            <button class="icon-btn add-btn remove-from-cart"  id="removeFromCart_<?php echo $i;?>">  
-                                                <div class="btn-txt">Remove</div>
-                                            </button>
-                                        </td>
+                                    <td class="w-180">
+                                        <input type="hidden" id="IdProdtto_<?php echo $i; ?>" value="<?php echo $usr_cart[$i]["IdProdotto"]; ?>">
+                                        <button class="icon-btn add-btn add-to-cart" id="addToCart_<?php echo $i; ?>">
+                                            <div class="add-icon"></div>
+                                            <div class="btn-txt">Add</div>
+                                        </button>
+                                        <button class="icon-btn add-btn remove-from-cart" id="removeFromCart_<?php echo $i; ?>">
+                                            <div class="btn-txt">Remove</div>
+                                        </button>
+                                    </td>
                                     </tr>
                                 <?php
                                     $tot += $usr_cart[$i]["PrezzoTotale"];
@@ -252,7 +250,7 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                                     <input type="text" class="form-control grid-input-so-big" name="numero" id="numero" placeholder="Numero">
                                 </td>
                                 <td>
-                                    <input type="date" class="form-control" name="datascadenza" id="datascadenza" placeholder="Data di scadenza">
+                                    <input type="date" class="form-control" name="datascadenza" id="datascadenza">
                                 </td>
                                 <td>
                                     <select class="form-control grid-input-big" id="tipo_carta" name="tipo_carta">
@@ -337,19 +335,20 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                         echo "<div class=\"ordini-container  ordine-non-consegnato\">";
                     }
 
-                    echo "<div class=\"data-ordine\"> Ordinato il " . $userOrdini[$i]["DataOrdine"] . "</div>
+                    echo "<!--<div class=\"data-ordine\"> Ordinato il <span>" . $userOrdini[$i]["DataOrdine"] . "</span></div>
                         <div class=\"indirizzo\">
                                Indirizzo : <span>" . $userOrdini[$i]["Via"] . "," . $userOrdini[$i]["NumeroCivico"] . " - " . $userOrdini[$i]["Citta"] . " </span>
                               </div>";
 
                     if (isset($userOrdini[$i]["DataConsegna"]))
-                        echo "<div class=\"data\"> Consegnato il " . $userOrdini[$i]["DataConsegna"] . "</div>";
+                        echo "<div class=\"data\"> Consegnato il <span>" . $userOrdini[$i]["DataConsegna"] . "</span></div>";
                     else
-                        echo "<div class=\"data\"> Consegna prevista per il " . $userOrdini[$i]["DataPrevista"] . " </div>";
+                        echo "<div class=\"data\"> Consegna prevista per il <span>" . $userOrdini[$i]["DataPrevista"] . " </span></div>";
 
+                    echo "<div class=\"totale\"> Totale : <span> " . $userOrdini[$i]["TotaleOrdine"] . "</span> &euro; </div>";
                     if ($userOrdini[$i]["SceltaContanti"] == 1) {
                         echo "<div class=\"pagamento\">
-                                <svg xmlns=\http://www.w3.org/2000/svg\" width=\"48\" height=\"48\" fill=\"currentColor\" viewBox=\"0 0 16 16\">
+                                <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"48\" height=\"48\" fill=\"currentColor\" viewBox=\"0 0 16 16\">
                                     <path fill-rule=\"evenodd\" d=\"M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0z\"/>
                                     <path d=\"M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1h-.003zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195l.054.012z\"/>
                                     <path d=\"M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083c.058-.344.145-.678.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1H1z\"/>
@@ -363,15 +362,16 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                                 <path d=\"M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z\"/>
                             </svg>
                             </div>
-                            <div class=\"carta\"> Numero carta : " . $userOrdini[$i]["NrCarta"] . "</div>
+                            <div class=\"carta\"> Numero carta : " . $userOrdini[$i]["NrCarta"] . "</div>-->
                             ";
                     }
-                    echo "<div class=\"totale\"> Totale : <span> " . $userOrdini[$i]["TotaleOrdine"] . "</span> &euro; </div></div>";
+                    echo "</div>";
                 }
                 ?>
             </div>
-            <script src="js/userProfile.js"></script>
-            <?php $hh->generate_footer_fix_scroll(); ?>
+        </div>
+        <script src="js/userProfile.js"></script>
+        <?php $hh->generate_footer_fix_scroll(); ?>
     </main>
 </body>
 

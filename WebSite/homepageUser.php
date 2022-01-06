@@ -20,30 +20,28 @@ $hh->generate_page_head("Homepage", "homepageUser.php", false, false);
         
         for ($i = 0; $i < sizeof($products); $i++) {
           echo "
-           <form action=\"\" method=\"get\">
-           <input type=\"hidden\" id=\"IdProdtto_".$i."\" value=\"" . $products[$i]["ID"] . "\">
            <div class=\"product-container\">
            <!--
+           <input type=\"hidden\" id=\"IdProdtto_".$i."\" value=\"" . $products[$i]["ID"] . "\">
            <div class=\"nome-prodotto\">" . $products[$i]["Nome"] . "</div>
            <div class=\"giacenza\">
-           Pezzi Rimanenti : <span>  " . $products[$i]["Giacenza"] . "</span>
+           Pezzi Rimanenti : <span id=\"giacenza_".$i."\">  " . $products[$i]["Giacenza"] . "</span>
            </div>
-           <div class=\"categoria\">" . $products[$i]["NomeC"] . "</div>
-           <div class=\"desc\"> Descrizione : </br>" . $products[$i]["Descrizione"] . "</div>
+           <div class=\"immagine\">
+             <img alt=\"\" src=\"./images/prodotti/" . $products[$i]["ImagePath"] . "\" width=\"156\" height=\"156\">
+           </div>
+           <div class=\"desc\"> Descrizione : <br>" . $products[$i]["Descrizione"] . "</div>
+           <div class=\"categoria\"> Categoria : " . $products[$i]["NomeC"] . "</div>
            <div class=\"prezzo\">" . $products[$i]["Prezzo"] . "  &euro;</div>
            <div class=\"produttore\">
            Produttore : <span>" . $products[$i]["RagioneSociale"] . "</span>
            </div>
-           <div class=\"immagine\">
-             <img alt=\"\" src=.\images\prodotti\\" . $products[$i]["ImagePath"] . " width=\"156\" height=\"156\">
-           </div> -->
-          ";
-          if($products[$i]["Giacenza"] > 0){
-            echo"<button type=\"submit\" class=\"custom-btn btn-11 bg-white add-product\" id=\"add_".$i."\"> Aggiungi </button>";
-          }
-          echo "
+           ";
+           if($products[$i]["Giacenza"] > 0){
+             echo"<div class=\"add-btn\"><button type=\"submit\" class=\"custom-btn btn-17 bg-white add-product\" id=\"add_".$i."\"> Aggiungi </button></div>";
+            }
+            echo "-->
            </div>
-           </form>
           ";
         }
         ?>

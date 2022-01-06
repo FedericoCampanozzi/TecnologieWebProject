@@ -13,6 +13,12 @@ $dbh = new DatabaseHelper("localhost", "root", "", "plant");
         <div class="scrollable-content">
             <section>
                 <div class="p-5 table-responsive">
+                <div class="table-caption">
+                                    Ruoli Utente
+                                </div>
+                                <div class="table-description">
+                                    In questa tabella ci sono i ruoli di ciascun utente, premere "supervisore" per cambiare il ruolo in amministratore e usare la combobox per selezionare gli altri ruoli
+                                </div>
                     <table id="tbl_ruoli_utente" class="table table-striped table-bordered">
                         <thead>
                             <tr>
@@ -75,6 +81,12 @@ $dbh = new DatabaseHelper("localhost", "root", "", "plant");
                 <form action="utils/insert.php" method="get">
                     <input type="hidden" name="obj_to_insert" value="categoria">
                     <div class="p-5 table-responsive">
+                        <div class="table-caption">
+                                        Categorie
+                                    </div>
+                                    <div class="table-description">
+                                        In questa tabella ci sono tutte le categorie di prodotto vendibili all'interno dello store
+                                    </div>
                         <table id="tbl_categorie" class="table table-striped table-bordered">
                             <thead>
                                 <tr>

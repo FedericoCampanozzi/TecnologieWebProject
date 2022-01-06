@@ -77,7 +77,7 @@ $dbh = new DatabaseHelper("localhost", "root", "", "plant");
                             <?php
                             $usr_carte = $dbh->get_carte($idUtente);
                             for ($i = 0; $i < sizeof($usr_carte); $i++) {
-                                echo "<option value=" . $usr_carte[$i]["Numero"] . ">" . $usr_carte[$i]["Numero"] . "</option>";
+                                echo "<option value=" . $usr_carte[$i]["Numero"] . "> Numero Carta : " . $usr_carte[$i]["Numero"] . " Disponibilit&agrave; : ".$usr_carte[$i]["Disponibilita"]. " &euro;</option>";
                             }
                             ?>
                         </select>

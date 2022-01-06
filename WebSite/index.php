@@ -8,7 +8,7 @@ $hh->generate_page_head("Login", "index.php");
 
 <body>
   <main>
-    <?php $hh->generate_header("Welcome"); ?>
+    <?php $hh->generate_header("<strong>Welcome</strong> in E-Plant <span> the best flower e-commerce </span>"); ?>
     <section class="centerd-itm">
       <form action="utils/update.php" method="post">
         <input type="hidden" value="login" id="obj_to_update" name="obj_to_update">

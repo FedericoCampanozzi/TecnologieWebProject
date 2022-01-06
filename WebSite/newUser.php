@@ -8,7 +8,7 @@
 <body>
   <main>
     <?php $hh->generate_header("Registrazione"); ?>
-    <section class="container">
+    <section class="container top-40">
       <form action="utils/insert.php" method="post">
         <input type="hidden" name="obj_to_insert" value="user">
         <div class="form-group">
@@ -29,7 +29,7 @@
         </div>
         <div class="form-group">
           <label for="dataNascita">Data di Nascita : </label>
-          <input type="date" class="form-control" name="dataNascita" id="dataNascita" placeholder="">
+          <input type="date" class="form-control" name="dataNascita" id="dataNascita">
         </div>
         <div class="form-group">
           <label for="email">EMail : </label>
@@ -39,7 +39,7 @@
           <label for="telefono">Telefono : </label>
           <input type="text" class="form-control" name="telefono" id="telefono" placeholder="">
         </div>
-        <button type="submit" class="btn-rounded-1">Registrazione</button>
+        <button type="submit" class="custom-btn btn-14">Registrazione</button>
       </form>
     </section>
     <aside class="gfx-link">

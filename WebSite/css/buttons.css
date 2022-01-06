@@ -788,6 +788,56 @@
     top: 2px;
 }
 
+.btn-17 {
+    position: relative;
+    color: #000;
+    z-index: 2;
+    line-height: 40px;
+    padding: 0;
+    margin: 0;
+    border-radius: 10px;
+}
+
+.btn-17:hover {
+    border: none;
+}
+
+.btn-17:before,
+.btn-17:after {
+    position: absolute;
+    content: "";
+    width: 0%;
+    height: 0%;
+    border: 2px solid;
+    z-index: -1;
+    transition: all 0.3s ease;
+}
+
+.btn-17:before {
+    top: 0;
+    left: 0;
+    border-bottom-color: transparent;
+    border-right-color: transparent;
+    border-top-color: #000;
+    border-left-color: #000;
+}
+
+.btn-17:after {
+    bottom: 0;
+    right: 0;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-bottom-color: #000;
+    border-right-color: #000;
+}
+
+.btn-17:hover:before,
+.btn-17:hover:after {
+    border-color: #000;
+    height: 100%;
+    width: 100%;
+}
+
 
 /*
     source : https://codepen.io/tawfiqin/pen/OdgEJM

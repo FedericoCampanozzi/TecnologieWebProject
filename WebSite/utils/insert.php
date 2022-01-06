@@ -104,18 +104,9 @@ switch ($obj) {
         break;
     case ("rc_usr_hp"):
         $dbh->insert_rc($_REQUEST["product_id"], $_SESSION["IdUtente"]);
-        /*
-        if ($dbh->insert_rc($_REQUEST["product_id"], $_SESSION["IdUtente"]))
-            $msg->show_next_page("homepageUser.php", $dbg);
-        else
-            $msg->show_in_next_page("c'&egrave; stato un problema inaspettato, <br> <strong>prodotto non inserito</strong>", "homepageUser.php", "cart", MsgType::Error, $dbg);
-        */
         break;
     case ("rc_usr_prof"):
-        if ($dbh->insert_rc($_REQUEST["product_id"], $_SESSION["IdUtente"]))
-            $msg->show_next_page("userProfile.php?showTab=cart", $dbg);
-        else
-            $msg->show_in_next_page("c'&egrave; stato un problema inaspettato, <br> <strong>prodotto non inserito</strong>", "userProfile.php?showTab=cart", "cart", MsgType::Error, $dbg);
+        $dbh->insert_rc($_REQUEST["product_id"], $_SESSION["IdUtente"]);
         break;
     default:
         die("codice inserimento non trovato");

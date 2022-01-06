@@ -182,6 +182,7 @@ class HTML_Helper
             <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
             <link rel="stylesheet" href="css/main-style.css" type="text/css">
+            <script src='js/perfectScrollableElement.js'></script>
             <?php
         if ($useDataTable) {
             echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.css\" />";
@@ -219,20 +220,17 @@ class HTML_Helper
             <h1>" . $title . "</h1>
         </header>";
     }
-    // fixed footer with scrollable
     public function generate_footer_fix_scroll()
     {
-        echo  " <script src='js/perfectScrollableElement.js'></script>";
-        echo " <footer class=\"fix-on-bot\"><span>Federico Campanozzi</span><span>Matr.: 0000895693</span> <span>Alma Mater Studiorum Bologna - Sede di Cesena</span></footer>";
+        echo " <footer class=\"fix-on-bot\"><div><span>Federico Campanozzi</span><span>Matr.: 0000895693</span> <span>Alma Mater Studiorum Bologna - Sede di Cesena</span></div></footer>";
     }
-    // fixed footer without scrollable
     public function generate_footer_fix_no_scroll()
     {
-        echo " <footer class=\"fix-on-bot\"><span>Federico Campanozzi</span><span>Matr.: 0000895693</span> <span>Alma Mater Studiorum Bologna - Sede di Cesena</span></footer>";
+        echo " <footer class=\"fix-on-bot\"><div><span>Federico Campanozzi</span><span>Matr.: 0000895693</span> <span>Alma Mater Studiorum Bologna - Sede di Cesena</span></div></footer>";
     }
     public function generate_footer_no_fix_no_scroll()
     {
-        echo " <footer><span>Federico Campanozzi</span><span>Matr.: 0000895693</span> <span>Alma Mater Studiorum Bologna - Sede di Cesena</span></footer>";
+        echo " <footer><div><span>Federico Campanozzi</span><span>Matr.: 0000895693</span> <span>Alma Mater Studiorum Bologna - Sede di Cesena</span></div></footer>";
     }
     public function generate_user_nav()
     {
@@ -258,52 +256,6 @@ class HTML_Helper
             </a>
 <?php
             echo "</div>";
-        }
-        public function uploadImage($path, $image){
-            $imageName = basename($image["name"]);
-            $fullPath = $path.$imageName;
-            
-            $maxKB = 500;
-            $acceptedExtensions = array("jpg", "jpeg", "png", "gif");
-            $msg = "";
-    
-            //Controllo se immagine è veramente un'immagine
-            $imageSize = getimagesize($image["tmp_name"]);
-            if($imageSize === false) {
-                $msg .= "File caricato non è un'immagine! ";
-            }
-            //Controllo dimensione dell'immagine < 500KB
-            if ($image["size"] > $maxKB * 1024) {
-                $msg .= "File caricato pesa troppo! Dimensione massima è $maxKB KB. ";
-            }
-        
-            //Controllo estensione del file
-            $imageFileType = strtolower(pathinfo($fullPath,PATHINFO_EXTENSION));
-            if(!in_array($imageFileType, $acceptedExtensions)){
-                $msg .= "Accettate solo le seguenti estensioni: ".implode(",", $acceptedExtensions);
-            }
-        
-            //Controllo se esiste file con stesso nome ed eventualmente lo rinomino
-            if (file_exists($fullPath)) {
-                $i = 1;
-                do{
-                    $i++;
-                    $imageName = pathinfo(basename($image["name"]), PATHINFO_FILENAME)."_$i.".$imageFileType;
-                }
-                while(file_exists($path.$imageName));
-                $fullPath = $path.$imageName;
-            }
-        
-            //Se non ci sono errori, sposto il file dalla posizione temporanea alla cartella di destinazione
-            if(strlen($msg)==0){
-                if(!move_uploaded_file($image["tmp_name"], $fullPath)){
-                    $msg.= "Errore nel caricamento dell'immagine.";
-                }
-                else{
-                    $msg = $imageName;
-                }
-            }
-            return $msg;
         }
     }
 ?>

@@ -21,7 +21,7 @@
 
 .product-container>.immagine {
     position: relative;
-    bottom: 216px;
+    bottom: 60px;
     left: 10px;
     width: 156px;
     height: 156px;
@@ -31,39 +31,49 @@
 
 .product-container>.giacenza {
     position: relative;
-    bottom: 70px;
-    left: 75%;
+    bottom: 50px;
+    left: 70%;
     width: 40%;
     font-size: 12px;
+    margin: 0;
+    padding: 0;
 }
 
 .product-container>.giacenza>span {
     font-size: 32px;
     color: #140375;
     font-weight: bold;
+    margin: 0;
+    padding: 0;
 }
 
 .product-container>.categoria {
     position: relative;
-    bottom: 80px;
-    left: 40%;
+    top: -150px;
+    left: 30%;
     font-size: 24px;
     color: black;
+    width: 30%;
+    margin: 0;
+    padding: 0;
 }
 
 .product-container>.desc {
     position: relative;
-    bottom: 80px;
-    left: 50%;
+    bottom: 200px;
+    left: 30%;
     font-size: 18px;
-    width: 50%;
-    height: 100px;
+    width: 70%;
+    height: 80px;
+    margin-right: 0;
+    margin: 0;
+    padding: 0;
 }
 
 .product-container>.prezzo {
     position: relative;
-    bottom: 40px;
-    left: 32%;
+    bottom: 185px;
+    left: 60%;
     font-size: 24px;
     float: left;
     width: 100px;
@@ -72,25 +82,18 @@
 
 .product-container>.produttore {
     position: relative;
-    bottom: 80px;
-    left: 50%;
+    bottom: 255px;
+    left: 25%;
     font-size: 18px;
-    width: 50%;
-    margin: 2px;
+    width: 20%;
 }
 
 .product-container>.produttore>span {
     color: blue;
 }
 
-.product-container>button {
+.product-container>.add-btn {
     position: relative;
-    bottom: 235px;
-    left: 80%;
-    color: black;
-    border-radius: 10px;
-    font-family: Lato;
-    padding: 4px;
-    font-size: 20px;
-    margin: 4px;
+    top: -245px;
+    left: 82.5%;
 }
