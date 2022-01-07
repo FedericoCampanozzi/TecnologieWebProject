@@ -838,102 +838,50 @@
     width: 100%;
 }
 
-
-/*
-    source : https://codepen.io/tawfiqin/pen/OdgEJM
-*/
-
-.icon-btn {
-    width: 50px;
-    height: 50px;
-    border: 1px solid #cdcdcd;
-    background: white;
-    border-radius: 25px;
+.btn-18 {
     overflow: hidden;
-    position: relative;
-    transition: width 0.2s ease-in-out;
+    transition: all 0.3s ease;
+    width: 58px !important;
+    height: 54px !important;
+    background-color: black;
+    border-radius: 5px;
 }
 
-.add-btn:hover {
-    width: 110px;
-    font-size: auto;
+.btn-18:hover {
+    background-color: whitesmoke;
 }
 
-.add-btn::before,
-.add-btn::after {
-    transition: width 0.2s ease-in-out, border-radius 0.2s ease-in-out;
-    content: "";
+.btn-18:before {
     position: absolute;
-    height: 4px;
-    width: 10px;
-    top: calc(50% - 2px);
-    background: rgb(0, 0, 0);
+    content: '';
+    display: inline-block;
+    top: -180px;
+    left: 0;
+    width: 30px;
+    height: 100%;
+    background-color: #fff;
+    animation: shiny-btn1 3s ease-in-out infinite;
 }
 
-.add-btn::after {
-    right: 14px;
-    overflow: hidden;
-    border-top-right-radius: 2px;
-    border-bottom-right-radius: 2px;
+.btn-18:active {
+    box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, .3), -4px -4px 6px 0 rgba(116, 125, 136, .2), inset -4px -4px 6px 0 rgba(255, 255, 255, .2), inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
 }
 
-.add-btn::before {
-    left: 14px;
-    border-top-left-radius: 2px;
-    border-bottom-left-radius: 2px;
-}
-
-.icon-btn:focus {
-    outline: none;
-}
-
-.btn-txt {
-    opacity: 0;
-    transition: opacity 0.2s;
-}
-
-.add-btn:hover::before,
-.add-btn:hover::after {
-    width: 4px;
-    border-radius: 2px;
-}
-
-.add-btn:hover .btn-txt {
-    opacity: 1;
-}
-
-.add-icon::after,
-.add-icon::before {
-    transition: all 0.2s ease-in-out;
-    content: "";
-    position: absolute;
-    height: 20px;
-    width: 2px;
-    top: calc(50% - 10px);
-    background: rgb(0, 0, 0);
-    overflow: hidden;
-}
-
-.add-icon::before {
-    left: 22px;
-    border-top-left-radius: 2px;
-    border-bottom-left-radius: 2px;
-}
-
-.add-icon::after {
-    right: 22px;
-    border-top-right-radius: 2px;
-    border-bottom-right-radius: 2px;
-}
-
-.add-btn:hover .add-icon::before {
-    left: 15px;
-    height: 4px;
-    top: calc(50% - 2px);
-}
-
-.add-btn:hover .add-icon::after {
-    right: 15px;
-    height: 4px;
-    top: calc(50% - 2px);
+@-webkit-keyframes shiny-btn1 {
+    0% {
+        -webkit-transform: scale(0) rotate(45deg);
+        opacity: 0;
+    }
+    80% {
+        -webkit-transform: scale(0) rotate(45deg);
+        opacity: 0.5;
+    }
+    81% {
+        -webkit-transform: scale(4) rotate(45deg);
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: scale(50) rotate(45deg);
+        opacity: 0;
+    }
 }

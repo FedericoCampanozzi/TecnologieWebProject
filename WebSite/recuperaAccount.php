@@ -11,7 +11,7 @@ $hh->check_modals("acc_non_recuperato");
 <body>
   <main>
     <?php $hh->generate_header("Recupera Account"); ?>
-    <section class="container">
+    <section class="centerd-itm">
       <form action="utils/update.php" method="post">
         <input type="hidden" name="obj_to_update" id="obj_to_update" value="account">
         <div class="form-group">

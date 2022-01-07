@@ -101,69 +101,69 @@ $hh->check_modals("product");
                         <div class="table-caption">
                             Grafico Forniture
                         </div>
-                        <canvas id="graficoForniture" height="200px">
+                        <canvas id="graficoForniture" height="200">
                         </canvas>
                         <div class="table-description">
-                            In questa grafico asas
+                            In questa grafico sono riportate le consegne mensili suddivise per prodotto.
                         </div>
-                        <form action="utils/insert.php" method="get">
-                            <input type="hidden" name="obj_to_insert" value="fornitura">
-                            <div class="p-5 table-responsive">
-                                <div class="table-caption">
-                                    Dettaglio Forniture
-                                </div>
-                                <div class="table-description">
-                                    In questa tabella ci sono i dettagli di tutte le forniture fatte presso Unibo
-                                </div>
-                                <table id="tbl_forniture" class="table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Nome Prodotto</th>
-                                            <th>Qta</th>
-                                            <th>Data Consegna Merce</th>
-                                            <th>Costo Totale</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $forniture = $dbh->get_forniture($_SESSION["PIVA_Azienda"]);
-                                        for ($i = 0; $i < sizeof($forniture); $i++) {
-                                            echo "
-                                                        <tr>
-                                                            <td>" . $forniture[$i]["Nome"] . "</td>                                                    
-                                                            <td>" . $forniture[$i]["Qta"] . "</td>
-                                                            <td>" . $forniture[$i]["DataConsegnaMerce"] . "</td>
-                                                            <td>" . $forniture[$i]["CostoTotale"] . "</td>
-                                                            <td> </td>
-                                                        </tr>";
-                                        }
-                                        ?>
-                                        <tr>
-                                            <td>
-                                                <select class="form-control" id="az_prodotto" name="az_prodotto">";
-                                                    <?php
-                                                    $prod = $dbh->get_products_forn($_SESSION["PIVA_Azienda"]);
-                                                    for ($i = 0; $i < sizeof($prod); $i++)
-                                                        echo "<option value=" . $prod[$i]["ID"] . ">" . $prod[$i]["Nome"] . "</option>";
-                                                    ?>
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <input type="range" class="form-range" id="qta" name="qta">
-                                                <label id="qta_out"></label>
-                                            </td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                                <button type="submit" class="custom-btn btn-grid-1">Inserisci</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </form>
                     </div>
+                    <form action="utils/insert.php" method="get">
+                        <input type="hidden" name="obj_to_insert" value="fornitura">
+                        <div class="my-table-container table-responsive">
+                            <div class="table-caption">
+                                Dettaglio Forniture
+                            </div>
+                            <table id="tbl_forniture" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Nome Prodotto</th>
+                                        <th class="grid-input-so-big">Data Consegna Merce</th>
+                                        <th class="grid-input-so-small">Qta</th>
+                                        <th class="text-small">Prezzo</th>
+                                        <th class="text-small">Costo Totale</th>
+                                        <th class="grid-input-small"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $forniture = $dbh->get_forniture($_SESSION["PIVA_Azienda"]);
+                                    for ($i = 0; $i < sizeof($forniture); $i++) {
+                                        echo "
+                                                    <tr>
+                                                        <td>" . $forniture[$i]["Nome"] . "</td>                                                    
+                                                        <td class=\"grid-input-so-big\">" . $forniture[$i]["DataConsegnaMerce"] . "</td>
+                                                        <td class=\"grid-input-so-small\">" . $forniture[$i]["Qta"] . "</td>
+                                                        <td>" . $forniture[$i]["Prezzo"] . " &euro;</td>
+                                                        <td>" . $forniture[$i]["CostoTotale"] . " &euro;</td>
+                                                        <td> </td>
+                                                    </tr>";
+                                    }
+                                    ?>
+                                    <tr>
+                                        <td>
+                                            <select class="form-control grid-input-so-big" id="az_prodotto" name="az_prodotto">
+                                                <?php
+                                                $prod = $dbh->get_products_forn($_SESSION["PIVA_Azienda"]);
+                                                for ($i = 0; $i < sizeof($prod); $i++)
+                                                    echo "<option value=" . $prod[$i]["ID"] . ">" . $prod[$i]["Nome"] . "</option>";
+                                                ?>
+                                            </select>
+                                        </td>
+                                        <td></td>
+                                        <td class="grid-input-so-small">
+                                            <input type="range" class="form-range" id="qta" name="qta">
+                                            <label id="qta_out"></label>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="grid-input-small">
+                                            <button type="submit" class="custom-btn btn-grid-1">Inserisci</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="tab-pane" id="product" role="tabpanel" aria-labelledby="product">
@@ -196,7 +196,7 @@ $hh->check_modals("product");
                                     for ($i = 0; $i < sizeof($prod); $i++) {
                                         echo "<tr>
                                                         <td>" . $prod[$i]["Nome"] . " </td>
-                                                        <td><img src=.\images\prodotti\\" . $prod[$i]["ImagePath"] . " width=\"64\" height=\"64\"></td>
+                                                        <td><img alt=\"\" src=\"./images/prodotti/" . $prod[$i]["ImagePath"] . "\" width=\"64\" height=\"64\"></td>
                                                         <td>" . $prod[$i]["Descrizione"] . " </td>
                                                         <td class=\"grid-input-big\">" . $prod[$i]["Prezzo"] . " &euro; </td>
                                                         <td>" . $prod[$i]["NomeC"] . " </td>
@@ -233,24 +233,23 @@ $hh->check_modals("product");
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
                     </form>
                 </div>
             </div>
-        </div>
-        <div class="tab-pane" id="ven" role="tabpanel" aria-labelledby="ven-tab">
-            <div class="table-caption">
-                Grafico Vendite
-            </div>
-            <div class="container">
-                <canvas id="graficoVenditeProdUser" height="200px">
-                </canvas>
-                <div class="table-description">
-                    In questa tabella ci sono tutti i prodotti che l'azienda vende, con la possibilit&agrave; di aggiungerne di nuovi
+            <div class="tab-pane" id="ven" role="tabpanel" aria-labelledby="ven-tab">
+                <div class="table-caption">
+                    Grafico Vendite
+                </div>
+                <div class="container">
+                    <canvas id="graficoVenditeProdUser" height="200">
+                    </canvas>
+                    <div class="table-description">
+                        In questa tabella ci sono tutti i prodotti che l'azienda vende, con la possibilit&agrave; di aggiungerne di nuovi
+                    </div>
                 </div>
             </div>
         </div>
-        </div>
-
         <script src="./js/color.js"></script>
         <script src="./js/graph.js"></script>
         <script>
@@ -283,8 +282,8 @@ $hh->check_modals("product");
                     "guadagno"
                 ));
 
-                generateBarGraph("graficoForniture", gd_forn, "mese-prodotti", "Qt.à Fornita", fornLabel, 0, 500);
-                generateBarGraph("graficoVenditeProdUser", gd_ven, "prodotti", "Qt.à Venduta / Guadagno(€)", venLabel, 0, 300);
+                generateBarGraph("graficoForniture", gd_forn, "Prodotti al mese", "Qt.à Fornita", fornLabel, 0, 500);
+                generateBarGraph("graficoVenditeProdUser", gd_ven, "Prodotti", "Qt.à Venduta / Guadagno(€)", venLabel, 0, 300);
 
                 $('a[href="#<?php echo $tab; ?>"]').addClass("active");
                 $('#<?php echo $tab; ?>').addClass("active");

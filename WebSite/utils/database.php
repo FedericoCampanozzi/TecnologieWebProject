@@ -9,10 +9,10 @@ class DatabaseHelper
       die("Connesione fallita al db");
     }
   }
+  /* MISC */
   private function get_cripted_password($data){
     return hash("sha256", "2342werfwexv".$data."vghjklp,.m,£$%&");
   }
-  /* MISC */
   public function find_user_from_username($user)
   {
     $stmt = $this->db->prepare("SELECT * FROM ruoli_utente WHERE (Username = ? OR EMail = ?)");

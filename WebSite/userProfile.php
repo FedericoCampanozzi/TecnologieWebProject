@@ -87,7 +87,9 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
             <div class="tab-pane container top-40" id="usr_profile" role="tabpanel" aria-labelledby="usr_profile-tab">
                 <div class="row">
                     <div class="col-6">
-                        <img class="usr-profile-image" alt="" src=".\images\utenti\<?php echo $_SESSION["img_name"]; ?>">
+                        <button  title="aggiornmaneto immagine disabilitato" disabled>
+                            <img class="usr-profile-image" alt="" src="./images/utenti/<?php echo $_SESSION["img_name"]; ?>">
+                        </button>
                     </div>
                     <div class="col-6">
                         <form action="utils/update.php" method="post">
@@ -152,11 +154,11 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                                 <tr>
                                     <th></th>
                                     <th>Nome</th>
-                                    <th>Descrizione</th>
                                     <th>Fornitore</th>
                                     <th>Qt.&agrave;</th>
                                     <th>Prezzzo Unitario</th>
                                     <th>Prezzo Totale</th>
+                                    <th></th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -167,25 +169,29 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                                 for ($i = 0; $i < sizeof($usr_cart); $i++) {
                                     echo "
                                                 <tr>
-                                                    <td><img src=\".\images\prodotti\\" . $usr_cart[$i]["ImagePath"] . "\" width=\"64\" height=\"64\"></td>                                                            </td>
+                                                    <td><img src=\"./images/prodotti/" . $usr_cart[$i]["ImagePath"] . "\" alt=\"\" width=\"64\" height=\"64\"></td>
                                                     <td>" . $usr_cart[$i]["Nome"] . "</td>
-                                                    <td>" . $usr_cart[$i]["Descrizione"] . "</td>
                                                     <td>" . $usr_cart[$i]["RagioneSociale"] . "</td>
                                                     <td>" . $usr_cart[$i]["Qta"] . "</td>
                                                     <td>" . $usr_cart[$i]["PrezzoUnitario"] . "  &euro; </td>
                                                     <td>" . $usr_cart[$i]["PrezzoTotale"] . "  &euro; </td>";
                                 ?>
-                                    <td class="w-180">
+                                    <td>
                                         <input type="hidden" id="IdProdtto_<?php echo $i; ?>" value="<?php echo $usr_cart[$i]["IdProdotto"]; ?>">
-                                        <button class="icon-btn add-btn add-to-cart" id="addToCart_<?php echo $i; ?>">
-                                            <div class="add-icon"></div>
-                                            <div class="btn-txt">Add</div>
-                                        </button>
-                                        <button class="icon-btn add-btn remove-from-cart" id="removeFromCart_<?php echo $i; ?>">
-                                            <div class="btn-txt">Remove</div>
+                                        <button type="submit" class="custom-btn btn-18 move-svg add-to-cart" id="addToCart_<?php echo $i; ?>">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 16 16">
+                                                <path fill="rgb(0, 255, 0)" d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z" />
+                                            </svg>
                                         </button>
                                     </td>
-                                    </tr>
+                                    <td>
+                                        <button type="submit" class="custom-btn btn-18 move-svg remove-from-cart" id="removeFromCart_<?php echo $i; ?>">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 16 16">
+                                                <path fill="rgb(255, 0, 0)" d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM6.5 7h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1 0-1z" />
+                                            </svg>
+                                        </button>
+                                    </td>
+                                </tr>
                                 <?php
                                     $tot += $usr_cart[$i]["PrezzoTotale"];
                                 }
@@ -193,12 +199,12 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                                     echo "
                                     <tr>
                                         <td class=\"bold\"> Totale : </td>
-                                        <td> </td>
-                                        <td> </td>
+                                        <td > </td>
                                         <td> </td>
                                         <td> </td>
                                         <td> </td>
                                         <td class=\"bold\"> " . $tot . " &euro; </td>
+                                        <td></td>
                                         <td>
                                             <form action=\"pagamento.php\" method=\"get\">
                                                 <button type=\"submit\" class=\"custom-btn btn-grid-1\">Acquista</button>
@@ -335,7 +341,7 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                         echo "<div class=\"ordini-container  ordine-non-consegnato\">";
                     }
 
-                    echo "<!--<div class=\"data-ordine\"> Ordinato il <span>" . $userOrdini[$i]["DataOrdine"] . "</span></div>
+                    echo "<div class=\"data-ordine\"> Ordinato il <span>" . $userOrdini[$i]["DataOrdine"] . "</span></div>
                         <div class=\"indirizzo\">
                                Indirizzo : <span>" . $userOrdini[$i]["Via"] . "," . $userOrdini[$i]["NumeroCivico"] . " - " . $userOrdini[$i]["Citta"] . " </span>
                               </div>";
@@ -362,7 +368,7 @@ $hh->generate_page_head("Profilo Utente", "userProfile.php", true, "noCheck");
                                 <path d=\"M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z\"/>
                             </svg>
                             </div>
-                            <div class=\"carta\"> Numero carta : " . $userOrdini[$i]["NrCarta"] . "</div>-->
+                            <div class=\"carta\"> Numero carta : " . $userOrdini[$i]["NrCarta"] . "</div>
                             ";
                     }
                     echo "</div>";

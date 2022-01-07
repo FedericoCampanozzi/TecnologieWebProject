@@ -9,39 +9,38 @@ $hh->generate_page_head("Pagina Fattorino", "homepageDeliveryMan.php", true, tru
 
 <body>
   <main>
-      <section>
-        <?php $hh->generate_header("Pannello Consegne"); ?>
-        <div class="container">
-          <div class="table-caption">
-            Elenco Prodotti
-          </div>
-          <div class="table-description">
-            In questa tabella ci sono tutti i prodotti che l'azienda vende, con la possibilit&agrave; di aggiungerne di nuovi
-          </div>
-        </div>
-        <div class="p-5 table-responsive">
-          <table id="tbl_consegne" class="table table-striped table-bordered">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Cognome</th>
-                <th>Tipo Pagamento</th>
-                <th>Indirizzo</th>
-                <th>Note</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php
-              require_once("utils/database.php");
-              $dbh = new DatabaseHelper("localhost", "root", "", "plant");
-              $consegne  = $dbh->get_open_ordini();
-              for ($i = 0; $i < sizeof($consegne); $i++) {
-                $tp = "";
-                if ($consegne[$i]["SceltaContanti"] == 1) $tp = "In Contanti";
-                else $tp = "Carta";
-                echo "<tr>
+    <?php $hh->generate_header("Pannello Consegne"); ?>
+    <div class="container">
+      <div class="table-caption">
+        Consegne
+      </div>
+      <div class="table-description">
+        In questa tabella sono elencate le consegne da fare. Appena un pacco viene consegnato all'utente premere su "consegnato".
+      </div>
+    </div>
+    <div class="p-5 table-responsive">
+      <table id="tbl_consegne" class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Tipo Pagamento</th>
+            <th>Indirizzo</th>
+            <th>Note</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+          require_once("utils/database.php");
+          $dbh = new DatabaseHelper("localhost", "root", "", "plant");
+          $consegne  = $dbh->get_open_ordini();
+          for ($i = 0; $i < sizeof($consegne); $i++) {
+            $tp = "";
+            if ($consegne[$i]["SceltaContanti"] == 1) $tp = "Contanti";
+            else $tp = "Carta";
+            echo "<tr>
               <td>" . $consegne[$i]["ID"] . "</td>
               <td>" . $consegne[$i]["Nome"] . "</td>
               <td>" . $consegne[$i]["Cognome"] . "</td>
@@ -58,16 +57,15 @@ $hh->generate_page_head("Pagina Fattorino", "homepageDeliveryMan.php", true, tru
               </form> 
               </td>
               </tr>";
-              }
-              ?>
-            </tbody>
-          </table>
-        </div>
-      </section>
-      <aside class="gfx-link">
-        Clicca <a href="logout.php">qui</a> per effettuare il logout
-      </aside>
-      <script src="./js/homepageDeliveryMan.js"></script>
+          }
+          ?>
+        </tbody>
+      </table>
+    </div>
+    <aside class="gfx-link">
+      Clicca <a href="logout.php">qui</a> per effettuare il logout
+    </aside>
+    <script src="./js/homepageDeliveryMan.js"></script>
     <?php $hh->generate_footer_no_fix_no_scroll() ?>
   </main>
 </body>

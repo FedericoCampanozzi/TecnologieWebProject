@@ -7,6 +7,7 @@ $(document).ready(function() {
         }, function(response) {
             console.log("Response: " + response);
         });
+        return false;
     });
     $(".remove-from-cart").click(function() {
         const id_parts = $(this).attr("id").split("_");
@@ -16,5 +17,6 @@ $(document).ready(function() {
         }, function(response) {
             console.log("Response: " + response);
         });
+        return false;
     });
 });

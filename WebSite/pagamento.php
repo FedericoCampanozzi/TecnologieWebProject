@@ -21,6 +21,9 @@ $dbh = new DatabaseHelper("localhost", "root", "", "plant");
         <?php $hh->generate_header("Pagamento"); ?>
         <div class="bot-40">
             <div class="p-5 table-responsive">
+                <div class="table-caption">
+                    Riepilogo Ordine
+                </div>
                 <table id="tbl_riepilogo" class="table table-striped table-bordered">
                     <thead>
                         <tr>
@@ -38,7 +41,7 @@ $dbh = new DatabaseHelper("localhost", "root", "", "plant");
                         for ($i = 0; $i < sizeof($usr_cart); $i++) {
                             echo "
                                                         <tr>
-                                                            <td><img src=.\images\prodotti\\" . $usr_cart[$i]["ImagePath"] . " width=\"64\" height=\"64\"></td>                                                         </td>
+                                                            <td><img src=\"./images/prodotti/" . $usr_cart[$i]["ImagePath"] . "\" alt=\"\" width=\"64\" height=\"64\"></td>
                                                             <td>" . $usr_cart[$i]["Nome"] . "</td>
                                                             <td>" . $usr_cart[$i]["Qta"] . "</td>
                                                             <td>" . $usr_cart[$i]["PrezzoUnitario"] . "  &euro; </td>
@@ -62,25 +65,35 @@ $dbh = new DatabaseHelper("localhost", "root", "", "plant");
                 <form action="utils/insert.php" method="post">
                     <input type="hidden" name="totale" value="<?php echo $tot; ?>">
                     <input type="hidden" value="ordine" name="obj_to_insert" id="obj_to_insert">
-                    <label class="form-check-label"> Quale metodo di pagamento vuoi utilizzare ?</label>
+                    <p> Quale metodo di pagamento vuoi utilizzare ?</p>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="useContanti" id="usaContanti" value="SI" checked>
-                        <label class="form-check-label" for="useContanti">Contanti (alla consegna)</label>
+                        <input class="form-check-input" type="radio" name="usaContanti" id="usaContanti" value="SI" checked>
+                        <p> Contanti (alla consegna) </p>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="useContanti" id="usaCarte" value="NO">
-                        <label class="form-check-label" for="inlineRadio2">Carta</label>
+                        <input class="form-check-input" type="radio" name="usaContanti" id="usaCarte" value="NO">
+                        <p> Carta </p>
                     </div>
-                    <div class="form-group" id="carta_div">
-                        <label for="select_carta">Seleziona una carta di pagamento : </label>
-                        <select class="form-control" id="select_carta" name="select_carta">
-                            <?php
-                            $usr_carte = $dbh->get_carte($idUtente);
-                            for ($i = 0; $i < sizeof($usr_carte); $i++) {
-                                echo "<option value=" . $usr_carte[$i]["Numero"] . "> Numero Carta : " . $usr_carte[$i]["Numero"] . " Disponibilit&agrave; : ".$usr_carte[$i]["Disponibilita"]. " &euro;</option>";
-                            }
-                            ?>
-                        </select>
+                    <div class="row" id="carta_div">
+                        <div class="col-8">
+                            <div class="form-group">
+                                <label for="select_carta">Seleziona una carta di pagamento : </label>
+                                <select class="form-control" id="select_carta" name="select_carta">
+                                    <?php
+                                    $usr_carte = $dbh->get_carte($idUtente);
+                                    for ($i = 0; $i < sizeof($usr_carte); $i++) {
+                                        echo "<option value=" . $usr_carte[$i]["Numero"] . "> Numero Carta : " . $usr_carte[$i]["Numero"] . " Disponibilit&agrave; : " . $usr_carte[$i]["Disponibilita"] . " &euro;</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="CCV">CCV : </label>
+                                <input class="form-control" type="text" name="CCV" id="CCV">
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-6">

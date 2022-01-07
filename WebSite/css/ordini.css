@@ -1,7 +1,8 @@
 .ordini-container {
     height: 150px;
-    width: 80%;
-    margin: 25px 10%;
+    width: 40%;
+    display: inline-block;
+    margin: 25px 5%;
     padding: 30px;
     border-radius: 20px;
     font-family: Lato;
@@ -81,4 +82,12 @@
     font-weight: bold;
     font-size: 38px;
     color: #2104C3;
+}
+
+@media screen and (min-width: 0px) and (max-width: 700px) {
+    .ordini-container {
+        width: 80%;
+        display: block;
+        margin: 25px 10%;
+    }
 }

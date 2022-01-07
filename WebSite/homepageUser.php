@@ -21,7 +21,6 @@ $hh->generate_page_head("Homepage", "homepageUser.php", false, false);
         for ($i = 0; $i < sizeof($products); $i++) {
           echo "
            <div class=\"product-container\">
-           <!--
            <input type=\"hidden\" id=\"IdProdtto_".$i."\" value=\"" . $products[$i]["ID"] . "\">
            <div class=\"nome-prodotto\">" . $products[$i]["Nome"] . "</div>
            <div class=\"giacenza\">
@@ -40,7 +39,7 @@ $hh->generate_page_head("Homepage", "homepageUser.php", false, false);
            if($products[$i]["Giacenza"] > 0){
              echo"<div class=\"add-btn\"><button type=\"submit\" class=\"custom-btn btn-17 bg-white add-product\" id=\"add_".$i."\"> Aggiungi </button></div>";
             }
-            echo "-->
+            echo "
            </div>
           ";
         }

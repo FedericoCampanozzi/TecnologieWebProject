@@ -7,7 +7,7 @@ class HTML_Helper
     private function modals_error($id = "myGeneralModal")
     {
 ?>
-        <div class="modal fade" id="<?php echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="generalModal" aria-hidden="true">
+        <div class="modal fade" id="<?php echo $id; ?>" tabindex="-1" role="dialog" aria-labelledby="generalModal" aria-hidden="true">
             <div class="modal-dialog modal-msg-error" role="document">
                 <div class="modal-content modal-msg-error">
 
@@ -38,15 +38,15 @@ class HTML_Helper
         </div>
         <script>
             $(document).ready(function() {
-                $('#<?php echo $id;?>').modal('show');
+                $('#<?php echo $id; ?>').modal('show');
             });
         </script>
-<?php
+    <?php
     }
     private function modals_warnings($id = "myGeneralModal")
     {
-?>
-        <div class="modal fade" id="<?php echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="generalModal" aria-hidden="true">
+    ?>
+        <div class="modal fade" id="<?php echo $id; ?>" tabindex="-1" role="dialog" aria-labelledby="generalModal" aria-hidden="true">
             <div class="modal-dialog modal-msg-warning" role="document">
                 <div class="modal-content modal-msg-warning"></div>
                 <div class="modal-header modal-msg-warning">
@@ -71,15 +71,15 @@ class HTML_Helper
         </div>
         <script>
             $(document).ready(function() {
-                $('#<?php echo $id;?>').modal('show');
+                $('#<?php echo $id; ?>').modal('show');
             });
         </script>
-<?php
+    <?php
     }
     private function modals_information($id = "myGeneralModal")
     {
-?>
-        <div class="modal fade" id="<?php echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="generalModal" aria-hidden="true">
+    ?>
+        <div class="modal fade" id="<?php echo $id; ?>" tabindex="-1" role="dialog" aria-labelledby="generalModal" aria-hidden="true">
             <div class="modal-dialog modal-msg-info" role="document">
                 <div class="modal-content modal-msg-info"></div>
                 <div class="modal-header modal-msg-info">
@@ -104,15 +104,15 @@ class HTML_Helper
         </div>
         <script>
             $(document).ready(function() {
-                $('#<?php echo $id;?>').modal('show');
+                $('#<?php echo $id; ?>').modal('show');
             });
         </script>
-<?php
+    <?php
     }
     private function modals_successfull($id = "myGeneralModal")
     {
-?>
-        <div class="modal fade" id="<?php echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="generalModal" aria-hidden="true">
+    ?>
+        <div class="modal fade" id="<?php echo $id; ?>" tabindex="-1" role="dialog" aria-labelledby="generalModal" aria-hidden="true">
             <div class="modal-dialog modal-msg-successfull" role="document">
                 <div class="modal-content modal-msg-successfull"></div>
                 <div class="modal-header modal-msg-successfull">
@@ -137,10 +137,10 @@ class HTML_Helper
         </div>
         <script>
             $(document).ready(function() {
-                $('#<?php echo $id;?>').modal('show');
+                $('#<?php echo $id; ?>').modal('show');
             });
         </script>
-<?php
+    <?php
     }
     public function check_page($check)
     {
@@ -166,7 +166,7 @@ class HTML_Helper
     public function generate_page_head($pageTitle, $check = "", $useDataTable = false, $useCart = false)
     {
         session_start();
-?>
+    ?>
 
         <head>
             <meta charset="utf-8">
@@ -183,79 +183,80 @@ class HTML_Helper
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
             <link rel="stylesheet" href="css/main-style.css" type="text/css">
             <script src='js/perfectScrollableElement.js'></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
             <?php
-        if ($useDataTable) {
-            echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.css\" />";
-            echo "<script src=\"https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js\"></script>";
-        }
-        if ($useCart) {
-            echo "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js\"></script>";
-        }
-        echo "</head>";
-        $this->check_modals($check);
-    }
-    public function generate_js_array($phpArray, $propName)
-    {
-        for ($i = 0; $i < sizeof($phpArray); $i++) {
-            if ($i == sizeof($phpArray) - 1) echo "\"" . $phpArray[$i][$propName] . "\"";
-            else echo "\"" . $phpArray[$i][$propName] . "\",";
-        }
-    }
-    public function generate_js_array_2($phpArray, $propArrName)
-    {
-        for ($i = 0; $i < sizeof($phpArray); $i++) {
-            $res = "";
-            for ($j = 0; $j < sizeof($propArrName); $j++) {
-                if ($j == sizeof($propArrName) - 1) $res .= $phpArray[$i][$propArrName[$j]];
-                else  $res .= $phpArray[$i][$propArrName[$j]] . " ";
+            if ($useDataTable) {
+                echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.css\" />";
+                echo "<script src=\"https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js\"></script>";
             }
-            if ($i == sizeof($phpArray) - 1) echo "\"" . $res . "\"";
-            else echo "\"" . $res . "\",";
+            if ($useCart) {
+                echo "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js\"></script>";
+            }
+            echo "</head>";
+            $this->check_modals($check);
         }
-    }
-    public function generate_header($title)
-    {
-        echo "
-        <header>
-            <h1>" . $title . "</h1>
-        </header>";
-    }
-    public function generate_footer_fix_scroll()
-    {
-        echo " <footer class=\"fix-on-bot\"><div><span>Federico Campanozzi</span><span>Matr.: 0000895693</span> <span>Alma Mater Studiorum Bologna - Sede di Cesena</span></div></footer>";
-    }
-    public function generate_footer_fix_no_scroll()
-    {
-        echo " <footer class=\"fix-on-bot\"><div><span>Federico Campanozzi</span><span>Matr.: 0000895693</span> <span>Alma Mater Studiorum Bologna - Sede di Cesena</span></div></footer>";
-    }
-    public function generate_footer_no_fix_no_scroll()
-    {
-        echo " <footer><div><span>Federico Campanozzi</span><span>Matr.: 0000895693</span> <span>Alma Mater Studiorum Bologna - Sede di Cesena</span></div></footer>";
-    }
-    public function generate_user_nav()
-    {
-?>
-        <div class="navbar">
-            <a href="homepageUser.php">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
-                    <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z" />
-                </svg> Home
-            </a>
-            <a href="userProfile.php">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" viewBox="0 0 16 16">
-                    <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z" />
-                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                </svg> Profilo Utente
-            </a>
-            <a href="logout.php">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
-                    <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
-                </svg> Logout
-            </a>
-<?php
-            echo "</div>";
+        public function generate_js_array($phpArray, $propName)
+        {
+            for ($i = 0; $i < sizeof($phpArray); $i++) {
+                if ($i == sizeof($phpArray) - 1) echo "\"" . $phpArray[$i][$propName] . "\"";
+                else echo "\"" . $phpArray[$i][$propName] . "\",";
+            }
         }
+        public function generate_js_array_2($phpArray, $propArrName)
+        {
+            for ($i = 0; $i < sizeof($phpArray); $i++) {
+                $res = "";
+                for ($j = 0; $j < sizeof($propArrName); $j++) {
+                    if ($j == sizeof($propArrName) - 1) $res .= $phpArray[$i][$propArrName[$j]];
+                    else  $res .= $phpArray[$i][$propArrName[$j]] . " ";
+                }
+                if ($i == sizeof($phpArray) - 1) echo "\"" . $res . "\"";
+                else echo "\"" . $res . "\",";
+            }
+        }
+        public function generate_header($title)
+        {
+            echo "
+            <header>
+                <h1>" . $title . "</h1>
+            </header>";
+        }
+        public function generate_footer_fix_scroll()
+        {
+            echo " <footer class=\"fix-on-bot\"><div><span>Federico Campanozzi</span><span>Matr.: 0000895693</span> <span>Alma Mater Studiorum Bologna - Sede di Cesena</span></div></footer>";
+        }
+        public function generate_footer_fix_no_scroll()
+        {
+            echo " <footer class=\"fix-on-bot\"><div><span>Federico Campanozzi</span><span>Matr.: 0000895693</span> <span>Alma Mater Studiorum Bologna - Sede di Cesena</span></div></footer>";
+        }
+        public function generate_footer_no_fix_no_scroll()
+        {
+            echo " <footer><div><span>Federico Campanozzi</span><span>Matr.: 0000895693</span> <span>Alma Mater Studiorum Bologna - Sede di Cesena</span></div></footer>";
+        }
+        public function generate_user_nav()
+        {
+    ?>
+            <div class="navbar">
+                <a href="homepageUser.php">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
+                        <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z" />
+                    </svg> Home
+                </a>
+                <a href="userProfile.php">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" viewBox="0 0 16 16">
+                        <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z" />
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                    </svg> Profilo Utente
+                </a>
+                <a href="logout.php">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
+                        <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+                    </svg> Logout
+                </a>
+            </div>
+    <?php
+            }
     }
-?>
+    ?>
