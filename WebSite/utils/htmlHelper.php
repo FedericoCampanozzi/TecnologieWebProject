@@ -150,19 +150,19 @@ class HTML_Helper
         }
         return false;
     }
-    public function check_modals($check)
-    {
-        require_once("utils/modalMessageHelper.php");
-        if (isset($_SESSION["upd"]) && $_SESSION["upd"] && $_SESSION["last_page"] == $check) {
-            if ($_SESSION["msg_type"] == MsgType::Successfull) $this->modals_successfull();
-            else if ($_SESSION["msg_type"] == MsgType::Error) $this->modals_error();
-            else if ($_SESSION["msg_type"] == MsgType::Warning) $this->modals_warnings();
-            else $this->modals_information();
-            $_SESSION["upd"] = false;
-            return true;
+        public function check_modals($check)
+        {
+            require_once("utils/modalMessageHelper.php");
+            if (isset($_SESSION["upd"]) && $_SESSION["upd"] && $_SESSION["last_page"] == $check) {
+                if ($_SESSION["msg_type"] == MsgType::Successfull) $this->modals_successfull();
+                else if ($_SESSION["msg_type"] == MsgType::Error) $this->modals_error();
+                else if ($_SESSION["msg_type"] == MsgType::Warning) $this->modals_warnings();
+                else $this->modals_information();
+                $_SESSION["upd"] = false;
+                return true;
+            }
+            return false;
         }
-        return false;
-    }
     public function generate_page_head($pageTitle, $check = "", $useDataTable = false, $useCart = false)
     {
         session_start();
